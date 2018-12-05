@@ -1,35 +1,8 @@
-
-    var inputState = {
-      RIGHT: false,
-      LEFT: false
-    }
-
-    var setKeyState = function (keyCode, isPressed) {
-      switch (keyCode) {
-        case 39:
-        case 68:
-          inputState.RIGHT = isPressed;
-          break;
-        case 37:
-        case 65:
-          inputState.LEFT = isPressed;
-          break;
-      }
-    };
-    var keydownHandler = (e) => {
-      setKeyState(e.which, true);
-    };
-    var keyupHandler = (e) => {
-      setKeyState(e.which, false);
-    };
-
-    document.addEventListener('keydown', keydownHandler);
-    document.addEventListener('keyup', keyupHandler);
-
 var game = {
 
   display_game: document.createElement("canvas").getContext("2d"),
   display_main: document.querySelector("canvas").getContext("2d"),
+  message: document.querySelector("p"),
 
   sprites: {
     background: undefined
@@ -76,15 +49,19 @@ var game = {
       game.display_main.canvas.width = Math.floor(document.documentElement.clientHeight);
     };
     game.display_main.canvas.height = Math.floor(game.display_main.canvas.width * 0.625);
+
+    game.bounding_rectangle = game.display_main.canvas.getBoundingClientRect();
+
+    game.game_output_ratio = game.display_game.canvas.width / game.display_main.canvas.width;
   },
 
   run: function () {
     this.physics();
     this.resize();
     this.render();
-    //if (device.mobile() || device.tablet()) {
-    this.renderButtons(controller.buttons);
-
+    if (device.mobile() || device.tablet()) {
+      this.renderButtons(controller.buttons);
+    }
     window.requestAnimationFrame(function () {
       game.run();
     });
@@ -92,48 +69,21 @@ var game = {
 
   physics: function () {
 
-
-    if (controller.buttons[0].active && game.cat.jumping == false) {
-      this.sprites.cat.velocity_y = -20;
-      this.sprites.cat.jumping = true;
+    if (controller.buttons[0].active || inputState.LEFT) {
+      cat.velocity_x -= 0.5;
     }
 
-    if (controller.buttons[1].active || inputState.LEFT) {
-
-      this.sprites.cat.velocity_x -= 0.5;
-
+    if (controller.buttons[1].active || inputState.RIGHT) {
+      cat.velocity_x += 0.5;
     }
-
-    if (controller.buttons[2].active || inputState.RIGHT) {
-
-      this.sprites.cat.velocity_x += 0.5;
-
-    }
-    // simulate gravity:
-    this.sprites.cat.velocity_y += 1.5;
 
     // simulate friction:
-    this.sprites.cat.velocity_x *= 0.9;
-    this.sprites.cat.velocity_y *= 0.9;
-
-    this.sprites.cat.x += this.sprites.cat.velocity_x;
-    this.sprites.cat.y += this.sprites.cat.velocity_y;
-
-    if (this.sprites.cat.x + this.sprites.cat.width < 0) {
-
-      this.sprites.cat.x = this.sprites.display_game.canvas.width;
-
-    } else if (this.sprites.cat.x > game.display_game.canvas.width) {
-
-      this.sprites.cat.x = 0;
-
-    }
-
-    if (this.sprites.cat.y + this.sprites.cat.height > 150) {
-
-      this.sprites.cat.y = 150 - this.sprites.cat.height;
-      this.sprites.cat.jumping = false;
-
+    cat.velocity_x *= 0.9;
+    cat.x += cat.velocity_x;
+    if (cat.x < -80) {
+      cat.x = this.display_game.canvas.width;
+    } else if (cat.x > this.display_game.canvas.width) {
+      cat.x = -80;
     }
   }
 };
@@ -149,12 +99,11 @@ game.display_game.canvas.width = 800;
 //Character and Items
 cat = {
   x: 10,
-  y: 415,
+  y: 420,
   width: 95,
-  height: 115,
+  height: 110,
   sliding: true,
-  velocity_x: 0,
-  velocity_y: 0,
+  velocity_x: 0
 }
 
 
@@ -187,20 +136,26 @@ Button.prototype = {
 var controller = {
 
   buttons: [
-    new Button(0, 500, 800, 100, "rgb(109,80,255, 0.5)"), //slide
-    new Button(0, 0, 390, 500, "rgb(214,86,43, 0.5)"), //left
-    new Button(410, 0, 390, 500, "rgb(214,86,43, 0.5)") //right
+    new Button(0, 0, 390, 600, "rgb(214,86,43, 0.2)"), //left
+    new Button(410, 0, 390, 600, "rgb(214,86,43, 0.2)") //right
   ],
+
 
   testButtons: function (target_touches) {
 
     var button, index0, index1, touch;
+
     for (index0 = this.buttons.length - 1; index0 > -1; --index0) {
+
       button = this.buttons[index0];
       button.active = false;
+
       for (index1 = target_touches.length - 1; index1 > -1; --index1) {
+
         touch = target_touches[index1];
-        if (button.containsPoint((touch.clientX - display.bounding_rectangle.left) * display.buffer_output_ratio, (touch.clientY - display.bounding_rectangle.top) * display.buffer_output_ratio)) {
+
+        if (button.containsPoint((touch.clientX - game.bounding_rectangle.left) * game.game_output_ratio, (touch.clientY - game.bounding_rectangle.top) * game.buffer_output_ratio)) {
+
           button.active = true;
           break;
         }
@@ -230,3 +185,44 @@ var controller = {
   }
 
 };
+
+game.display_main.canvas.addEventListener("touchend", controller.touchEnd, {
+  passive: false
+});
+game.display_main.canvas.addEventListener("touchmove", controller.touchMove, {
+  passive: false
+});
+game.display_main.canvas.addEventListener("touchstart", controller.touchStart, {
+  passive: false
+});
+
+//MOBILE CONTROLLER
+
+//KEYBOARD CONTROLLER
+var inputState = {
+  RIGHT: false,
+  LEFT: false
+}
+
+var setKeyState = function (keyCode, isPressed) {
+  switch (keyCode) {
+    case 39:
+    case 68:
+      inputState.RIGHT = isPressed;
+      break;
+    case 37:
+    case 65:
+      inputState.LEFT = isPressed;
+      break;
+  }
+};
+var keydownHandler = (e) => {
+  setKeyState(e.which, true);
+};
+var keyupHandler = (e) => {
+  setKeyState(e.which, false);
+};
+
+document.addEventListener('keydown', keydownHandler);
+document.addEventListener('keyup', keyupHandler);
+//KEYBOARD CONTROLLER
