@@ -1,0 +1,60 @@
+
+/*Start screen*/
+
+#menu {
+  text-align: center;
+  color: #ffffff;
+  transform: scale(1.2);
+}
+/*adaptive*/
+@media(max-height:420px){
+  .startScreen{
+    transform: scale(0.8);
+  }
+}
+@media(max-height:350px){
+  .startScreen{
+    transform: scale(0.6);
+  }
+}
+
+/*Button*/
+#menu * {
+  margin: 5px;
+  transition: all .5s linear;
+}
+
+.startGame {
+  font-size: 80px;
+  border: 2px solid #6BD042;
+  cursor: pointer;
+  border-radius: 5%;
+  padding: 50px;
+}
+
+.startGame:hover {
+  border-radius: 20%;
+}
+
+.option * {
+  border: 2px solid #6BD042;
+  cursor: pointer;
+  color: aliceblue;
+  font-size: 32px;
+  padding: 20px;
+}
+
+.sounds-option {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.support-option {
+  border-radius: 5%;
+}
+
+.music-option {
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50%;
+}
+
