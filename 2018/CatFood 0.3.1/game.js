@@ -48,7 +48,7 @@ var game = {
     if (game.display_main.canvas.width > document.documentElement.clientHeight) {
       game.display_main.canvas.width = Math.floor(document.documentElement.clientHeight);
     };
-    game.display_main.canvas.height = Math.floor(game.display_main.canvas.width * 0.625);
+    game.display_main.canvas.height = Math.floor(game.display_main.canvas.width * 0.75);
 
     game.bounding_rectangle = game.display_main.canvas.getBoundingClientRect();
 
@@ -87,14 +87,15 @@ var game = {
     }
   }
 };
-
 window.addEventListener("load", function () {
   game.start();
 });
 
+
+//canvas width and height
 game.display_game.canvas.height = 600;
 game.display_game.canvas.width = 800;
-
+//canvas width and height
 
 //Character and Items
 cat = {
@@ -105,7 +106,7 @@ cat = {
   sliding: true,
   velocity_x: 0
 }
-
+//Character and Items
 
 //MOBILE CONTROLLER
 var Button = function (x, y, width, height, color) {
@@ -136,8 +137,8 @@ Button.prototype = {
 var controller = {
 
   buttons: [
-    new Button(0, 0, 390, 600, "rgb(214,86,43, 0.2)"), //left
-    new Button(410, 0, 390, 600, "rgb(214,86,43, 0.2)") //right
+    new Button(0, 0, 390, 600, "rgb(214,86,43, 0)"), //left
+    new Button(410, 0, 390, 600, "rgb(214,86,43, 0)") //right
   ],
 
 
