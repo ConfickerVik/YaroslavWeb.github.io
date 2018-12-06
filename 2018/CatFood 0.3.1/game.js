@@ -15,7 +15,6 @@ var game = {
     this.sprites.cat.src = "assets/sprites/cat/stand/Idle(0).png";
 
     this.run();
-    this.resize();
   },
 
   render: function () {
@@ -58,6 +57,7 @@ var game = {
   run: function () {
     this.physics();
     this.render();
+    this.resize();
     if (device.mobile() || device.tablet()) {
       this.renderButtons(controller.buttons);
     }
@@ -89,7 +89,7 @@ var game = {
 window.addEventListener("load", function () {
   game.start();
 });
-window.addEventListener("resize", game.resize);
+//window.addEventListener("resize", game.resize);
 
 
 //canvas width and height
