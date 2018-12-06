@@ -57,7 +57,6 @@ var game = {
   run: function () {
     this.physics();
     this.render();
-    this.resize();
     if (device.mobile() || device.tablet()) {
       this.renderButtons(controller.buttons);
     }
@@ -226,4 +225,7 @@ var keyupHandler = (e) => {
 
 document.addEventListener('keydown', keydownHandler);
 document.addEventListener('keyup', keyupHandler);
+window.addEventListener("orientationchange", function() {
+    game.resize();
+}, false);
 //KEYBOARD CONTROLLER
