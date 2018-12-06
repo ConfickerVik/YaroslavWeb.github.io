@@ -1,8 +1,7 @@
 var game = {
 
-  display_game: document.createElement("canvas").getContext("2d"),
-  display_main: document.querySelector("canvas").getContext("2d"),
-  message: document.querySelector("p"),
+  display_game: document.getElementById("canvas-game").getContext("2d"),
+  display_main: document.getElementById("canvas-main").getContext("2d"),
 
   sprites: {
     background: undefined
@@ -16,6 +15,7 @@ var game = {
     this.sprites.cat.src = "assets/sprites/cat/stand/Idle(0).png";
 
     this.run();
+    this.resize();
   },
 
   render: function () {
@@ -44,7 +44,7 @@ var game = {
 
 
   resize: function () {
-    game.display_main.canvas.width = Math.floor(document.documentElement.clientWidth - 32);
+    game.display_main.canvas.width = Math.floor(document.documentElement.clientWidth - 16);
     if (game.display_main.canvas.width > document.documentElement.clientHeight) {
       game.display_main.canvas.width = Math.floor(document.documentElement.clientHeight);
     };
@@ -57,7 +57,6 @@ var game = {
 
   run: function () {
     this.physics();
-    this.resize();
     this.render();
     if (device.mobile() || device.tablet()) {
       this.renderButtons(controller.buttons);
@@ -90,6 +89,7 @@ var game = {
 window.addEventListener("load", function () {
   game.start();
 });
+window.addEventListener("resize", game.resize);
 
 
 //canvas width and height
