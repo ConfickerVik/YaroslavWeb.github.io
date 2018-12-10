@@ -82,7 +82,8 @@ var game = {
     this.physics();
     this.render();
     if (device.mobile() || device.tablet()) {
-    mobileController()};
+      mobileController()
+    };
     window.requestAnimationFrame(function () {
       game.run();
     });
@@ -168,37 +169,48 @@ cat = {
 
 //MOBILE CONTROLLER
 var button1 = undefined,
-button2 = undefined;
-function mobileController(){
+  button2 = undefined;
+
+function mobileController() {
   var el = document.getElementsByTagName('body')[0];
 
 
   el.addEventListener("touchstart", handleStart, false);
   el.addEventListener("touchend", handleEnd, false);
+  el.addEventListener("touchmove", handleMove, false);
 
-  //el.addEventListener("touchmove", handleMove, false);
-  
   function handleStart(evt) {
-    evt.preventDefault();
     var touches = evt.changedTouches;
-    if(window.innerWidth/2 < touches[0].pageX)
+    if (window.innerWidth / 2 < touches[0].pageX)
       button1 = true;
-      button2 = false;
-    if(window.innerWidth/2 > touches[0].pageX){
+    button2 = false;
+    if (window.innerWidth / 2 > touches[0].pageX) {
       button2 = true;
       button1 = false
     }
   }
+
   function handleEnd(evt) {
-    evt.preventDefault();
     var touches = evt.changedTouches;
-    if(window.innerWidth/2 < touches[0].pageX)
+    if (window.innerWidth / 2 < touches[0].pageX)
       button1 = false;
-      button2 = false;
-    if(window.innerWidth/2 > touches[0].pageX){
+    button2 = false;
+    if (window.innerWidth / 2 > touches[0].pageX) {
       button2 = false;
       button1 = false
     }
+  }
+
+  function handleMove(evt) {
+    var touches = evt.changedTouches;
+    if (window.innerWidth / 2 < touches[0].pageX)
+      button1 = true;
+    button2 = false;
+    if (window.innerWidth / 2 > touches[0].pageX) {
+      button2 = true;
+      button1 = false
+    }
+
   }
 };
 
