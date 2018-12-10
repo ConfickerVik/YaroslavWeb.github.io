@@ -215,8 +215,8 @@ function mobileController() {
 
 
   el.addEventListener("touchstart", handleStart, false);
-  el.addEventListener("touchend", handleEnd, false);
-  el.addEventListener("touchmove", handleMove, false);
+  //el.addEventListener("touchend", handleEnd, false);
+  //el.addEventListener("touchmove", handleMove, false);
 
   function handleStart(evt) {
     var touches = evt.changedTouches;
@@ -228,7 +228,7 @@ function mobileController() {
       button1 = false
     }
   }
-  
+  /*
     function handleEnd(evt) {
       var touches = evt.changedTouches;
       if (window.innerWidth / 2 < touches[0].pageX)
@@ -251,6 +251,7 @@ function mobileController() {
       }
 
     }
+    */
 };
 
 //MOBILE CONTROLLER
