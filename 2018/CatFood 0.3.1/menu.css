@@ -8,12 +8,12 @@
 }
 /*adaptive*/
 @media(max-height:420px){
-  .startScreen{
+  #menu{
     transform: scale(0.8);
   }
 }
 @media(max-height:350px){
-  .startScreen{
+  #menu{
     transform: scale(0.6);
   }
 }
