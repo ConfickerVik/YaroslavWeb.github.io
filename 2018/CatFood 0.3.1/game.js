@@ -57,6 +57,7 @@ var game = {
   run: function () {
     this.physics();
     this.render();
+    this.resize();
     if (device.mobile() || device.tablet()) {
       this.renderButtons(controller.buttons);
     }
@@ -107,97 +108,6 @@ cat = {
 }
 //Character and Items
 
-//MOBILE CONTROLLER
-var Button = function (x, y, width, height, color) {
-
-  this.active = false;
-  this.color = color;
-  this.height = height;
-  this.width = width;
-  this.x = x;
-  this.y = y;
-
-}
-
-Button.prototype = {
-
-  containsPoint: function (x, y) {
-
-    if (x < this.x || x > this.x + this.width || y < this.y || y > this.y + this.width) {
-
-      return false;
-
-    }
-    return true;
-
-  }
-
-};
-var controller = {
-
-  buttons: [
-    new Button(0, 0, 390, 600, "rgb(214,86,43, 0)"), //left
-    new Button(410, 0, 390, 600, "rgb(214,86,43, 0)") //right
-  ],
-
-
-  testButtons: function (target_touches) {
-
-    var button, index0, index1, touch;
-
-    for (index0 = this.buttons.length - 1; index0 > -1; --index0) {
-
-      button = this.buttons[index0];
-      button.active = false;
-
-      for (index1 = target_touches.length - 1; index1 > -1; --index1) {
-
-        touch = target_touches[index1];
-
-        if (button.containsPoint((touch.clientX - game.bounding_rectangle.left) * game.game_output_ratio, (touch.clientY - game.bounding_rectangle.top) * game.buffer_output_ratio)) {
-
-          button.active = true;
-          break;
-        }
-      }
-    }
-  },
-
-  touchEnd: function (event) {
-
-    event.preventDefault();
-    controller.testButtons(event.targetTouches);
-
-  },
-
-  touchMove: function (event) {
-
-    event.preventDefault();
-    controller.testButtons(event.targetTouches);
-
-  },
-
-  touchStart: function (event) {
-
-    event.preventDefault();
-    controller.testButtons(event.targetTouches);
-
-  }
-
-};
-
-game.display_main.canvas.addEventListener("touchend", controller.touchEnd, {
-  passive: false
-});
-game.display_main.canvas.addEventListener("touchmove", controller.touchMove, {
-  passive: false
-});
-game.display_main.canvas.addEventListener("touchstart", controller.touchStart, {
-  passive: false
-});
-
-//MOBILE CONTROLLER
-
 //KEYBOARD CONTROLLER
 var inputState = {
   RIGHT: false,
@@ -225,7 +135,4 @@ var keyupHandler = (e) => {
 
 document.addEventListener('keydown', keydownHandler);
 document.addEventListener('keyup', keyupHandler);
-window.addEventListener("orientationchange", function() {
-    game.resize();
-}, false);
 //KEYBOARD CONTROLLER
