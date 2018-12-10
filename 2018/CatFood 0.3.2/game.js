@@ -29,8 +29,8 @@ var resizeCanvas = function () {
 //DISPLAY settings
 
 //MUSIC AND SOUNDS
-var eat = new Audio('assets/sounds/eat.wav');
-eat.volume = 0.5;
+var eat = new Audio('assets/sounds/eat.mp3');
+eat.volume = 0.01;
 //BACkGORUND ASSETS
 
 
