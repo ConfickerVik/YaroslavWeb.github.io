@@ -4,3 +4,12 @@ canvas {
     border-radius: 2%;
     justify-self:center;
   }
+  .score{
+    color: aliceblue;
+    font-family: 'Bahnschrift Condensed';
+    opacity: .6;
+    font-size: 120px;
+    position: absolute;
+    z-index: 2;
+
+  }

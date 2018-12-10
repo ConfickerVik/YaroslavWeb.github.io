@@ -11,7 +11,7 @@ var resizeCanvas = function () {
   CANVAS_WIDTH = window.innerWidth - 32;
   CANVAS_HEIGHT = window.innerHeight - 4;
 
-var ratio = 16/9
+  var ratio = 16 / 9
   if (CANVAS_HEIGHT < CANVAS_WIDTH)
     CANVAS_WIDTH = CANVAS_HEIGHT * ratio
   else
@@ -22,19 +22,21 @@ var ratio = 16/9
 
   canvas.style.width = '' + CANVAS_WIDTH + 'px';
   canvas.style.height = '' + CANVAS_HEIGHT + 'px';
-}
+
+  bounding_rectangle = canvas.getBoundingClientRect();
+};
 
 var game = {
 
   time: 0,
 
   sprites: {
-    background: undefined,
-    catSprite: undefined
+    background: undefined
   },
 
   start: function () {
     //BACkGORUND ASSETS
+    gameOn = true;
     this.sprites.background = new Image();
     this.sprites.background.src = "assets/sprites/background.jpg";
 
@@ -55,7 +57,13 @@ var game = {
       cat.sprites[1][i].src = 'assets/sprites/cat/run/left/Run(' + i + ').png';
       cat.sprites[2][i].src = 'assets/sprites/cat/run/right/Run(' + i + ').png';
     }
-
+    //Item ASSETS
+    var food = [];
+    var item = [];
+    for (var i = 1; i <= 5; i++) {
+      item[i] = new Image();
+      item[i].src = 'assets/sprites/food/food' + i + '.png';
+    }
 
     this.run();
   },
@@ -68,10 +76,13 @@ var game = {
   },
 
 
+
   run: function () {
     resizeCanvas();
     this.physics();
     this.render();
+    if (device.mobile() || device.tablet()) {
+    mobileController()};
     window.requestAnimationFrame(function () {
       game.run();
     });
@@ -80,8 +91,8 @@ var game = {
   physics: function () {
     this.time++;
     //button presses
-    if (inputState.RIGHT) moveRight();
-    else if (inputState.LEFT) moveLeft();
+    if (inputState.RIGHT || button1) moveRight();
+    else if (inputState.LEFT || button2) moveLeft();
     else stand();
     //Cat idle
     function stand() {
@@ -135,12 +146,9 @@ window.addEventListener("load", function () {
     game.start();
   });
 });
-window.addEventListener("resize", function(){
+window.addEventListener("resize", function () {
   resizeCanvas();
 });
-
-
-
 
 
 //Character and Items
@@ -155,7 +163,47 @@ cat = {
   anim1: 0,
   sprites: []
 }
+
 //Character and Items
+
+//MOBILE CONTROLLER
+var button1 = undefined,
+button2 = undefined;
+function mobileController(){
+  var el = document.getElementsByTagName('body')[0];
+
+
+  el.addEventListener("touchstart", handleStart, false);
+  el.addEventListener("touchend", handleEnd, false);
+
+  //el.addEventListener("touchmove", handleMove, false);
+  
+  function handleStart(evt) {
+    evt.preventDefault();
+    var touches = evt.changedTouches;
+    if(window.innerWidth/2 < touches[0].pageX)
+      button1 = true;
+      button2 = false;
+    if(window.innerWidth/2 > touches[0].pageX){
+      button2 = true;
+      button1 = false
+    }
+  }
+  function handleEnd(evt) {
+    evt.preventDefault();
+    var touches = evt.changedTouches;
+    if(window.innerWidth/2 < touches[0].pageX)
+      button1 = false;
+      button2 = false;
+    if(window.innerWidth/2 > touches[0].pageX){
+      button2 = false;
+      button1 = false
+    }
+  }
+};
+
+//MOBILE CONTROLLER
+
 
 //KEYBOARD CONTROLLER
 var inputState = {
