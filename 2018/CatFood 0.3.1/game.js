@@ -49,8 +49,6 @@ var game = {
     };
     game.display_main.canvas.height = Math.floor(game.display_main.canvas.width * 0.75);
 
-    game.bounding_rectangle = game.display_main.canvas.getBoundingClientRect();
-
     game.game_output_ratio = game.display_game.canvas.width / game.display_main.canvas.width;
   },
 
