@@ -1,7 +1,7 @@
 var game = {
 
-  display_game: document.getElementById("canvas-game").getContext("2d"),
-  display_main: document.getElementById("canvas-main").getContext("2d"),
+  display_game: document.createElement("canvas").getContext("2d"),
+  display_main: document.querySelector("canvas").getContext("2d"),
 
   sprites: {
     background: undefined
@@ -47,7 +47,7 @@ var game = {
     if (game.display_main.canvas.width > document.documentElement.clientHeight) {
       game.display_main.canvas.width = Math.floor(document.documentElement.clientHeight);
     };
-    game.display_main.canvas.height = Math.floor(game.display_main.canvas.width * 0.75);
+    game.display_main.canvas.height = Math.floor(game.display_main.canvas.width * 0.65);
 
     game.game_output_ratio = game.display_game.canvas.width / game.display_main.canvas.width;
   },
@@ -55,10 +55,6 @@ var game = {
   run: function () {
     this.physics();
     this.render();
-    this.resize();
-    if (device.mobile() || device.tablet()) {
-      this.renderButtons(controller.buttons);
-    }
     window.requestAnimationFrame(function () {
       game.run();
     });
@@ -66,11 +62,11 @@ var game = {
 
   physics: function () {
 
-    if (controller.buttons[0].active || inputState.LEFT) {
+    if (inputState.LEFT) {
       cat.velocity_x -= 0.5;
     }
 
-    if (controller.buttons[1].active || inputState.RIGHT) {
+    if (inputState.RIGHT) {
       cat.velocity_x += 0.5;
     }
 
@@ -86,14 +82,16 @@ var game = {
 };
 window.addEventListener("load", function () {
   game.start();
+  game.resize();
 });
-//window.addEventListener("resize", game.resize);
+window.addEventListener("resize", game.resize);
 
 
 //canvas width and height
 game.display_game.canvas.height = 600;
 game.display_game.canvas.width = 800;
 //canvas width and height
+
 
 //Character and Items
 cat = {
