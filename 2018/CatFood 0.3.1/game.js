@@ -3,6 +3,7 @@ var game = {
   display_game: document.createElement("canvas").getContext("2d"),
   display_main: document.querySelector("canvas").getContext("2d"),
   time: 0,
+  controler: 0,
 
   sprites: {
     background: undefined,
@@ -64,40 +65,46 @@ var game = {
 
   physics: function () {
     this.time++;
-    //IDLE
-    if (inputState.RIGHT == false && inputState.LEFT == false) {
-      cat.anim0 = 0;
-      if (this.time % 6 == 0) {
+
+    if (inputState.RIGHT) moveRight();
+    else if (inputState.LEFT) moveLeft();
+    else stand();
+
+    function stand() {
+      if (game.time % 6 == 0) {
+        cat.anim0 = 0;
         cat.anim1++;
         if (cat.anim1 == 9)
           cat.anim1 = 0
       }
     }
-    //MOVE LEFT
-    if (inputState.LEFT) {
-      if (cat.anim1 < 9 && cat.anim1 > 6) {cat.anim1 = 0;}
 
+    function moveLeft() {
+      if (cat.anim1 < 9 && cat.anim1 > 6) {
+        cat.anim1 = 0;
+      }
       cat.anim0 = 1;
       cat.velocity_x -= 0.5;
-      if (this.time % 4 == 0) {
+      if (game.time % 5 == 0) {
         cat.anim1++;
         if (cat.anim1 == 7)
           cat.anim1 = 0
       }
     }
 
-    //MOVE RIGHT
-    if (inputState.RIGHT) {
-      if (cat.anim1 < 9 && cat.anim1 > 6) {cat.anim1 = 0;}
-
+    function moveRight() {
+      if (cat.anim1 < 9 && cat.anim1 > 6) {
+        cat.anim1 = 0;
+      }
       cat.anim0 = 2;
       cat.velocity_x += 0.5;
-      if (this.time % 4 == 0) {
+      if (game.time % 5 == 0) {
         cat.anim1++;
         if (cat.anim1 == 7)
           cat.anim1 = 0
       }
     }
+    window.onkeyup = function () { controler = 0; };
 
     // simulate friction:
     cat.velocity_x *= 0.9;
