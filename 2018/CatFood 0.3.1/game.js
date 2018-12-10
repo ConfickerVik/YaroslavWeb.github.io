@@ -1,9 +1,32 @@
+var canvas = document.getElementById('canvas'),
+  ctx = canvas.getContext('2d'),
+  //canvas and game  width and height
+  WIDTH = 800,
+  HEIGHT = 600,
+  CANVAS_WIDTH = 800,
+  CANVAS_HEIGHT = 600;
+//canvas and game  width and height
+
+var resizeCanvas = function () {
+  CANVAS_WIDTH = window.innerWidth - 32;
+  CANVAS_HEIGHT = window.innerHeight - 4;
+
+var ratio = 16/9
+  if (CANVAS_HEIGHT < CANVAS_WIDTH)
+    CANVAS_WIDTH = CANVAS_HEIGHT * ratio
+  else
+    CANVAS_HEIGHT = CANVAS_WIDTH / ratio
+
+  canvas.width = WIDTH;
+  canvas.height = HEIGHT;
+
+  canvas.style.width = '' + CANVAS_WIDTH + 'px';
+  canvas.style.height = '' + CANVAS_HEIGHT + 'px';
+}
+
 var game = {
 
-  display_game: document.createElement("canvas").getContext("2d"),
-  display_main: document.querySelector("canvas").getContext("2d"),
   time: 0,
-  controler: 0,
 
   sprites: {
     background: undefined,
@@ -38,24 +61,15 @@ var game = {
   },
 
   render: function () {
-    this.display_main.drawImage(this.display_game.canvas, 0, 0, this.display_game.canvas.width, this.display_game.canvas.height, 0, 0, this.display_main.canvas.width, this.display_main.canvas.height);
-    this.display_game.drawImage(this.sprites.background, 0, 0, game.display_game.canvas.width, game.display_game.canvas.height);
+    ctx.drawImage(this.sprites.background, 0, 0, WIDTH, HEIGHT);
 
     //sprites
-    this.display_game.drawImage(cat.sprites[cat.anim0][cat.anim1], cat.x, cat.y, cat.width, cat.height);
+    ctx.drawImage(cat.sprites[cat.anim0][cat.anim1], cat.x, cat.y, cat.width, cat.height);
   },
 
-  resize: function () {
-    game.display_main.canvas.width = Math.floor(document.documentElement.clientWidth - 16);
-    if (game.display_main.canvas.width > document.documentElement.clientHeight) {
-      game.display_main.canvas.width = Math.floor(document.documentElement.clientHeight);
-    };
-    game.display_main.canvas.height = Math.floor(game.display_main.canvas.width * 0.65);
-
-    game.game_output_ratio = game.display_game.canvas.width / game.display_main.canvas.width;
-  },
 
   run: function () {
+    resizeCanvas();
     this.physics();
     this.render();
     window.requestAnimationFrame(function () {
@@ -65,11 +79,11 @@ var game = {
 
   physics: function () {
     this.time++;
-
+    //button presses
     if (inputState.RIGHT) moveRight();
     else if (inputState.LEFT) moveLeft();
     else stand();
-
+    //Cat idle
     function stand() {
       if (game.time % 6 == 0) {
         cat.anim0 = 0;
@@ -78,7 +92,7 @@ var game = {
           cat.anim1 = 0
       }
     }
-
+    //CAT move left
     function moveLeft() {
       if (cat.anim1 < 9 && cat.anim1 > 6) {
         cat.anim1 = 0;
@@ -91,7 +105,7 @@ var game = {
           cat.anim1 = 0
       }
     }
-
+    //CAT move right
     function moveRight() {
       if (cat.anim1 < 9 && cat.anim1 > 6) {
         cat.anim1 = 0;
@@ -104,7 +118,6 @@ var game = {
           cat.anim1 = 0
       }
     }
-    window.onkeyup = function () { controler = 0; };
 
     // simulate friction:
     cat.velocity_x *= 0.9;
@@ -118,18 +131,16 @@ var game = {
   }
 };
 window.addEventListener("load", function () {
-  game.resize();
   $('.startGame').click(function () {
     game.start();
   });
 });
-window.addEventListener("resize", game.resize);
+window.addEventListener("resize", function(){
+  resizeCanvas();
+});
 
 
-//canvas width and height
-game.display_game.canvas.height = 600;
-game.display_game.canvas.width = 800;
-//canvas width and height
+
 
 
 //Character and Items
