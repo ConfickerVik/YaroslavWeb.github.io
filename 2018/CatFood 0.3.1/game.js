@@ -2,17 +2,36 @@ var game = {
 
   display_game: document.createElement("canvas").getContext("2d"),
   display_main: document.querySelector("canvas").getContext("2d"),
+  time: 0,
 
   sprites: {
-    background: undefined
+    background: undefined,
+    catSprite: undefined
   },
 
   start: function () {
+    //BACkGORUND ASSETS
     this.sprites.background = new Image();
     this.sprites.background.src = "assets/sprites/background.jpg";
 
-    this.sprites.cat = new Image();
-    this.sprites.cat.src = "assets/sprites/cat/stand/Idle(0).png";
+    //CAT ASSETS
+    for (var i = 0, m = 3; i < m; i++) {
+      cat.sprites[i] = [];
+      for (var j = 0, n = 9; j < n; j++) {
+        cat.sprites[i][j] = 0;
+      }
+    }
+    for (var i = 0; i < 9; i++) {
+      cat.sprites[0][i] = new Image();
+      cat.sprites[0][i].src = 'assets/sprites/cat/stand/Idle(' + i + ').png';
+    }
+    for (var i = 0; i < 8; i++) {
+      cat.sprites[1][i] = new Image();
+      cat.sprites[2][i] = new Image();
+      cat.sprites[1][i].src = 'assets/sprites/cat/run/left/Run(' + i + ').png';
+      cat.sprites[2][i].src = 'assets/sprites/cat/run/right/Run(' + i + ').png';
+    }
+
 
     this.run();
   },
@@ -22,25 +41,8 @@ var game = {
     this.display_game.drawImage(this.sprites.background, 0, 0, game.display_game.canvas.width, game.display_game.canvas.height);
 
     //sprites
-    this.display_game.drawImage(this.sprites.cat, cat.x, cat.y, cat.width, cat.height);
+    this.display_game.drawImage(cat.sprites[cat.anim0][cat.anim1], cat.x, cat.y, cat.width, cat.height);
   },
-
-
-  renderButtons: function (buttons) {
-    var button, index;
-
-    this.display_game.fillStyle = "rgb(214,86,43,0)";
-    this.display_game.fillRect(0, 0, this.display_game.canvas.width, this.display_game.canvas.height);
-
-    for (index = buttons.length - 1; index > -1; --index) {
-
-      button = buttons[index];
-
-      this.display_game.fillStyle = button.color;
-      this.display_game.fillRect(button.x, button.y, button.width, button.height);
-    }
-  },
-
 
   resize: function () {
     game.display_main.canvas.width = Math.floor(document.documentElement.clientWidth - 16);
@@ -61,28 +63,58 @@ var game = {
   },
 
   physics: function () {
-
+    this.time++;
+    //IDLE
+    if (inputState.RIGHT == false && inputState.LEFT == false) {
+      cat.anim0 = 0;
+      if (this.time % 6 == 0) {
+        cat.anim1++;
+        if (cat.anim1 == 9)
+          cat.anim1 = 0
+      }
+    }
+    //MOVE LEFT
     if (inputState.LEFT) {
+      if (cat.anim1 < 9 && cat.anim1 > 6) {cat.anim1 = 0;}
+
+      cat.anim0 = 1;
       cat.velocity_x -= 0.5;
+      if (this.time % 4 == 0) {
+        cat.anim1++;
+        if (cat.anim1 == 7)
+          cat.anim1 = 0
+      }
     }
 
+    //MOVE RIGHT
     if (inputState.RIGHT) {
+      if (cat.anim1 < 9 && cat.anim1 > 6) {cat.anim1 = 0;}
+
+      cat.anim0 = 2;
       cat.velocity_x += 0.5;
+      if (this.time % 4 == 0) {
+        cat.anim1++;
+        if (cat.anim1 == 7)
+          cat.anim1 = 0
+      }
     }
 
     // simulate friction:
     cat.velocity_x *= 0.9;
     cat.x += cat.velocity_x;
-    if (cat.x < -80) {
-      cat.x = this.display_game.canvas.width;
-    } else if (cat.x > this.display_game.canvas.width) {
-      cat.x = -80;
-    }
+
+    //behind the screen
+    if (cat.x > 780)
+      cat.x = -70;
+    if (cat.x < -70)
+      cat.x = 780;
   }
 };
 window.addEventListener("load", function () {
-  game.start();
   game.resize();
+  $('.startGame').click(function () {
+    game.start();
+  });
 });
 window.addEventListener("resize", game.resize);
 
@@ -100,7 +132,10 @@ cat = {
   width: 95,
   height: 110,
   sliding: true,
-  velocity_x: 0
+  velocity_x: 0,
+  anim0: 0,
+  anim1: 0,
+  sprites: []
 }
 //Character and Items
 
