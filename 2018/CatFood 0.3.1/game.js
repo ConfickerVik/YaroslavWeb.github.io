@@ -1,3 +1,4 @@
+//DISPLAY settings
 var canvas = document.getElementById('canvas'),
   ctx = canvas.getContext('2d'),
   //canvas and game  width and height
@@ -25,20 +26,28 @@ var resizeCanvas = function () {
 
   bounding_rectangle = canvas.getBoundingClientRect();
 };
+//DISPLAY settings
+
+//MUSIC AND SOUNDS
+var eat = new Audio('assets/sounds/eat.wav');
+eat.volume = 0.05;
+//BACkGORUND ASSETS
+
 
 var game = {
 
   time: 0,
-
-  sprites: {
-    background: undefined
-  },
+  score: 0,
+  background: undefined,
+  item: [], //food
+  food: [],
 
   start: function () {
-    //BACkGORUND ASSETS
-    gameOn = true;
-    this.sprites.background = new Image();
-    this.sprites.background.src = "assets/sprites/background.jpg";
+
+    this.background = new Image();
+    this.background.src = "assets/sprites/background.jpg";
+    
+    $('.score').html(game.score);
 
     //CAT ASSETS
     for (var i = 0, m = 3; i < m; i++) {
@@ -57,40 +66,32 @@ var game = {
       cat.sprites[1][i].src = 'assets/sprites/cat/run/left/Run(' + i + ').png';
       cat.sprites[2][i].src = 'assets/sprites/cat/run/right/Run(' + i + ').png';
     }
-    //Item ASSETS
-    var food = [];
-    var item = [];
+    //CAT ASSETS
+    //FOOD ASSETS
     for (var i = 1; i <= 5; i++) {
-      item[i] = new Image();
-      item[i].src = 'assets/sprites/food/food' + i + '.png';
+      this.item[i] = new Image();
+      this.item[i].src = 'assets/sprites/food/food' + i + '.png';
     }
-
+    //FOOD ASSETS
     this.run();
   },
 
   render: function () {
-    ctx.drawImage(this.sprites.background, 0, 0, WIDTH, HEIGHT);
+    //draw background
+    ctx.drawImage(this.background, 0, 0, WIDTH, HEIGHT);
 
-    //sprites
+    //draw cat
     ctx.drawImage(cat.sprites[cat.anim0][cat.anim1], cat.x, cat.y, cat.width, cat.height);
+
+    //draw food
+    for (i in game.food) {
+      ctx.drawImage(game.food[i].img, game.food[i].x, game.food[i].y, 25, 33);
+    }
   },
 
-
-
-  run: function () {
-    resizeCanvas();
-    this.physics();
-    this.render();
-    if (device.mobile() || device.tablet()) {
-      mobileController()
-    };
-    window.requestAnimationFrame(function () {
-      game.run();
-    });
-  },
-
-  physics: function () {
+  update: function () {
     this.time++;
+    //CAT CONFIGURATION
     //button presses
     if (inputState.RIGHT || button1) moveRight();
     else if (inputState.LEFT || button2) moveLeft();
@@ -140,6 +141,46 @@ var game = {
       cat.x = -70;
     if (cat.x < -70)
       cat.x = 780;
+    //CAT CONFIGURATION
+
+    //FOOD
+    if (game.time % 1 == 0) {
+      game.food.push({
+        x: getRandomInt(20, 760),
+        y: -100,
+        img: game.item[getRandomInt(1, 6)]
+      });
+    }
+
+    //interaction
+    for (i in game.food) {
+      game.food[i].y += 2;
+      //border
+      if (game.food[i].y >= 600) game.food.splice(i, 1);
+
+      if (Math.abs(cat.x + 50 - (game.food[i].x + 12)) < 45 && Math.abs(cat.y + 40 - game.food[i].y) < 40) {
+        game.food[i].del = 1;
+      }
+      if (game.food[i].del == 1) {
+        game.food.splice(i, 1);
+        game.score++;
+        $('.score').html(game.score);
+        eat.play();
+      }
+    }
+    //FOOD
+  },
+
+  run: function () {
+    resizeCanvas();
+    this.update();
+    this.render();
+    if (device.mobile() || device.tablet()) {
+      mobileController()
+    };
+    window.requestAnimationFrame(function () {
+      game.run();
+    });
   }
 };
 window.addEventListener("load", function () {
@@ -245,3 +286,9 @@ var keyupHandler = (e) => {
 document.addEventListener('keydown', keydownHandler);
 document.addEventListener('keyup', keyupHandler);
 //KEYBOARD CONTROLLER
+
+//RANDOM NUMBER GENERATOR
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+//RANDOM NUMBER GENERATOR
