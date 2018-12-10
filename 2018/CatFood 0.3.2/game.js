@@ -46,7 +46,7 @@ var game = {
 
     this.background = new Image();
     this.background.src = "assets/sprites/background.jpg";
-    
+
     $('.score').html(game.score);
 
     //CAT ASSETS
@@ -175,9 +175,7 @@ var game = {
     resizeCanvas();
     this.update();
     this.render();
-    if (device.mobile() || device.tablet()) {
-      mobileController()
-    };
+    mobileController();
     window.requestAnimationFrame(function () {
       game.run();
     });
@@ -210,7 +208,7 @@ cat = {
 
 //MOBILE CONTROLLER
 var button1 = undefined,
-    button2 = undefined;
+  button2 = undefined;
 
 function mobileController() {
   var el = document.getElementsByTagName('body')[0];
@@ -230,29 +228,29 @@ function mobileController() {
       button1 = false
     }
   }
-/*
-  function handleEnd(evt) {
-    var touches = evt.changedTouches;
-    if (window.innerWidth / 2 < touches[0].pageX)
-      button1 = false;
-    button2 = false;
-    if (window.innerWidth / 2 > touches[0].pageX) {
+  /*
+    function handleEnd(evt) {
+      var touches = evt.changedTouches;
+      if (window.innerWidth / 2 < touches[0].pageX)
+        button1 = false;
       button2 = false;
-      button1 = false
-    }
-  }
-
-  function handleMove(evt) {
-    var touches = evt.changedTouches;
-    if (window.innerWidth / 2 < touches[0].pageX)
-      button1 = true;
-    button2 = false;
-    if (window.innerWidth / 2 > touches[0].pageX) {
-      button2 = true;
-      button1 = false
+      if (window.innerWidth / 2 > touches[0].pageX) {
+        button2 = false;
+        button1 = false
+      }
     }
 
-  }*/
+    function handleMove(evt) {
+      var touches = evt.changedTouches;
+      if (window.innerWidth / 2 < touches[0].pageX)
+        button1 = true;
+      button2 = false;
+      if (window.innerWidth / 2 > touches[0].pageX) {
+        button2 = true;
+        button1 = false
+      }
+
+    }*/
 };
 
 //MOBILE CONTROLLER
