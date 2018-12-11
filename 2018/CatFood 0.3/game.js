@@ -30,7 +30,6 @@ var resizeCanvas = function () {
 
 //MUSIC AND SOUNDS
 var eat = new Audio('assets/sounds/eat.mp3');
-eat.volume = 0.01;
 //BACkGORUND ASSETS
 
 
@@ -41,7 +40,7 @@ var game = {
   background: undefined,
   item: [], //food
   food: [],
-  cat : {
+  cat: {
     x: 10,
     y: 420,
     width: 95,
@@ -115,7 +114,7 @@ var game = {
         game.cat.anim0 = 0;
         game.cat.anim1++;
         if (game.cat.anim1 == 9)
-        game.cat.anim1 = 0
+          game.cat.anim1 = 0
       }
     }
     //CAT move left
@@ -128,7 +127,7 @@ var game = {
       if (game.time % 4 == 0) {
         game.cat.anim1++;
         if (game.cat.anim1 == 7)
-        game.cat.anim1 = 0
+          game.cat.anim1 = 0
       }
     }
     //CAT move right
@@ -141,7 +140,7 @@ var game = {
       if (game.time % 4 == 0) {
         game.cat.anim1++;
         if (game.cat.anim1 == 7)
-        game.cat.anim1 = 0
+          game.cat.anim1 = 0
       }
     }
 
@@ -151,9 +150,9 @@ var game = {
 
     //behind the screen
     if (game.cat.x > 780)
-    game.cat.x = -70;
+      game.cat.x = -70;
     if (game.cat.x < -70)
-    game.cat.x = 780;
+      game.cat.x = 780;
     //CAT CONFIGURATION
 
     //FOOD
@@ -185,11 +184,26 @@ var game = {
   },
 
   run: function () {
-    this.update();
-    this.render();
-    window.requestAnimationFrame(function () {
-      game.run();
-    });
+    // game loop
+    let last = performance.now(),
+      step = 1 / 60, // update should be called 60 times per second
+      dt = 0,
+      now;
+
+    let frame = () => {
+      now = performance.now();
+      dt += (now - last) / 1000;
+      while (dt > step) {
+        dt = dt - step;
+        this.update(step);
+      }
+      last = now;
+
+      this.render();
+      requestAnimationFrame(frame);
+    }
+
+    requestAnimationFrame(frame);
   }
 };
 window.addEventListener("load", function () {
@@ -207,13 +221,14 @@ var button1, button2;
 
 var el = document.getElementsByTagName('body')[0];
 
-  el.addEventListener("touchstart", handler, false);
-  el.addEventListener("touchend", handleEnd, false);
-  el.addEventListener("touchmove", handler, false);
+el.addEventListener("touchstart", handler, false);
+el.addEventListener("touchend", handleEnd, false);
+el.addEventListener("touchmove", handler, false);
 
 function handler(e) {
-    button2 = !(button1 = (window.innerWidth / 2) < e.changedTouches[0].pageX);
+  button2 = !(button1 = (window.innerWidth / 2) < e.changedTouches[0].pageX);
 };
+
 function handleEnd(e) {
   var touches = e.changedTouches;
   if (window.innerWidth / 2 < touches[0].pageX)
