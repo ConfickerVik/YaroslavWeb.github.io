@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Oswald; 
+  src: url(assets/fonts/Oswald-Regular.ttf); 
+ }
+
 * {
   box-sizing:border-box;
   margin:0;
@@ -14,7 +19,7 @@ body {
   background-color:#202830;
   color:#ffffff;
   display:grid;
-  font-family: 'Bahnschrift Condensed';
+  font-family: 'Oswald';
   justify-content:center;
   min-height:100%;
   text-align:center;
