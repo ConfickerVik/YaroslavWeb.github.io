@@ -125,7 +125,7 @@ var game = {
       }
       game.cat.anim0 = 1;
       game.cat.velocity_x -= 0.5;
-      if (game.time % 5 == 0) {
+      if (game.time % 4 == 0) {
         game.cat.anim1++;
         if (game.cat.anim1 == 7)
         game.cat.anim1 = 0
@@ -138,7 +138,7 @@ var game = {
       }
       game.cat.anim0 = 2;
       game.cat.velocity_x += 0.5;
-      if (game.time % 5 == 0) {
+      if (game.time % 4 == 0) {
         game.cat.anim1++;
         if (game.cat.anim1 == 7)
         game.cat.anim1 = 0
