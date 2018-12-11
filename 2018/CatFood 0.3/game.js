@@ -32,9 +32,6 @@ var resizeCanvas = function () {
 
 var eat = new Audio('assets/sounds/eat.mp3');
 eat.volume = 0.01;
-function eatSound(){
-  eat.play();
-}
 
 //BACkGORUND ASSETS
 
@@ -183,7 +180,7 @@ var game = {
         game.food.splice(i, 1);
         game.score++;
         $('.score').html(game.score);
-        eatSound();
+        eat.play();
       }
     }
     //FOOD
