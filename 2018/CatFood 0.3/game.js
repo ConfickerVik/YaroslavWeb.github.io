@@ -29,8 +29,8 @@ var resizeCanvas = function () {
 //DISPLAY settings
 
 //MUSIC AND SOUNDS
-var eat = document.getElementById('eat');
-eat.volume = 0.01;
+
+
 //BACkGORUND ASSETS
 
 
@@ -178,6 +178,8 @@ var game = {
         game.food.splice(i, 1);
         game.score++;
         $('.score').html(game.score);
+        var eat = new Audio('assets/sounds/eat.mp3');
+eat.volume = 0.01;
         eat.play();
       }
     }
@@ -277,3 +279,5 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 //RANDOM NUMBER GENERATOR
+
+
