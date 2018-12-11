@@ -14,6 +14,7 @@ body {
   background-color:#202830;
   color:#ffffff;
   display:grid;
+  font-family: 'Bahnschrift Condensed';
   justify-content:center;
   min-height:100%;
   text-align:center;

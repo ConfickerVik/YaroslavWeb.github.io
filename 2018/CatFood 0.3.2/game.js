@@ -41,6 +41,17 @@ var game = {
   background: undefined,
   item: [], //food
   food: [],
+  cat : {
+    x: 10,
+    y: 420,
+    width: 95,
+    height: 110,
+    sliding: true,
+    velocity_x: 0,
+    anim0: 0,
+    anim1: 0,
+    sprites: []
+  },
 
   start: function () {
 
@@ -51,20 +62,20 @@ var game = {
 
     //CAT ASSETS
     for (var i = 0, m = 3; i < m; i++) {
-      cat.sprites[i] = [];
+      game.cat.sprites[i] = [];
       for (var j = 0, n = 9; j < n; j++) {
-        cat.sprites[i][j] = 0;
+        game.cat.sprites[i][j] = 0;
       }
     }
     for (var i = 0; i < 9; i++) {
-      cat.sprites[0][i] = new Image();
-      cat.sprites[0][i].src = 'assets/sprites/cat/stand/Idle(' + i + ').png';
+      game.cat.sprites[0][i] = new Image();
+      game.cat.sprites[0][i].src = 'assets/sprites/cat/stand/Idle(' + i + ').png';
     }
     for (var i = 0; i < 8; i++) {
-      cat.sprites[1][i] = new Image();
-      cat.sprites[2][i] = new Image();
-      cat.sprites[1][i].src = 'assets/sprites/cat/run/left/Run(' + i + ').png';
-      cat.sprites[2][i].src = 'assets/sprites/cat/run/right/Run(' + i + ').png';
+      game.cat.sprites[1][i] = new Image();
+      game.cat.sprites[2][i] = new Image();
+      game.cat.sprites[1][i].src = 'assets/sprites/cat/run/left/Run(' + i + ').png';
+      game.cat.sprites[2][i].src = 'assets/sprites/cat/run/right/Run(' + i + ').png';
     }
     //CAT ASSETS
     //FOOD ASSETS
@@ -74,7 +85,7 @@ var game = {
     }
     //FOOD ASSETS
 
-    
+
     this.run();
   },
 
@@ -83,7 +94,7 @@ var game = {
     ctx.drawImage(this.background, 0, 0, WIDTH, HEIGHT);
 
     //draw cat
-    ctx.drawImage(cat.sprites[cat.anim0][cat.anim1], cat.x, cat.y, cat.width, cat.height);
+    ctx.drawImage(game.cat.sprites[game.cat.anim0][game.cat.anim1], game.cat.x, game.cat.y, game.cat.width, game.cat.height);
 
     //draw food
     for (i in game.food) {
@@ -101,48 +112,48 @@ var game = {
     //Cat idle
     function stand() {
       if (game.time % 6 == 0) {
-        cat.anim0 = 0;
-        cat.anim1++;
-        if (cat.anim1 == 9)
-          cat.anim1 = 0
+        game.cat.anim0 = 0;
+        game.cat.anim1++;
+        if (game.cat.anim1 == 9)
+        game.cat.anim1 = 0
       }
     }
     //CAT move left
     function moveLeft() {
-      if (cat.anim1 < 9 && cat.anim1 > 6) {
-        cat.anim1 = 0;
+      if (game.cat.anim1 < 9 && game.cat.anim1 > 6) {
+        game.cat.anim1 = 0;
       }
-      cat.anim0 = 1;
-      cat.velocity_x -= 0.5;
+      game.cat.anim0 = 1;
+      game.cat.velocity_x -= 0.5;
       if (game.time % 5 == 0) {
-        cat.anim1++;
-        if (cat.anim1 == 7)
-          cat.anim1 = 0
+        game.cat.anim1++;
+        if (game.cat.anim1 == 7)
+        game.cat.anim1 = 0
       }
     }
     //CAT move right
     function moveRight() {
-      if (cat.anim1 < 9 && cat.anim1 > 6) {
-        cat.anim1 = 0;
+      if (game.cat.anim1 < 9 && game.cat.anim1 > 6) {
+        game.cat.anim1 = 0;
       }
-      cat.anim0 = 2;
-      cat.velocity_x += 0.5;
+      game.cat.anim0 = 2;
+      game.cat.velocity_x += 0.5;
       if (game.time % 5 == 0) {
-        cat.anim1++;
-        if (cat.anim1 == 7)
-          cat.anim1 = 0
+        game.cat.anim1++;
+        if (game.cat.anim1 == 7)
+        game.cat.anim1 = 0
       }
     }
 
     // simulate friction:
-    cat.velocity_x *= 0.9;
-    cat.x += cat.velocity_x;
+    game.cat.velocity_x *= 0.9;
+    game.cat.x += game.cat.velocity_x;
 
     //behind the screen
-    if (cat.x > 780)
-      cat.x = -70;
-    if (cat.x < -70)
-      cat.x = 780;
+    if (game.cat.x > 780)
+    game.cat.x = -70;
+    if (game.cat.x < -70)
+    game.cat.x = 780;
     //CAT CONFIGURATION
 
     //FOOD
@@ -160,7 +171,7 @@ var game = {
       //border
       if (game.food[i].y >= 600) game.food.splice(i, 1);
 
-      if (Math.abs(cat.x + 50 - (game.food[i].x + 12)) < 45 && Math.abs(cat.y + 40 - game.food[i].y) < 40) {
+      if (Math.abs(game.cat.x + 50 - (game.food[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.food[i].y) < 40) {
         game.food[i].del = 1;
       }
       if (game.food[i].del == 1) {
@@ -190,22 +201,6 @@ window.addEventListener("load", function () {
 window.addEventListener("resize", function () {
   resizeCanvas();
 });
-
-
-//Character and Items
-cat = {
-  x: 10,
-  y: 420,
-  width: 95,
-  height: 110,
-  sliding: true,
-  velocity_x: 0,
-  anim0: 0,
-  anim1: 0,
-  sprites: []
-}
-
-//Character and Items
 
 //MOBILE CONTROLLER
 var button1, button2;

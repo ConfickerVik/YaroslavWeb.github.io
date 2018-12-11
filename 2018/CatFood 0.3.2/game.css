@@ -6,7 +6,6 @@ canvas {
   }
   .score{
     color: aliceblue;
-    font-family: 'Bahnschrift Condensed';
     opacity: .7;
     font-size: 120px;
     position: absolute;
