@@ -7,6 +7,5 @@ $('.startGame').click(function() {
   $('#menu').hide();
   meow.play();
   $('#game').fadeIn(1000);
-  $('#game').addClass('gameOn');
 });
 

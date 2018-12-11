@@ -10,7 +10,7 @@ var canvas = document.getElementById('canvas'),
 
 var resizeCanvas = function () {
   CANVAS_WIDTH = window.innerWidth - 32;
-  CANVAS_HEIGHT = window.innerHeight - 4;
+  CANVAS_HEIGHT = window.innerHeight - 5;
 
   var ratio = 16 / 9
   if (CANVAS_HEIGHT < CANVAS_WIDTH)
