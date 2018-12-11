@@ -73,6 +73,8 @@ var game = {
       this.item[i].src = 'assets/sprites/food/food' + i + '.png';
     }
     //FOOD ASSETS
+
+    
     this.run();
   },
 
@@ -172,7 +174,6 @@ var game = {
   },
 
   run: function () {
-    resizeCanvas();
     this.update();
     this.render();
     mobileController();
@@ -184,6 +185,7 @@ var game = {
 window.addEventListener("load", function () {
   $('.startGame').click(function () {
     game.start();
+    resizeCanvas();
   });
 });
 window.addEventListener("resize", function () {
@@ -215,8 +217,8 @@ function mobileController() {
 
 
   el.addEventListener("touchstart", handleStart, false);
-  //el.addEventListener("touchend", handleEnd, false);
-  //el.addEventListener("touchmove", handleMove, false);
+  el.addEventListener("touchend", handleEnd, false);
+  el.addEventListener("touchmove", handleMove, false);
 
   function handleStart(evt) {
     var touches = evt.changedTouches;
@@ -228,7 +230,7 @@ function mobileController() {
       button1 = false
     }
   }
-  /*
+  
     function handleEnd(evt) {
       var touches = evt.changedTouches;
       if (window.innerWidth / 2 < touches[0].pageX)
@@ -251,7 +253,7 @@ function mobileController() {
       }
 
     }
-    */
+    
 };
 
 //MOBILE CONTROLLER
