@@ -30,6 +30,7 @@ var resizeCanvas = function () {
 
 //MUSIC AND SOUNDS
 var eat = new Audio('assets/sounds/eat.mp3');
+
 //BACkGORUND ASSETS
 
 
