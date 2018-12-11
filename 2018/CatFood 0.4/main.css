@@ -1,0 +1,29 @@
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html {
+  height:100%;
+  width:100%;
+}
+
+body {
+  align-content:space-around;
+  background-color:#202830;
+  color:#ffffff;
+  display:grid;
+  font-family: 'Bahnschrift Condensed';
+  justify-content:center;
+  min-height:100%;
+  text-align:center;
+  margin: 0px;
+  width:100%;
+
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
