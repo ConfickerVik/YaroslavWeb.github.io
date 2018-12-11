@@ -1,34 +1,34 @@
 @font-face {
-  font-family: Oswald; 
-  src: url(assets/fonts/Oswald-Regular.ttf); 
- }
+  font-family: Oswald;
+  src: url(assets/fonts/Oswald-Regular.ttf);
+}
 
 * {
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-  height:100%;
-  width:100%;
+  height: 100%;
+  width: 100%;
 }
 
 body {
-  align-content:space-around;
-  background-color:#202830;
-  color:#ffffff;
-  display:grid;
+  align-content: space-around;
+  background-color: #202830;
+  color: #ffffff;
+  display: grid;
   font-family: 'Oswald';
-  justify-content:center;
-  min-height:100%;
-  text-align:center;
+  justify-content: center;
+  min-height: 100%;
+  text-align: center;
   margin: 0px;
-  width:100%;
+  width: 100%;
 
   -moz-user-select: none;
   -khtml-user-select: none;
+  -o-user-select: none;
   -webkit-user-select: none;
   user-select: none;
 }
-
