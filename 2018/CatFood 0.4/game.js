@@ -179,9 +179,9 @@ var game = {
         game.food.splice(i, 1);
         game.score++;
         $('.score').html(game.score);
-        var eat = new Audio('assets/sounds/eat.mp3');
-eat.volume = 0.01;
-        eat.play();
+        var meow = new Audio('assets/sounds/meow1.mp3');
+        meow.volume = 0.2;
+        meow.play();
       }
     }
     //FOOD
