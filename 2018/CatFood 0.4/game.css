@@ -6,8 +6,8 @@ canvas {
   }
   .score{
     color: aliceblue;
-    opacity: .7;
-    font-size: 120px;
+    opacity: .6;
+    font-size: 100px;
     position: absolute;
     z-index: 2;
 
