@@ -176,7 +176,6 @@ var game = {
   run: function () {
     this.update();
     this.render();
-    mobileController();
     window.requestAnimationFrame(function () {
       game.run();
     });
@@ -209,53 +208,27 @@ cat = {
 //Character and Items
 
 //MOBILE CONTROLLER
-var button1 = undefined,
-  button2 = undefined;
+var button1, button2;
 
-function mobileController() {
-  var el = document.getElementsByTagName('body')[0];
+var el = document.getElementsByTagName('body')[0];
 
-
-  el.addEventListener("touchstart", handleStart, false);
+  el.addEventListener("touchstart", handler, false);
   el.addEventListener("touchend", handleEnd, false);
-  el.addEventListener("touchmove", handleMove, false);
+  el.addEventListener("touchmove", handler, false);
 
-  function handleStart(evt) {
-    var touches = evt.changedTouches;
-    if (window.innerWidth / 2 < touches[0].pageX)
-      button1 = true;
-    button2 = false;
-    if (window.innerWidth / 2 > touches[0].pageX) {
-      button2 = true;
-      button1 = false
-    }
-  }
-  
-    function handleEnd(evt) {
-      var touches = evt.changedTouches;
-      if (window.innerWidth / 2 < touches[0].pageX)
-        button1 = false;
-      button2 = false;
-      if (window.innerWidth / 2 > touches[0].pageX) {
-        button2 = false;
-        button1 = false
-      }
-    }
-
-    function handleMove(evt) {
-      var touches = evt.changedTouches;
-      if (window.innerWidth / 2 < touches[0].pageX)
-        button1 = true;
-      button2 = false;
-      if (window.innerWidth / 2 > touches[0].pageX) {
-        button2 = true;
-        button1 = false
-      }
-
-    }
-    
+function handler(e) {
+    button2 = !(button1 = (window.innerWidth / 2) < e.changedTouches[0].pageX);
 };
-
+function handleEnd(e) {
+  var touches = e.changedTouches;
+  if (window.innerWidth / 2 < touches[0].pageX)
+    button1 = false;
+  button2 = false;
+  if (window.innerWidth / 2 > touches[0].pageX) {
+    button2 = false;
+    button1 = false
+  }
+};
 //MOBILE CONTROLLER
 
 
