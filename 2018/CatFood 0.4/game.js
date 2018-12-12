@@ -30,9 +30,6 @@ var resizeCanvas = function () {
 
 //MUSIC AND SOUNDS
 
-var eat = new Audio('assets/sounds/eat.mp3');
-eat.volume = 0.01;
-
 //BACkGORUND ASSETS
 
 
@@ -169,6 +166,7 @@ var game = {
 
     //interaction
     var soundFlag = true;
+    var eat = document.getElementById('soundEat')
     for (i in game.food) {
       game.food[i].y += 2;
       //border
