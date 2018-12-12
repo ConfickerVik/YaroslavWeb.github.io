@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>CatFood</title>
+  <link rel="shortcut icon" href="assets/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="libs/bootstrap 4.1/css/bootstrap.css">
+  <link rel="stylesheet" href="libs/font-awesome/css/fontawesome-all.min.css">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <div class="container-fluid h-100">
+
+    <div class="row h-100 rowStart align-items-center">
+      <div class=" startScreen col-12">
+        <div class="NamePlayer"><input type="text" placeholder="Ваше имя"></div>
+        <i class="fas fa-play startGame"></i>
+        <div class="option">
+          <i class="fal fa-volume-up sounds-option"></i>
+          <i class="fas fa-coffee support-option"></i>
+          <i class="fas fa-music music-option"></i>
+          <!--<i class="fal fa-volume-mute"></i>-->
+        </div>
+        <div class="version">v0.2.3</div>
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+
+      <div id="Game" class="col-12 col-sm-12 col-md-12">
+
+        <div class="row">
+
+          <div class="col-12 col-sm-12 col-md-12">
+            <div class="score">Счёт:<div class="points"></div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-12">
+            <canvas id="canvas"></canvas>
+          </div>
+          <div class="col-4">
+            <div class="mobile-controller action-controller"></div>
+          </div>
+          <div class="col-4">
+            <div class="mobile-controller right-controller"></div>
+          </div>
+          <div class="col-4">
+            <div class="mobile-controller left-controller"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <audio src="assets/sounds/meow1.mp3" id="meowStart"></audio>
+  <audio src="assets/music/main.mp3" id="music"></audio>
+  <audio src="assets/sounds/eat.wav" id="eat"></audio>
+
+  <script src="libs/js/jquery-3.3.1.min.js"></script>
+  <script src="libs/bootstrap 4.1/js/bootstrap.js"></script>
+  <script src="script.js" charset="utf-8"></script>
+  <script src="engine.js" charset="utf-8"></script>
+</body>
+
+</html>
