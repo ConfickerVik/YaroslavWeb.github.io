@@ -32,9 +32,6 @@ var resizeCanvas = function () {
 
 var eat = new Audio('assets/sounds/eat.mp3');
 eat.volume = 0.01;
-function eatSound(){
-  eat.play();
-}
 
 //BACkGORUND ASSETS
 
@@ -171,19 +168,23 @@ var game = {
     }
 
     //interaction
+    var soundFlag = true;
     for (i in game.food) {
       game.food[i].y += 2;
       //border
       if (game.food[i].y >= 600) game.food.splice(i, 1);
 
       if (Math.abs(game.cat.x + 50 - (game.food[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.food[i].y) < 40) {
-        game.food[i].del = 1;
-      }
-      if (game.food[i].del == 1) {
         game.food.splice(i, 1);
         game.score++;
         $('.score').html(game.score);
-        eatSound();
+        //Play sound
+        if(soundFlag){
+          eat.pause();
+          eat.currentTime = 0;
+          eat.play();
+          soundFlag = false;
+        }
       }
     }
     //FOOD
@@ -282,5 +283,3 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 //RANDOM NUMBER GENERATOR
-
-
