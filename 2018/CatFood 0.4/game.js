@@ -156,7 +156,7 @@ var game = {
     //CAT CONFIGURATION
 
     //FOOD
-    if (game.time % 10 == 0) {
+    if (game.time % 60 == 0) {
       game.food.push({
         x: getRandomInt(20, 760),
         y: -100,
