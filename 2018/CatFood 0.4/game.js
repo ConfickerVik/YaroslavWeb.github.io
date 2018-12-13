@@ -9,7 +9,7 @@ var canvas = document.getElementById('canvas'),
 //canvas and game  width and height
 
 var resizeCanvas = function () {
-  CANVAS_WIDTH = window.innerWidth - 32;
+  CANVAS_WIDTH = window.innerWidth - 48;
   CANVAS_HEIGHT = window.innerHeight - 5;
 
   var ratio = 16 / 9
@@ -78,7 +78,7 @@ var game = {
     }
     //CAT ASSETS
     //FOOD ASSETS
-    for (var i = 1; i <= 5; i++) {
+    for (var i = 1; i <= 6; i++) {
       this.item[i] = new Image();
       this.item[i].src = 'assets/sprites/food/food' + i + '.png';
     }
@@ -97,7 +97,7 @@ var game = {
 
     //draw food
     for (i in game.food) {
-      ctx.drawImage(game.food[i].img, game.food[i].x, game.food[i].y, 25, 33);
+      ctx.drawImage(game.food[i].img, game.food[i].x, game.food[i].y, 25, 35);
     }
   },
 
@@ -156,17 +156,17 @@ var game = {
     //CAT CONFIGURATION
 
     //FOOD
-    if (game.time % 60 == 0) {
+    if (game.time % 10 == 0) {
       game.food.push({
         x: getRandomInt(20, 760),
         y: -100,
-        img: game.item[getRandomInt(1, 6)]
+        img: game.item[getRandomInt(1, 7)]
       });
     }
 
     //interaction
     var soundFlag = true;
-    var eat = document.getElementById('soundEat')
+    var eat = document.getElementById('soundEat');
     for (i in game.food) {
       game.food[i].y += 2;
       //border
@@ -180,6 +180,7 @@ var game = {
         if(soundFlag){
           eat.pause();
           eat.currentTime = 0;
+          eat.volume = 0.1;
           eat.play();
           soundFlag = false;
         }
