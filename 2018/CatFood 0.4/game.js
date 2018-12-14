@@ -38,16 +38,18 @@ var game = {
   time: 0,
   score: 0,
   background: undefined,
-  item: [], //food
-  food: [],
+  item:[],
+  goodfood:[],
+  badfood:[],
+
   cat: {
     x: 10,
     y: 515,
-    width: 110,
+    width: 120,
     height: 125,
     health: {
       img:[],
-      hp:9
+      hp:0
     },
     velocity_x: 0,
     anim0: 0,
@@ -78,14 +80,14 @@ var game = {
     }
     //CAT ASSETS
     //FOOD ASSETS
-    for (var i = 1; i <= 6; i++) {
+    for (var i = 0; i <= 7; i++) {
       this.item[i] = new Image();
       this.item[i].src = 'assets/sprites/food/food' + i + '.png';
     }
     //FOOD ASSETS
 
     //HitPoints ASSETS
-    for (var i = 0; i <= 3; i++) {
+    for (var i = 0; i <= 4; i++) {
       this.cat.health.img[i] = new Image();
       this.cat.health.img[i].src = 'assets/sprites/HitPoint/HP' + i + '.png';
     }
@@ -102,11 +104,14 @@ var game = {
     ctx.drawImage(game.cat.state[game.cat.anim0][game.cat.anim1], game.cat.x, game.cat.y, game.cat.width, game.cat.height);
 
     //draw HP
-    ctx.drawImage(game.cat.health.img[0], 5, 645, 70, 70)
+    ctx.drawImage(game.cat.health.img[game.cat.health.hp], 10, 625, 100, 100)
 
     //draw food
-    for (i in game.food) {
-      ctx.drawImage(game.food[i].img, game.food[i].x, game.food[i].y, 25, 35);
+    for (i in game.goodfood) {
+      ctx.drawImage(game.goodfood[i].img, game.goodfood[i].x, game.goodfood[i].y, 25, 35);
+    }
+    for (i in game.badfood) {
+      ctx.drawImage(game.badfood[i].img, game.badfood[i].x, game.badfood[i].y, 25, 35);
     }
   },
 
@@ -165,33 +170,57 @@ var game = {
     //CAT CONFIGURATION
 
     //FOOD
-    if (game.time % 60 == 0) {
-      game.food.push({
-        x: getRandomInt(20, 1260),
-        y: -100,
-        img: game.item[getRandomInt(1, 7)],
+    if (game.time % 90 == 0) {    //good FOOD
+      game.goodfood.push({
+        x: getRandomInt(20, 1240),
+        y: -50,
+        img: game.item[getRandomInt(0, 6)],
         dmg: 0
+      });
+    }
+    if (game.time % 120 == 0) {   //bad Food
+      game.badfood.push({
+        x: getRandomInt(20, 1240),
+        y: -50,
+        img: game.item[6],
+        dmg: 1
       });
     }
 
     //interaction
     var soundFlag = true;
     var eat = document.getElementById('soundEat');
-    for (i in game.food) {
-      game.food[i].y += 2;
+    for (i in game.goodfood) {
+      game.goodfood[i].y += 2;
       //border
-      if (game.food[i].y >= 710) game.food.splice(i, 1);
+      if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
 
-      if (Math.abs(game.cat.x + 50 - (game.food[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.food[i].y) < 40) {
-        game.food.splice(i, 1);
+      if (Math.abs(game.cat.x + 50 - (game.goodfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.goodfood[i].y) < 40) {
+        game.goodfood.splice(i, 1);
         game.score++;
         $('.score').html(game.score);
         //Play sound
         if (soundFlag) {
-          eat.pause();
-          eat.currentTime = 0;
           eat.volume = 0.05;
           eat.play();
+          soundFlag = false;
+        }
+      }
+    }
+    for (i in game.badfood) {
+      game.badfood[i].y += 2;
+      //border
+      if (game.badfood[i].y >= 710) game.badfood.splice(i, 1);
+
+      if (Math.abs(game.cat.x + 50 - (game.badfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.badfood[i].y) < 40) {
+        game.badfood.splice(i, 1);
+        game.cat.health.hp++;
+        if(game.cat.health.hp == 5) game.cat.health.hp=0;
+        //Play sound
+        if (soundFlag) {
+          eat.volume = 0.05;
+          eat.play();
+          meow.play();
           soundFlag = false;
         }
       }
