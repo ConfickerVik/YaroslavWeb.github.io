@@ -2,10 +2,10 @@
 var canvas = document.getElementById('canvas'),
   ctx = canvas.getContext('2d'),
   //canvas and game  width and height
-  WIDTH = 800,
-  HEIGHT = 600,
-  CANVAS_WIDTH = 800,
-  CANVAS_HEIGHT = 600;
+  WIDTH = 1280,
+  HEIGHT = 720,
+  CANVAS_WIDTH = 1280,
+  CANVAS_HEIGHT = 720;
 //canvas and game  width and height
 
 var resizeCanvas = function () {
@@ -42,39 +42,39 @@ var game = {
   food: [],
   cat: {
     x: 10,
-    y: 420,
-    width: 95,
-    height: 110,
-    sliding: true,
+    y: 515,
+    width: 110,
+    height: 125,
+    health: {
+      img:[],
+      hp:9
+    },
     velocity_x: 0,
     anim0: 0,
     anim1: 0,
-    sprites: []
+    state: []
   },
 
   start: function () {
 
     this.background = new Image();
-    this.background.src = "assets/sprites/background.jpg";
+    this.background.src = "assets/sprites/background.png";
 
     $('.score').html(game.score);
 
     //CAT ASSETS
     for (var i = 0, m = 3; i < m; i++) {
-      game.cat.sprites[i] = [];
-      for (var j = 0, n = 9; j < n; j++) {
-        game.cat.sprites[i][j] = 0;
-      }
+      game.cat.state[i] = [];
     }
     for (var i = 0; i < 9; i++) {
-      game.cat.sprites[0][i] = new Image();
-      game.cat.sprites[0][i].src = 'assets/sprites/cat/stand/Idle(' + i + ').png';
+      game.cat.state[0][i] = new Image();
+      game.cat.state[0][i].src = 'assets/sprites/cat/stand/Idle(' + i + ').png';
     }
     for (var i = 0; i < 8; i++) {
-      game.cat.sprites[1][i] = new Image();
-      game.cat.sprites[2][i] = new Image();
-      game.cat.sprites[1][i].src = 'assets/sprites/cat/run/left/Run(' + i + ').png';
-      game.cat.sprites[2][i].src = 'assets/sprites/cat/run/right/Run(' + i + ').png';
+      game.cat.state[1][i] = new Image();
+      game.cat.state[2][i] = new Image();
+      game.cat.state[1][i].src = 'assets/sprites/cat/run/left/Run(' + i + ').png';
+      game.cat.state[2][i].src = 'assets/sprites/cat/run/right/Run(' + i + ').png';
     }
     //CAT ASSETS
     //FOOD ASSETS
@@ -84,6 +84,12 @@ var game = {
     }
     //FOOD ASSETS
 
+    //HitPoints ASSETS
+    for (var i = 0; i <= 3; i++) {
+      this.cat.health.img[i] = new Image();
+      this.cat.health.img[i].src = 'assets/sprites/HitPoint/HP' + i + '.png';
+    }
+    //HitPoints ASSETS
 
     this.run();
   },
@@ -93,7 +99,10 @@ var game = {
     ctx.drawImage(this.background, 0, 0, WIDTH, HEIGHT);
 
     //draw cat
-    ctx.drawImage(game.cat.sprites[game.cat.anim0][game.cat.anim1], game.cat.x, game.cat.y, game.cat.width, game.cat.height);
+    ctx.drawImage(game.cat.state[game.cat.anim0][game.cat.anim1], game.cat.x, game.cat.y, game.cat.width, game.cat.height);
+
+    //draw HP
+    ctx.drawImage(game.cat.health.img[0], 5, 645, 70, 70)
 
     //draw food
     for (i in game.food) {
@@ -123,7 +132,7 @@ var game = {
         game.cat.anim1 = 0;
       }
       game.cat.anim0 = 1;
-      game.cat.velocity_x -= 0.5;
+      game.cat.velocity_x -= 0.6;
       if (game.time % 4 == 0) {
         game.cat.anim1++;
         if (game.cat.anim1 == 7)
@@ -136,7 +145,7 @@ var game = {
         game.cat.anim1 = 0;
       }
       game.cat.anim0 = 2;
-      game.cat.velocity_x += 0.5;
+      game.cat.velocity_x += 0.6;
       if (game.time % 4 == 0) {
         game.cat.anim1++;
         if (game.cat.anim1 == 7)
@@ -149,18 +158,19 @@ var game = {
     game.cat.x += game.cat.velocity_x;
 
     //behind the screen
-    if (game.cat.x > 780)
+    if (game.cat.x > 1260)
       game.cat.x = -70;
     if (game.cat.x < -70)
-      game.cat.x = 780;
+      game.cat.x = 1260;
     //CAT CONFIGURATION
 
     //FOOD
     if (game.time % 60 == 0) {
       game.food.push({
-        x: getRandomInt(20, 760),
+        x: getRandomInt(20, 1260),
         y: -100,
-        img: game.item[getRandomInt(1, 7)]
+        img: game.item[getRandomInt(1, 7)],
+        dmg: 0
       });
     }
 
@@ -170,17 +180,17 @@ var game = {
     for (i in game.food) {
       game.food[i].y += 2;
       //border
-      if (game.food[i].y >= 600) game.food.splice(i, 1);
+      if (game.food[i].y >= 710) game.food.splice(i, 1);
 
       if (Math.abs(game.cat.x + 50 - (game.food[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.food[i].y) < 40) {
         game.food.splice(i, 1);
         game.score++;
         $('.score').html(game.score);
         //Play sound
-        if(soundFlag){
+        if (soundFlag) {
           eat.pause();
           eat.currentTime = 0;
-          eat.volume = 0.1;
+          eat.volume = 0.05;
           eat.play();
           soundFlag = false;
         }

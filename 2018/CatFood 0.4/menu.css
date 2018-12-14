@@ -29,7 +29,7 @@
   border: 2px solid #6BD042;
   cursor: pointer;
   border-radius: 5%;
-  padding: 20px;
+  padding: 15px;
 }
 
 .startGame:hover {
@@ -57,7 +57,6 @@
   border-radius: 20%;
 }
 .sounds-option {
-  border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
 }
 
@@ -66,7 +65,6 @@
 }
 
 .music-option {
-  border-top-right-radius: 50px;
   border-bottom-right-radius: 50%;
 }
 
