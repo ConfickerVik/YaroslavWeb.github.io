@@ -200,6 +200,7 @@ var game = {
         if (soundFlag) {
           eat.volume = 0.05;
           meow.play();
+          eat.play();
           soundFlag = false;
         }
       }
