@@ -28,8 +28,6 @@ var resizeCanvas = function () {
 };
 //DISPLAY settings
 
-//MUSIC AND SOUNDS
-
 //BACkGORUND ASSETS
 
 
@@ -189,7 +187,6 @@ var game = {
 
     //interaction
     var soundFlag = true;
-    var eat = document.getElementById('soundEat');
     for (i in game.goodfood) {
       game.goodfood[i].y += 2;
       //border
@@ -218,6 +215,7 @@ var game = {
         if(game.cat.health.hp == 5) game.cat.health.hp=0;
         //Play sound
         if (soundFlag) {
+          meow.pause();
           eat.volume = 0.05;
           eat.play();
           meow.play();
