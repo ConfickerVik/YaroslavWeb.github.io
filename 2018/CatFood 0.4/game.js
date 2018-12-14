@@ -199,7 +199,7 @@ var game = {
         //Play sound
         if (soundFlag) {
           eat.volume = 0.05;
-          eat.play();
+          meow.play();
           soundFlag = false;
         }
       }
