@@ -198,7 +198,7 @@ var game = {
         $('.score').html(game.score);
         //Play sound
         if (soundFlag) {
-          eating.volume = 0.05;
+          eating.volume = 0.5;
           eating.play();
           soundFlag = false;
         }
@@ -216,8 +216,6 @@ var game = {
         //Play sound
         if (soundFlag) {
           meow.pause();
-          eating.volume = 0.05;
-          eating.play();
           meow.play();
           soundFlag = false;
         }
