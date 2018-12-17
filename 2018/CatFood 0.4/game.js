@@ -215,6 +215,7 @@ var game = {
         if(game.cat.health.hp == 4) {
           game.cat.health.hp=0;
           game.score = 0;
+          $('.score').html(game.score);
         }
         //Play sound
         if (soundFlag) {
