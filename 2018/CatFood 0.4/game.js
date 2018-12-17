@@ -106,7 +106,7 @@ var game = {
 
     //draw food
     for (i in game.goodfood) {
-      ctx.drawImage(game.goodfood[i].img, game.goodfood[i].x, game.goodfood[i].y, 25, 35);
+      ctx.drawImage(game.goodfood[i].img, game.goodfood[i].x, game.goodfood[i].y, 30, 40);
     }
     for (i in game.badfood) {
       ctx.drawImage(game.badfood[i].img, game.badfood[i].x, game.badfood[i].y, 25, 35);
@@ -180,7 +180,7 @@ var game = {
       game.badfood.push({
         x: getRandomInt(20, 1240),
         y: -50,
-        img: game.item[6],
+          img: game.item[getRandomInt(7,8)],
         dmg: 1
       });
     }
