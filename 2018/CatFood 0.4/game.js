@@ -198,7 +198,7 @@ var game = {
         $('.score').html(game.score);
         //Play sound
         if (soundFlag) {
-          eating.volume = 0.5;
+          eating.volume = 0.2;
           eating.play();
           soundFlag = false;
         }
@@ -212,7 +212,10 @@ var game = {
       if (Math.abs(game.cat.x + 50 - (game.badfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.badfood[i].y) < 40) {
         game.badfood.splice(i, 1);
         game.cat.health.hp++;
-        if(game.cat.health.hp == 5) game.cat.health.hp=0;
+        if(game.cat.health.hp == 4) {
+          game.cat.health.hp=0;
+          game.score = 0;
+        }
         //Play sound
         if (soundFlag) {
           meow.pause();
