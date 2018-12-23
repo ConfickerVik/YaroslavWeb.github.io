@@ -91,7 +91,7 @@ var game = {
     }
     //HitPoints ASSETS
 
-    this.run();
+    
   },
 
   render: function () {
@@ -120,6 +120,8 @@ var game = {
     if (inputState.RIGHT || button1) moveRight();
     else if (inputState.LEFT || button2) moveLeft();
     else stand();
+
+    
     //Cat idle
     function stand() {
       if (game.time % 6 == 0) {
@@ -180,11 +182,10 @@ var game = {
       game.badfood.push({
         x: getRandomInt(20, 1240),
         y: -50,
-          img: game.item[getRandomInt(7,8)],
+        img: game.item[getRandomInt(6,8)],
         dmg: 1
       });
     }
-
     //interaction
     var soundFlag = true;
     for (i in game.goodfood) {
@@ -252,8 +253,9 @@ var game = {
   }
 };
 window.addEventListener("load", function () {
+  game.start();
   $('.startGame').click(function () {
-    game.start();
+    game.run();
     resizeCanvas();
   });
 });
