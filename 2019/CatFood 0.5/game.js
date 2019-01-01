@@ -183,7 +183,7 @@ var game = {
       game.badfood.push({
         x: getRandomInt(20, 1240),
         y: -50,
-        img: game.item[getRandomInt(4,7)],
+        img: game.item[getRandomInt(4,6)],
         dmg: 1
       });
     }
