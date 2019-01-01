@@ -1,4 +1,6 @@
 //Press start
+document.addEventListener('touchmove', function(e) {e.preventDefault();}, true);
+
 var meow = new Audio('assets/sounds/meow1.mp3');
 meow.volume = 0.2;
 
