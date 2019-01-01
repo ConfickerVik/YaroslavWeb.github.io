@@ -9,6 +9,7 @@
   -webkit-user-select: none;
   user-select: none;
   outline: 0 !important;
+  overflow:  hidden; 
 }
 
 html {
