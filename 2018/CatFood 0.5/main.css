@@ -3,11 +3,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -o-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
+
   outline: 0 !important;
   overflow:  hidden; 
 }
@@ -15,6 +11,8 @@
 html {
   height: 100%;
   width: 100%;
+
+  -webkit-text-size-adjust: none;
 }
 
 body {
@@ -28,6 +26,9 @@ body {
   text-align: center;
   margin: 0px;
   width: 100%;
+  position: fixed;
+
+  -webkit-text-size-adjust: none;
 
   -moz-user-select: none;
   -khtml-user-select: none;
