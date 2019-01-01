@@ -45,6 +45,16 @@
 .connectGame:hover{
   border-radius: 20%;
 }
+input{
+  background: #202830;
+  border:2px solid #6BD042;
+  border-top-left-radius: 20%;
+  border-top-right-radius: 20%;
+  color: white;
+  width: 90%;
+  height: 40px;
+}
+
 .option * {
   border: 2px solid #6BD042;
   cursor: pointer;

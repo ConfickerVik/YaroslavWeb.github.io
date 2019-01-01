@@ -43,8 +43,8 @@ var game = {
   cat: {
     x: 10,
     y: 475,
-    width: 140,
-    height: 165,
+    width: 165,
+    height: 160,
     health: {
       img:[],
       hp:0
@@ -137,7 +137,7 @@ var game = {
       if (game.cat.anim1 < 9 && game.cat.anim1 > 6) {
         game.cat.anim1 = 0;
       }
-      game.cat.anim0 = 2;
+      game.cat.anim0 = 1;
       game.cat.velocity_x -= 0.6;
       if (game.time % 4 == 0) {
         game.cat.anim1++;
@@ -164,10 +164,10 @@ var game = {
     game.cat.x += game.cat.velocity_x;
 
     //behind the screen
-    if (game.cat.x > 1260)
-      game.cat.x = -70;
-    if (game.cat.x < -70)
-      game.cat.x = 1260;
+    if (game.cat.x > 1250)
+      game.cat.x = -110;
+    if (game.cat.x < -110)
+      game.cat.x = 1250;
     //CAT CONFIGURATION
 
     //FOOD
@@ -194,7 +194,7 @@ var game = {
       //border
       if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
 
-      if (Math.abs(game.cat.x + 70 - (game.goodfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.goodfood[i].y) < 40) {
+      if (Math.abs(game.cat.x + 80 - (game.goodfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.goodfood[i].y) < 40) {
         game.goodfood.splice(i, 1);
         game.score++;
         $('.score').html(game.score);
@@ -211,7 +211,7 @@ var game = {
       //border
       if (game.badfood[i].y >= 710) game.badfood.splice(i, 1);
 
-      if (Math.abs(game.cat.x + 50 - (game.badfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.badfood[i].y) < 40) {
+      if (Math.abs(game.cat.x + 55 - (game.badfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.badfood[i].y) < 40) {
         game.badfood.splice(i, 1);
         game.cat.health.hp++;
         if(game.cat.health.hp == 4) {
