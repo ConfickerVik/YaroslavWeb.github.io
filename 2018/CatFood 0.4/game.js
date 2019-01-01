@@ -42,9 +42,9 @@ var game = {
 
   cat: {
     x: 10,
-    y: 470,
-    width: 170,
-    height: 175,
+    y: 475,
+    width: 140,
+    height: 165,
     health: {
       img:[],
       hp:0
@@ -78,7 +78,7 @@ var game = {
     }
     //CAT ASSETS
     //FOOD ASSETS
-    for (var i = 0; i <= 7; i++) {
+    for (var i = 0; i <= 4; i++) {
       this.item[i] = new Image();
       this.item[i].src = 'assets/sprites/food/food' + i + '.png';
     }
@@ -99,6 +99,7 @@ var game = {
     ctx.drawImage(this.background, 0, 0, WIDTH, HEIGHT);
 
     //draw cat
+    
     ctx.drawImage(game.cat.state[game.cat.anim0][game.cat.anim1], game.cat.x, game.cat.y, game.cat.width, game.cat.height);
 
     //draw HP
@@ -106,7 +107,7 @@ var game = {
 
     //draw food
     for (i in game.goodfood) {
-      ctx.drawImage(game.goodfood[i].img, game.goodfood[i].x, game.goodfood[i].y, 30, 40);
+      ctx.drawImage(game.goodfood[i].img, game.goodfood[i].x, game.goodfood[i].y, 35, 40);
     }
     for (i in game.badfood) {
       ctx.drawImage(game.badfood[i].img, game.badfood[i].x, game.badfood[i].y, 25, 35);
@@ -124,7 +125,7 @@ var game = {
     
     //Cat idle
     function stand() {
-      if (game.time % 6 == 0) {
+      if (game.time % 8 == 0) {
         game.cat.anim0 = 0;
         game.cat.anim1++;
         if (game.cat.anim1 == 9)
@@ -136,7 +137,7 @@ var game = {
       if (game.cat.anim1 < 9 && game.cat.anim1 > 6) {
         game.cat.anim1 = 0;
       }
-      game.cat.anim0 = 1;
+      game.cat.anim0 = 2;
       game.cat.velocity_x -= 0.6;
       if (game.time % 4 == 0) {
         game.cat.anim1++;
@@ -159,7 +160,7 @@ var game = {
     }
 
     // simulate friction:
-    game.cat.velocity_x *= 0.9;
+    game.cat.velocity_x *= 0.91;
     game.cat.x += game.cat.velocity_x;
 
     //behind the screen
@@ -174,7 +175,7 @@ var game = {
       game.goodfood.push({
         x: getRandomInt(20, 1240),
         y: -50,
-        img: game.item[getRandomInt(0, 6)],
+        img: game.item[getRandomInt(0, 3)],
         dmg: 0
       });
     }
@@ -182,7 +183,7 @@ var game = {
       game.badfood.push({
         x: getRandomInt(20, 1240),
         y: -50,
-        img: game.item[getRandomInt(6,8)],
+        img: game.item[getRandomInt(3,5)],
         dmg: 1
       });
     }
@@ -193,7 +194,7 @@ var game = {
       //border
       if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
 
-      if (Math.abs(game.cat.x + 50 - (game.goodfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.goodfood[i].y) < 40) {
+      if (Math.abs(game.cat.x + 70 - (game.goodfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.goodfood[i].y) < 40) {
         game.goodfood.splice(i, 1);
         game.score++;
         $('.score').html(game.score);
