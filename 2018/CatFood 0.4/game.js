@@ -42,9 +42,9 @@ var game = {
 
   cat: {
     x: 10,
-    y: 515,
-    width: 120,
-    height: 125,
+    y: 470,
+    width: 170,
+    height: 175,
     health: {
       img:[],
       hp:0
@@ -58,7 +58,7 @@ var game = {
   start: function () {
 
     this.background = new Image();
-    this.background.src = "assets/sprites/background.png";
+    this.background.src = "assets/sprites/background.png"; 
 
     $('.score').html(game.score);
 
