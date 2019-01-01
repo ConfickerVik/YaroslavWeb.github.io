@@ -78,7 +78,7 @@ var game = {
     }
     //CAT ASSETS
     //FOOD ASSETS
-    for (var i = 0; i <= 7; i++) {
+    for (var i = 0; i <= 6; i++) {
       this.item[i] = new Image();
       this.item[i].src = 'assets/sprites/food/food' + i + '.png';
     }
@@ -175,7 +175,7 @@ var game = {
       game.goodfood.push({
         x: getRandomInt(20, 1240),
         y: -50,
-        img: game.item[getRandomInt(0, 4)],
+        img: game.item[getRandomInt(0, 3)],
         dmg: 0
       });
     }
@@ -183,7 +183,7 @@ var game = {
       game.badfood.push({
         x: getRandomInt(20, 1240),
         y: -50,
-        img: game.item[getRandomInt(5,7)],
+        img: game.item[getRandomInt(4,7)],
         dmg: 1
       });
     }
