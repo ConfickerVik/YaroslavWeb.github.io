@@ -200,8 +200,8 @@ var game = {
         $('.score').html(game.score);
         //Play sound
         if (soundFlag) {
-          eating.volume = 0.2;
-          eating.play();
+          meow.volume = 0.2;
+          meow.play();
           soundFlag = false;
         }
       }
