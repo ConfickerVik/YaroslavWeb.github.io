@@ -200,8 +200,8 @@ var game = {
         $('.score').html(game.score);
         //Play sound
         if (soundFlag) {
-          eating.volume = 0.2;
-          eating.play();
+         // eating.volume = 0.2;
+          //eating.play();
           soundFlag = false;
         }
       }
@@ -221,8 +221,8 @@ var game = {
         }
         //Play sound
         if (soundFlag) {
-          meow.pause();
-          meow.play();
+          eating.pause();
+          eating.play();
           soundFlag = false;
         }
       }
