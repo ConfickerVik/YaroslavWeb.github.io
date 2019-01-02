@@ -1,3 +1,5 @@
+if(device.ios())alert(`Если вы зашли через сафири, то советуем перейти на другой браузер, для более удобной игры.`);
+
 //Press start
 
 var meow = new Audio('assets/sounds/meow1.mp3');
@@ -12,4 +14,7 @@ $('.startGame').click(function() {
   meow.play();
   $('#game').fadeIn(1000);
 });
+
+
+
 
