@@ -221,8 +221,8 @@ var game = {
         }
         //Play sound
         if (soundFlag) {
-          meow.pause();
-          meow.play();
+          eating.pause();
+          eating.play();
           soundFlag = false;
         }
       }
