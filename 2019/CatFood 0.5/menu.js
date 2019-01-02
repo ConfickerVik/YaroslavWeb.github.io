@@ -11,7 +11,7 @@ eating.volume = 0.2;
 $('.startGame').click(function() {
   $('.container-fluid').removeClass('h-100');
   $('#menu').hide();
-  meow.play();
+  eating.play();
   $('#game').fadeIn(1000);
 });
 
