@@ -196,8 +196,8 @@ var game = {
       if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
 
       if (Math.abs(game.cat.x + 80 - (game.goodfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.goodfood[i].y) < 40) {
-        meow.play();
         game.goodfood.splice(i, 1);
+        eating.play();
         game.score++;
         $('.score').html(game.score);
       }
@@ -208,8 +208,8 @@ var game = {
       if (game.badfood[i].y >= 710) game.badfood.splice(i, 1);
 
       if (Math.abs(game.cat.x + 55 - (game.badfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.badfood[i].y) < 40) {
-        meow.play();
         game.badfood.splice(i, 1);
+        meow.play();
         game.cat.health.hp++;
         if(game.cat.health.hp == 4) {
           game.cat.health.hp=0;
