@@ -12,6 +12,7 @@ $('.startGame').click(function() {
   $('.container-fluid').removeClass('h-100');
   $('#menu').hide();
   eating.play();
+  meow.play();
   $('#game').fadeIn(1000);
 });
 
