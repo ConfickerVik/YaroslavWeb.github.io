@@ -196,10 +196,10 @@ var game = {
       if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
 
       if (Math.abs(game.cat.x + 80 - (game.goodfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.goodfood[i].y) < 40) {
-        /*game.goodfood.splice(i, 1);
-        game.score++;
-        $('.score').html(game.score); */
         meow.play();
+        game.goodfood.splice(i, 1);
+        game.score++;
+        $('.score').html(game.score);
       }
     }
     for (i in game.badfood) {
@@ -208,6 +208,7 @@ var game = {
       if (game.badfood[i].y >= 710) game.badfood.splice(i, 1);
 
       if (Math.abs(game.cat.x + 55 - (game.badfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.badfood[i].y) < 40) {
+        meow.play();
         game.badfood.splice(i, 1);
         game.cat.health.hp++;
         if(game.cat.health.hp == 4) {
@@ -215,7 +216,7 @@ var game = {
           game.score = 0;
           $('.score').html(game.score);
         }
-        meow.play();
+        
       }
     }
     //FOOD
