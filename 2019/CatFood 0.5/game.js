@@ -208,15 +208,14 @@ var game = {
       if (game.badfood[i].y >= 710) game.badfood.splice(i, 1);
 
       if (Math.abs(game.cat.x + 55 - (game.badfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.badfood[i].y) < 40) {
-        game.badfood.splice(i, 1);
-        eating.play();
+       /* game.badfood.splice(i, 1);
         game.cat.health.hp++;
         if(game.cat.health.hp == 4) {
           game.cat.health.hp=0;
           game.score = 0;
           $('.score').html(game.score);
-        }
-        
+        } */
+        eating.play();
       }
     }
     //FOOD
