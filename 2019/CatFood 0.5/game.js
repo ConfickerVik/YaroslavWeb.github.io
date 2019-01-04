@@ -196,9 +196,9 @@ var game = {
       if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
 
       if (Math.abs(game.cat.x + 80 - (game.goodfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.goodfood[i].y) < 40) {
-        game.goodfood.splice(i, 1);
+        /*game.goodfood.splice(i, 1);
         game.score++;
-        $('.score').html(game.score);
+        $('.score').html(game.score); */
         meow.play();
       }
     }
