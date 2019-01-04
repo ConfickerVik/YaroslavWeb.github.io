@@ -1,4 +1,3 @@
-
 /*Start screen*/
 
 #menu {
@@ -6,14 +5,16 @@
   color: #ffffff;
   transform: scale(1.2);
 }
+
 /*adaptive*/
-@media(max-height:420px){
-  #menu{
+@media(max-height:500px) {
+  #menu {
     transform: scale(0.8);
   }
 }
-@media(max-height:350px){
-  #menu{
+
+@media(max-height:380px) {
+  #menu {
     transform: scale(0.6);
   }
 }
@@ -21,7 +22,9 @@
 /*Button*/
 #menu * {
   margin: 5px;
-  transition: all .5s linear;
+  transition-property: border-color, border-radius;
+  transition-duration:.5s;
+  transition-timing-function: linear, linear;
 }
 
 
@@ -36,19 +39,22 @@
 .startGame:hover {
   border-radius: 20%;
 }
-.connectGame{
+
+.connectGame {
   font-size: 30px;
   border: 2px solid #6BD042;
   cursor: pointer;
   border-radius: 5%;
   padding: 20px;
 }
-.connectGame:hover{
+
+.connectGame:hover {
   border-radius: 20%;
 }
-input{
+
+input {
   background: #202830;
-  border:2px solid #6BD042;
+  border: 2px solid #6BD042;
   border-top-left-radius: 20%;
   border-top-right-radius: 20%;
   color: white;
@@ -64,9 +70,10 @@ input{
   padding: 20px;
 }
 
-.option *:hover{
+.option *:hover {
   border-radius: 20%;
 }
+
 .sounds-option {
   border-bottom-left-radius: 50%;
 }
@@ -75,12 +82,18 @@ input{
   border-radius: 5%;
 }
 
-.music-option {
+.help-option {
   border-bottom-right-radius: 50%;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
+.fa-volume-off {
+  padding-left: 30px;
+  padding-right: 30px;
+}
 
-.attention{
-  color:red;
+.attention {
+  color: red;
   font-size: 10px;
 }

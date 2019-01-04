@@ -90,16 +90,15 @@ var game = {
       this.cat.health.img[i].src = 'assets/sprites/HitPoint/HP' + i + '.png';
     }
     //HitPoints ASSETS
-
     
   },
 
   render: function () {
     //draw background
+    
     ctx.drawImage(this.background, 0, 0, WIDTH, HEIGHT);
 
     //draw cat
-    
     ctx.drawImage(game.cat.state[game.cat.anim0][game.cat.anim1], game.cat.x, game.cat.y, game.cat.width, game.cat.height);
 
     //draw HP
@@ -112,6 +111,8 @@ var game = {
     for (i in game.badfood) {
       ctx.drawImage(game.badfood[i].img, game.badfood[i].x, game.badfood[i].y, 35, 45);
     }
+    //ctx.fillRect(0, 0, WIDTH, HEIGHT)
+    //ctx.fillStyle = "rgb(25,100,0, 0.1)"
   },
 
   update: function () {
@@ -197,9 +198,9 @@ var game = {
 
       if (Math.abs(game.cat.x + 80 - (game.goodfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.goodfood[i].y) < 40) {
         game.goodfood.splice(i, 1);
-        eating.play();
         game.score++;
         $('.score').html(game.score);
+        if(Sounds)eating.play();
       }
     }
     for (i in game.badfood) {
@@ -215,7 +216,7 @@ var game = {
           game.score = 0;
           $('.score').html(game.score);
         } 
-        meow.play();
+        if(Sounds) meow.play();
       }
     }
     //FOOD
