@@ -188,7 +188,7 @@ var game = {
       });
     }
     //interaction
-    var soundFlag = true;
+
     
     for (i in game.goodfood) {
       game.goodfood[i].y += 2;
@@ -200,11 +200,7 @@ var game = {
         game.score++;
         $('.score').html(game.score);
         //Play sound
-        if (soundFlag) {
-          eating.pause();
-          eating.play();
-          //soundFlag = false;
-        }
+          meow.play();
       }
     }
     for (i in game.badfood) {
@@ -221,11 +217,9 @@ var game = {
           $('.score').html(game.score);
         }
         //Play sound
-        if (soundFlag) {
-          meow.pause();
+
           meow.play();
-          soundFlag = false;
-        }
+
       }
     }
     //FOOD
