@@ -215,7 +215,7 @@ var game = {
           game.score = 0;
           $('.score').html(game.score);
         } 
-        eating.play();
+        meow.play();
       }
     }
     //FOOD
