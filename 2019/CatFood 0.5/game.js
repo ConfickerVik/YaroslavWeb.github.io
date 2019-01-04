@@ -216,12 +216,6 @@ var game = {
 
     if (Math.abs(game.cat.x + 55 - (game.goodfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.goodfood[i].y) < 40) {
       game.badfood.splice(i, 1);
-      game.cat.health.hp++;
-      if(game.cat.health.hp == 4) {
-        game.cat.health.hp=0;
-        game.score = 0;
-        $('.score').html(game.score);
-      }
       //Play sound
       if (soundFlag) {
         eating.pause();
