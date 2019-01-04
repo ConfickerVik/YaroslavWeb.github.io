@@ -171,14 +171,14 @@ var game = {
     //CAT CONFIGURATION
 
     //FOOD
-    /*if (game.time % 90 == 0) {    //good FOOD
+    if (game.time % 90 == 0) {    //good FOOD
       game.goodfood.push({
         x: getRandomInt(20, 1240),
         y: -50,
         img: game.item[getRandomInt(0, 4)],
         dmg: 0
       });
-    } */
+    }
     if (game.time % 360 == 0) {   //bad Food
       game.badfood.push({
         x: getRandomInt(20, 1240),
@@ -190,7 +190,7 @@ var game = {
     //interaction
     var soundFlag = true;
     
-    /*for (i in game.goodfood) {
+    for (i in game.goodfood) {
       game.goodfood[i].y += 2;
       //border
       if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
@@ -207,29 +207,6 @@ var game = {
         }
       }
     }
-        for (i in game.badfood) {
-      game.badfood[i].y += 2;
-      //border
-      if (game.badfood[i].y >= 710) game.badfood.splice(i, 1);
-
-      if (Math.abs(game.cat.x + 55 - (game.badfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.badfood[i].y) < 40) {
-        game.badfood.splice(i, 1);
-        game.cat.health.hp++;
-        if(game.cat.health.hp == 4) {
-          game.cat.health.hp=0;
-          game.score = 0;
-          $('.score').html(game.score);
-        }
-        //Play sound
-        if (soundFlag) {
-          meow.pause();
-          meow.play();
-          soundFlag = false;
-        }
-      }
-    }
-    */
-   
     for (i in game.badfood) {
       game.badfood[i].y += 2;
       //border
