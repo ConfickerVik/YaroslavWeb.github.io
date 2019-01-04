@@ -199,7 +199,7 @@ var game = {
         game.goodfood.splice(i, 1);
         game.score++;
         $('.score').html(game.score);
-        eating.play();
+        meow.play();
       }
     }
     for (i in game.badfood) {
