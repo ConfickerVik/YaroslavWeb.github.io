@@ -175,7 +175,7 @@ var game = {
       game.goodfood.push({
         x: getRandomInt(20, 1240),
         y: -50,
-        img: game.item[getRandomInt(0, 3)],
+        img: game.item[getRandomInt(0, 4)],
         dmg: 0
       });
     }
@@ -183,13 +183,14 @@ var game = {
       game.badfood.push({
         x: getRandomInt(20, 1240),
         y: -50,
-        img: game.item[getRandomInt(4,6)],
+        img: game.item[getRandomInt(4,7)],
         dmg: 1
       });
     }
     //interaction
     var soundFlag = true;
-    for (i in game.goodfood) {
+    
+    /*for (i in game.goodfood) {
       game.goodfood[i].y += 2;
       //border
       if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
@@ -206,6 +207,29 @@ var game = {
         }
       }
     }
+    */
+
+   for (i in game.goodfood) {
+    game.goodfood[i].y += 2;
+    //border
+    if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
+
+    if (Math.abs(game.cat.x + 55 - (game.goodfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.goodfood[i].y) < 40) {
+      game.badfood.splice(i, 1);
+      game.cat.health.hp++;
+      if(game.cat.health.hp == 4) {
+        game.cat.health.hp=0;
+        game.score = 0;
+        $('.score').html(game.score);
+      }
+      //Play sound
+      if (soundFlag) {
+        eating.pause();
+        eating.play();
+        soundFlag = false;
+      }
+    }
+  }
     for (i in game.badfood) {
       game.badfood[i].y += 2;
       //border
