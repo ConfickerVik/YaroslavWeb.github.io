@@ -203,7 +203,7 @@ var game = {
         if (soundFlag) {
           eating.pause();
           eating.play();
-          soundFlag = false;
+          //soundFlag = false;
         }
       }
     }
