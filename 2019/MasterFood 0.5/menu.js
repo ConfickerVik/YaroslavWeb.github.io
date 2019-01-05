@@ -6,7 +6,7 @@ var meow = new Audio('assets/sounds/meow1.mp3');
 meow.volume = 0.2;
 
 var eating = new Audio('assets/sounds/eat.mp3');
-eating.volume = 0.2;
+eating.volume = 0.1;
 
 $('.sounds-option').click(function () {
   if (Sounds) {
@@ -42,4 +42,19 @@ $('.startGame').click(function () {
 });
 
 //Alert
-if (device.ios()) alert(`Если вы зашли через сафири, то советуем перейти на другой браузер, для более удобной игры.`);
+if (device.ios() && device.mobile()) alert(`Если вы зашли через сафири, то советуем перейти на другой браузер, для более удобной игры.`);
+
+//IOS ZOOM
+
+document.addEventListener('touchmove', function (event) {
+  if (event.scale !== 1) { event.preventDefault(); }
+}, false);
+
+var lastTouchEnd = 0;
+document.addEventListener('touchend', function (event) {
+  var now = (new Date()).getTime();
+  if (now - lastTouchEnd <= 300) {
+    event.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
