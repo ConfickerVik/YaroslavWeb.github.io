@@ -68,13 +68,13 @@ var game = {
     }
     for (var i = 0; i < 9; i++) {
       game.cat.state[0][i] = new Image();
-      game.cat.state[0][i].src = 'assets/sprites/cat/stand/Idle(' + i + ').png';
+      game.cat.state[0][i].src = 'assets/sprites/cat0/stand/Idle(' + i + ').png';
     }
     for (var i = 0; i < 8; i++) {
       game.cat.state[1][i] = new Image();
       game.cat.state[2][i] = new Image();
-      game.cat.state[1][i].src = 'assets/sprites/cat/run/left/Run(' + i + ').png';
-      game.cat.state[2][i].src = 'assets/sprites/cat/run/right/Run(' + i + ').png';
+      game.cat.state[1][i].src = 'assets/sprites/cat0/run/left/Run(' + i + ').png';
+      game.cat.state[2][i].src = 'assets/sprites/cat0/run/right/Run(' + i + ').png';
     }
     //CAT ASSETS
     //FOOD ASSETS
