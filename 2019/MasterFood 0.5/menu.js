@@ -6,7 +6,7 @@ var meow = new Audio('assets/sounds/meow1.mp3');
 meow.volume = 0.2;
 
 var eating = new Audio('assets/sounds/eat.mp3');
-eating.volume = 0.2;
+eating.volume = 0.1;
 
 $('.sounds-option').click(function () {
   if (Sounds) {
@@ -27,7 +27,7 @@ $('.sounds-option').click(function () {
     $(this).removeClass('fa fa-volume-off');
     $(this).addClass('fal fa-volume-up');
     meow.volume = 0.2;
-    eating.volume = 0.2;
+    eating.volume = 0.1;
   }
 
 });
