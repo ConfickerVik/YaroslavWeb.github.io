@@ -27,7 +27,8 @@ function handleEnd(e) {
 //KEYBOARD CONTROLLER
 var inputState = {
   RIGHT: false,
-  LEFT: false
+  LEFT: false,
+  RIGHTJUMP:false
 }
 
 var setKeyState = function (keyCode, isPressed) {
@@ -40,6 +41,8 @@ var setKeyState = function (keyCode, isPressed) {
     case 65:
       inputState.LEFT = isPressed;
       break;
+    case 87:
+      inputState.RIGHTJUMP = isPressed;
   }
 };
 var keydownHandler = (e) => {

@@ -45,11 +45,13 @@ var game = {
     y: 475,
     width: 165,
     height: 160,
+    jumping:false,
     health: {
       img:[],
       hp:0
     },
     velocity_x: 0,
+    velocity_y:0,
     anim0: 0,
     anim1: 0,
     state: []
@@ -63,7 +65,7 @@ var game = {
     $('.score').html(game.score);
 
     //CAT ASSETS
-    for (var i = 0, m = 3; i < m; i++) {
+    for (var i = 0, m = 4; i < m; i++) {
       game.cat.state[i] = [];
     }
     for (var i = 0; i < 9; i++) {
@@ -76,7 +78,7 @@ var game = {
       game.cat.state[3][i] = new Image();//jump right
       game.cat.state[1][i].src ='assets/sprites/cat0/run/left/Run(' + i + ').png';
       game.cat.state[2][i].src ='assets/sprites/cat0/run/right/Run(' + i + ').png';
-      game.cat.state[3][i].src = 'assets/sprites/cat0/jump/Jump('+ i +').png';
+      game.cat.state[3][i].src = 'assets/sprites/cat0/jump/Jump ('+ i +').png';
     }
     //CAT ASSETS
     //FOOD ASSETS
@@ -124,6 +126,14 @@ var game = {
     else if (inputState.LEFT || button2) moveLeft();
     else stand();
 
+    if(inputState.RIGHTJUMP && game.cat.jumping == false){
+      game.cat.velocity_y = -20;
+      game.cat.jumping = true;
+    }
+    if(game.cat.y+game.cat.height > 700){
+      game.cat.y = 700 - game.cat.height;
+      game.cat.jumping = false;
+    }
     //Cat idle
     function stand() {
       if (game.time % 8 == 0) {
