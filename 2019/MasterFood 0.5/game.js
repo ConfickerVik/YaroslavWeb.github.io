@@ -73,9 +73,8 @@ var game = {
     for (var i = 0; i < 8; i++) {
       game.cat.state[1][i] = new Image();
       game.cat.state[2][i] = new Image();
-      game.cat.state[1][i].src = 'assets/sprites/cat0/run/left/Run(' + i + ').png';
-      game.cat.state[2][i].src = game.cat.state[1][i].src;
-      game.cat.state[2][i].style.transform = 'rotate(90deg)';
+      game.cat.state[1][i].src ='assets/sprites/cat0/run/left/Run(' + i + ').png';
+      game.cat.state[2][i].src ='assets/sprites/cat0/run/right/Run(' + i + ').png';
 
     }
     //CAT ASSETS
@@ -251,7 +250,7 @@ for (i in game.badfood) {
     requestAnimationFrame(frame);
   }
 };
-window.addEventListener("load", function () {
+$(window).load(function () {
   game.start();
   $('.startGame').click(function () {
     game.run();
