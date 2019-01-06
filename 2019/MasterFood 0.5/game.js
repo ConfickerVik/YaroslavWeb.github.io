@@ -74,7 +74,9 @@ var game = {
       game.cat.state[1][i] = new Image();
       game.cat.state[2][i] = new Image();
       game.cat.state[1][i].src = 'assets/sprites/cat0/run/left/Run(' + i + ').png';
-      game.cat.state[2][i].src = 'assets/sprites/cat0/run/right/Run(' + i + ').png';
+      game.cat.state[2][i].src = game.cat.state[1][i].src;
+      game.cat.state[2][i].style.transform = 'rotate(90deg)';
+
     }
     //CAT ASSETS
     //FOOD ASSETS
@@ -102,7 +104,7 @@ var game = {
     ctx.drawImage(game.cat.state[game.cat.anim0][game.cat.anim1], game.cat.x, game.cat.y, game.cat.width, game.cat.height);
 
     //draw HP
-    ctx.drawImage(game.cat.health.img[game.cat.health.hp], 10, 625, 100, 100)
+    ctx.drawImage(game.cat.health.img[game.cat.health.hp], 10, 625, 100, 100);
 
     //draw food
     for (i in game.goodfood) {
