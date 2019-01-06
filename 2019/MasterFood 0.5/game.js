@@ -71,12 +71,12 @@ var game = {
       game.cat.state[0][i].src = 'assets/sprites/cat0/stand/Idle(' + i + ').png';
     }
     for (var i = 0; i < 8; i++) {
-      game.cat.state[1][i] = new Image();
-      game.cat.state[2][i] = new Image();
-      game.cat.state[3][i] = new Image();
+      game.cat.state[1][i] = new Image();//run left
+      game.cat.state[2][i] = new Image();//run right
+      game.cat.state[3][i] = new Image();//jump right
       game.cat.state[1][i].src ='assets/sprites/cat0/run/left/Run(' + i + ').png';
       game.cat.state[2][i].src ='assets/sprites/cat0/run/right/Run(' + i + ').png';
-
+      game.cat.state[3][i].src = 'assets/sprites/cat0/jump/Jump('+ i +').png';
     }
     //CAT ASSETS
     //FOOD ASSETS
@@ -197,7 +197,7 @@ for (i in game.goodfood) {
   //border
   if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
 
-  if (Math.abs(game.cat.x + 80 - (game.goodfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.goodfood[i].y) < 40) {
+  if (Math.abs(game.cat.x + 55 - (game.goodfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.goodfood[i].y) < 40) {
     game.goodfood.splice(i, 1);
     game.score++;
     $('.score').html(game.score);
