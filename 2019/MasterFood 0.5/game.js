@@ -219,7 +219,7 @@ var game = {
       //border
       if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
 
-      if (Math.abs(game.badfood[i].x - game.cat.x - 35) < 50 && Math.abs(game.badfood[i].y - game.cat.y - 40) < 30) {
+      if (Math.abs(game.goodfood[i].x - game.cat.x - 35) < 50 && Math.abs(game.goodfood[i].y - game.cat.y - 40) < 30) {
         game.goodfood.splice(i, 1);
         game.score++;
         $('.score').html(game.score);
