@@ -250,7 +250,7 @@ for (i in game.badfood) {
     requestAnimationFrame(frame);
   }
 };
-$(window).load(function () {
+window.addEventListener("load", function () {
   game.start();
   $('.startGame').click(function () {
     game.run();
