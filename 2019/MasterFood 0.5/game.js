@@ -75,10 +75,10 @@ var game = {
     for (var i = 0; i < 8; i++) {
       game.cat.state[1][i] = new Image();//run left
       game.cat.state[2][i] = new Image();//run right
-      game.cat.state[3][i] = new Image();//jump right
+     // game.cat.state[3][i] = new Image();//jump right
       game.cat.state[1][i].src ='assets/sprites/cat0/run/left/Run(' + i + ').png';
       game.cat.state[2][i].src ='assets/sprites/cat0/run/right/Run(' + i + ').png';
-      game.cat.state[3][i].src = 'assets/sprites/cat0/jump/Jump ('+ i +').png';
+      //game.cat.state[3][i].src = 'assets/sprites/cat0/jump/Jump ('+ i +').png';
     }
     //CAT ASSETS
     //FOOD ASSETS
@@ -125,7 +125,7 @@ var game = {
     if (inputState.RIGHT || button1) moveRight();
     else if (inputState.LEFT || button2) moveLeft();
     else stand();
-
+/*
     if(inputState.RIGHTJUMP && game.cat.jumping == false){
       game.cat.velocity_y = -20;
       game.cat.jumping = true;
@@ -133,7 +133,7 @@ var game = {
     if(game.cat.y+game.cat.height > 700){
       game.cat.y = 700 - game.cat.height;
       game.cat.jumping = false;
-    }
+    } */
     //Cat idle
     function stand() {
       if (game.time % 8 == 0) {
@@ -142,7 +142,8 @@ var game = {
         if (game.cat.anim1 == 9)
           game.cat.anim1 = 0
       }
-    }
+      
+  }
     //CAT move left
     function moveLeft() {
       if (game.cat.anim1 < 9 && game.cat.anim1 > 6) {
