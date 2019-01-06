@@ -36,22 +36,22 @@ var game = {
   time: 0,
   score: 0,
   background: undefined,
-  item:[],
-  goodfood:[],
-  badfood:[],
+  item: [],
+  goodfood: [],
+  badfood: [],
 
   cat: {
     x: 10,
     y: 475,
-    width: 165,
+    width: 160,
     height: 160,
-    jumping:false,
+    jumping: false,
     health: {
-      img:[],
-      hp:0
+      img: [],
+      hp: 0
     },
     velocity_x: 0,
-    velocity_y:0,
+    velocity_y: 0,
     anim0: 0,
     anim1: 0,
     state: []
@@ -60,7 +60,7 @@ var game = {
   start: function () {
 
     this.background = new Image();
-    this.background.src = "assets/sprites/background.png"; 
+    this.background.src = "assets/sprites/background.png";
 
     $('.score').html(game.score);
 
@@ -73,12 +73,12 @@ var game = {
       game.cat.state[0][i].src = 'assets/sprites/cat0/stand/Idle(' + i + ').png';
     }
     for (var i = 0; i < 8; i++) {
-      game.cat.state[1][i] = new Image();//run left
-      game.cat.state[2][i] = new Image();//run right
-     // game.cat.state[3][i] = new Image();//jump right
-      game.cat.state[1][i].src ='assets/sprites/cat0/run/left/Run(' + i + ').png';
-      game.cat.state[2][i].src ='assets/sprites/cat0/run/right/Run(' + i + ').png';
-      //game.cat.state[3][i].src = 'assets/sprites/cat0/jump/Jump ('+ i +').png';
+      game.cat.state[1][i] = new Image(); //run left
+      game.cat.state[2][i] = new Image(); //run right
+      game.cat.state[3][i] = new Image(); //jump right
+      game.cat.state[1][i].src = 'assets/sprites/cat0/run/left/Run(' + i + ').png';
+      game.cat.state[2][i].src = 'assets/sprites/cat0/run/right/Run(' + i + ').png';
+      game.cat.state[3][i].src = 'assets/sprites/cat0/jump/Jump (' + i + ').png';
     }
     //CAT ASSETS
     //FOOD ASSETS
@@ -94,12 +94,12 @@ var game = {
       this.cat.health.img[i].src = 'assets/sprites/HitPoint/HP' + i + '.png';
     }
     //HitPoints ASSETS
-    
+
   },
 
   render: function () {
     //draw background
-    
+
     ctx.drawImage(this.background, 0, 0, WIDTH, HEIGHT);
 
     //draw cat
@@ -119,21 +119,23 @@ var game = {
     //ctx.fillStyle = "rgb(25,100,0, 0.1)"
   },
 
-  updatePlayer: function(){
-   //CAT CONFIGURATION
+  updatePlayer: function () {
+    //CAT CONFIGURATION
     //button presses
     if (inputState.RIGHT || button1) moveRight();
     else if (inputState.LEFT || button2) moveLeft();
     else stand();
-/*
-    if(inputState.RIGHTJUMP && game.cat.jumping == false){
-      game.cat.velocity_y = -20;
+
+    if (inputState.RIGHTJUMP && game.cat.jumping == false) {
+      jump();
+    }
+
+
+    //Cat jump
+    function jump() {
+      game.cat.velocity_y = -25;
       game.cat.jumping = true;
     }
-    if(game.cat.y+game.cat.height > 700){
-      game.cat.y = 700 - game.cat.height;
-      game.cat.jumping = false;
-    } */
     //Cat idle
     function stand() {
       if (game.time % 8 == 0) {
@@ -142,8 +144,8 @@ var game = {
         if (game.cat.anim1 == 9)
           game.cat.anim1 = 0
       }
-      
-  }
+    }
+
     //CAT move left
     function moveLeft() {
       if (game.cat.anim1 < 9 && game.cat.anim1 > 6) {
@@ -175,6 +177,15 @@ var game = {
     game.cat.velocity_x *= 0.91;
     game.cat.x += game.cat.velocity_x;
 
+    game.cat.velocity_y *= 0.9;
+    game.cat.y += game.cat.velocity_y;
+    //gravity
+    if (game.cat.y + game.cat.height > 640) {
+      game.cat.y = 640 - game.cat.height;
+      game.cat.jumping = false;
+    }
+    game.cat.velocity_y += 1.4;
+
     //behind the screen
     if (game.cat.x > 1250)
       game.cat.x = -110;
@@ -183,55 +194,55 @@ var game = {
     //CAT CONFIGURATION
 
   },
-  updateItems: function(){
-//FOOD
-if (game.time % 90 == 0) {    //good FOOD
-  game.goodfood.push({
-    x: getRandomInt(20, 1240),
-    y: -50,
-    img: game.item[getRandomInt(0, 4)],
-    dmg: 0
-  });
-}
-if (game.time % 360 == 0) {   //bad Food
-  game.badfood.push({
-    x: getRandomInt(20, 1240),
-    y: -50,
-    img: game.item[getRandomInt(4,7)],
-    dmg: 1
-  });
-}
+  updateItems: function () {
+    //FOOD
+    if (game.time % 90 == 0) { //good FOOD
+      game.goodfood.push({
+        x: getRandomInt(20, 1240),
+        y: -50,
+        img: game.item[getRandomInt(0, 4)],
+        dmg: 0
+      });
+    }
+    if (game.time % 360 == 0) { //bad Food
+      game.badfood.push({
+        x: getRandomInt(20, 1240),
+        y: -50,
+        img: game.item[getRandomInt(4, 7)],
+        dmg: 1
+      });
+    }
 
-//interaction
-for (i in game.goodfood) {
-  game.goodfood[i].y += 2;
-  //border
-  if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
+    //interaction
+    for (i in game.goodfood) {
+      game.goodfood[i].y += 2;
+      //border
+      if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
 
-  if (Math.abs(game.cat.x + 55 - (game.goodfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.goodfood[i].y) < 40) {
-    game.goodfood.splice(i, 1);
-    game.score++;
-    $('.score').html(game.score);
-    if(Sounds)eating.play();
-  }
-}
-for (i in game.badfood) {
-  game.badfood[i].y += 2;
-  //border
-  if (game.badfood[i].y >= 710) game.badfood.splice(i, 1);
+      if (Math.abs(game.badfood[i].x - game.cat.x - 35) < 50 && Math.abs(game.badfood[i].y - game.cat.y - 40) < 30) {
+        game.goodfood.splice(i, 1);
+        game.score++;
+        $('.score').html(game.score);
+        if (Sounds) eating.play();
+      }
+    }
+    for (i in game.badfood) {
+      game.badfood[i].y += 2;
+      //border
+      if (game.badfood[i].y >= 710) game.badfood.splice(i, 1);
 
-  if (Math.abs(game.cat.x + 55 - (game.badfood[i].x + 12)) < 45 && Math.abs(game.cat.y + 40 - game.badfood[i].y) < 40) {
-    game.badfood.splice(i, 1);
-    game.cat.health.hp++;
-    if(game.cat.health.hp == 4) {
-      game.cat.health.hp=0;
-      game.score = 0;
-      $('.score').html(game.score);
-    } 
-    if(Sounds) meow.play();
-  }
-}
-//FOOD
+      if (Math.abs(game.badfood[i].x - game.cat.x - 35) < 50 && Math.abs(game.badfood[i].y - game.cat.y - 40) < 30) {
+        game.badfood.splice(i, 1);
+        game.cat.health.hp++;
+        if (game.cat.health.hp == 4) {
+          game.cat.health.hp = 0;
+          game.score = 0;
+          $('.score').html(game.score);
+        }
+        if (Sounds) meow.play();
+      }
+    }
+    //FOOD
   },
   update: function () {
     this.time++;
