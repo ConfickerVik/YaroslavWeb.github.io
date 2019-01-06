@@ -258,6 +258,9 @@ window.addEventListener("load", function () {
     resizeCanvas();
   });
 });
+image.onload = function(){
+  alert('Image finished loading');
+};
 window.addEventListener("resize", function () {
   resizeCanvas();
 });
