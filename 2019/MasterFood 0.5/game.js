@@ -75,10 +75,10 @@ var game = {
     for (var i = 0; i < 8; i++) {
       game.cat.state[1][i] = new Image(); //run left
       game.cat.state[2][i] = new Image(); //run right
-      game.cat.state[3][i] = new Image(); //jump right
+     // game.cat.state[3][i] = new Image(); //jump right
       game.cat.state[1][i].src = 'assets/sprites/cat0/run/left/Run(' + i + ').png';
       game.cat.state[2][i].src = 'assets/sprites/cat0/run/right/Run(' + i + ').png';
-      game.cat.state[3][i].src = 'assets/sprites/cat0/jump/Jump (' + i + ').png';
+      //game.cat.state[3][i].src = 'assets/sprites/cat0/jump/Jump (' + i + ').png';
     }
     //CAT ASSETS
     //FOOD ASSETS
@@ -125,17 +125,28 @@ var game = {
     if (inputState.RIGHT || button1) moveRight();
     else if (inputState.LEFT || button2) moveLeft();
     else stand();
+    
+    if(inputState.JUMP && game.cat.jumping == false) jump();
 
-    if (inputState.RIGHTJUMP && game.cat.jumping == false) {
-      jump();
-    }
+  /* Jump animation
+    if(game.cat.jumping){
+      if (game.cat.anim1 >= 7) {
+        game.cat.anim1 = 0;
+      }
+      game.cat.anim0 = 3;
 
+      if(game.time % 8 == 0){
+        game.cat.anim1++;
+      }
+    }*/
 
     //Cat jump
     function jump() {
-      game.cat.velocity_y = -25;
+      game.cat.velocity_y = -30;
+      //game.cat.anim1 = 0;
       game.cat.jumping = true;
     }
+
     //Cat idle
     function stand() {
       if (game.time % 8 == 0) {
@@ -148,11 +159,12 @@ var game = {
 
     //CAT move left
     function moveLeft() {
-      if (game.cat.anim1 < 9 && game.cat.anim1 > 6) {
+      game.cat.velocity_x -= 0.6;
+
+      if (game.cat.anim1 >= 7) {
         game.cat.anim1 = 0;
       }
       game.cat.anim0 = 1;
-      game.cat.velocity_x -= 0.6;
       if (game.time % 4 == 0) {
         game.cat.anim1++;
         if (game.cat.anim1 == 7)
@@ -161,11 +173,12 @@ var game = {
     }
     //CAT move right
     function moveRight() {
-      if (game.cat.anim1 < 9 && game.cat.anim1 > 6) {
+      game.cat.velocity_x += 0.6;
+
+      if (game.cat.anim1 >= 7) {
         game.cat.anim1 = 0;
       }
       game.cat.anim0 = 2;
-      game.cat.velocity_x += 0.6;
       if (game.time % 4 == 0) {
         game.cat.anim1++;
         if (game.cat.anim1 == 7)
@@ -219,7 +232,7 @@ var game = {
       //border
       if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
 
-      if (Math.abs(game.goodfood[i].x - game.cat.x - 35) < 50 && Math.abs(game.goodfood[i].y - game.cat.y - 40) < 30) {
+      if (Math.abs(game.goodfood[i].x - game.cat.x - 45) < 50 && Math.abs(game.goodfood[i].y - game.cat.y - 40) < 30) {
         game.goodfood.splice(i, 1);
         game.score++;
         $('.score').html(game.score);
@@ -231,7 +244,7 @@ var game = {
       //border
       if (game.badfood[i].y >= 710) game.badfood.splice(i, 1);
 
-      if (Math.abs(game.badfood[i].x - game.cat.x - 35) < 50 && Math.abs(game.badfood[i].y - game.cat.y - 40) < 30) {
+      if (Math.abs(game.badfood[i].x - game.cat.x - 45) < 50 && Math.abs(game.badfood[i].y - game.cat.y - 40) < 30) {
         game.badfood.splice(i, 1);
         game.cat.health.hp++;
         if (game.cat.health.hp == 4) {
@@ -289,3 +302,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 //RANDOM NUMBER GENERATOR
+
+
+
+
