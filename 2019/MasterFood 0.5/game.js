@@ -28,13 +28,24 @@ var resizeCanvas = function () {
 };
 //DISPLAY settings
 
-//BACkGORUND ASSETS
-
+$('.game-menu').click(function () {
+  if (game.pause == false) {
+    $(this).removeClass('pause');
+    $(this).addClass('play');
+    game.pause = true;
+  }
+  else if (game.pause) {
+    $(this).removeClass('play');
+    $(this).addClass('pause');
+    game.pause = false;
+  };
+});
 
 var game = {
-
+  pause: false,
   time: 0,
   score: 0,
+  score_x: 1200,
   background: undefined,
   item: [],
   goodfood: [],
@@ -105,7 +116,6 @@ var game = {
 
   render: function () {
     //draw background
-
     ctx.drawImage(this.background, 0, 0, WIDTH, HEIGHT);
 
     //draw cat
@@ -121,6 +131,9 @@ var game = {
     for (i in game.badfood) {
       ctx.drawImage(game.badfood[i].img, game.badfood[i].x, game.badfood[i].y, 35, 45);
     }
+    ctx.font = "120px Bahnschrift";
+    ctx.fillStyle = 'rgb(240, 248, 255, 0.85)';
+    ctx.fillText(game.score, game.score_x, 100);
     //ctx.fillRect(0, 0, WIDTH, HEIGHT)
     //ctx.fillStyle = "rgb(25,100,0, 0.1)"
   },
@@ -132,9 +145,9 @@ var game = {
     else if (inputState.LEFT || button2) moveLeft();
     else stand();
 
-    if ((inputState.JUMP||button3) && game.cat.jumping == false && game.cat.slidingLeft == false && game.cat.slidingRight == false) jump();
+    if ((inputState.JUMP || button3) && game.cat.jumping == false && game.cat.slidingLeft == false && game.cat.slidingRight == false) jump();
     if (inputState.SLIDE && inputState.LEFT && game.cat.slidingLeft == false && game.cat.slidingTimer) slideLeft();
-    if (inputState.SLIDE && inputState.RIGHT &&  game.cat.slidingRight == false && game.cat.slidingTimer) slideRight();
+    if (inputState.SLIDE && inputState.RIGHT && game.cat.slidingRight == false && game.cat.slidingTimer) slideRight();
 
     //Cat slide
     function slideLeft() {
@@ -175,7 +188,7 @@ var game = {
       setTimeout(slideTimerTrue, 2000);
     };
 
-    function slideTimerTrue(){
+    function slideTimerTrue() {
       game.cat.slidingTimer = true;
     }
     //Cat jump
@@ -276,7 +289,6 @@ var game = {
       if (Math.abs(game.goodfood[i].x - game.cat.x - 45) < 50 && Math.abs(game.goodfood[i].y - game.cat.y - 40) < 30) {
         game.goodfood.splice(i, 1);
         game.score++;
-        $('.score').html(game.score);
         if (Sounds) eating.play();
       }
     }
@@ -291,17 +303,38 @@ var game = {
         if (game.cat.health.hp == 4) {
           game.cat.health.hp = 0;
           game.score = 0;
-          $('.score').html(game.score);
         }
         if (Sounds) meow.play();
       }
     }
     //FOOD
   },
+  updateScore: function () {
+    switch (game.score) {
+      case 0:
+        game.score_x = 1200;
+        break;
+      case 10:
+        game.score_x = 1160;
+        break;
+      case 100:
+        game.score_x = 1090;
+        break;
+      case 1000:
+        game.score_x = 1040;
+        break;
+      case 10000:
+        game.score_x = 900;
+        break;
+    }
+  },
   update: function () {
-    this.time++;
-    game.updatePlayer();
-    game.updateItems();
+    if(game.pause == false){
+      this.time++;
+      game.updatePlayer();
+      game.updateItems();
+      game.updateScore();
+    }
   },
 
   run: function () {

@@ -34,7 +34,8 @@ var inputState = {
   RIGHT: false,
   LEFT: false,
   JUMP:false,
-  SLIDE:false
+  SLIDE:false,
+  ENTER:false
 }
 
 var setKeyState = function (keyCode, isPressed) {
@@ -48,13 +49,17 @@ var setKeyState = function (keyCode, isPressed) {
       inputState.LEFT = isPressed;
       break;
     case 87:
-    case 32:
     case 38:
       inputState.JUMP = isPressed;
       break;
     case 83:
     case 40:
       inputState.SLIDE = isPressed;
+      break;
+    case 32:
+    case 13:
+      inputState.ENTER = isPressed;
+      break;
   }
 };
 var keydownHandler = (e) => {
