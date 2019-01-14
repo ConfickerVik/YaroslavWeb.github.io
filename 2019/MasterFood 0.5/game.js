@@ -132,7 +132,7 @@ var game = {
     else if (inputState.LEFT || button2) moveLeft();
     else stand();
 
-    if (inputState.JUMP && game.cat.jumping == false && game.cat.slidingLeft == false && game.cat.slidingRight == false) jump();
+    if ((inputState.JUMP||button3) && game.cat.jumping == false && game.cat.slidingLeft == false && game.cat.slidingRight == false) jump();
     if (inputState.SLIDE && inputState.LEFT && game.cat.slidingLeft == false && game.cat.slidingTimer) slideLeft();
     if (inputState.SLIDE && inputState.RIGHT &&  game.cat.slidingRight == false && game.cat.slidingTimer) slideRight();
 

@@ -7,11 +7,21 @@ canvas {
   border-radius: 2%;
   justify-self: center;
 }
-
 .score {
   color: aliceblue;
   opacity: .7;
   font-size: 100px;
   position: absolute;
-  z-index: 2;
+}
+.pause{
+  background: url(assets/sprites/icons/pause.png) 100% 100% no-repeat;
+  position: absolute;
+  opacity: .9;
+  right: 10%;;
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+}
+.pause:hover{
+  transform: scale(0.9);  
 }
