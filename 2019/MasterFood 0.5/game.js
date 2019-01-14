@@ -9,8 +9,8 @@ var canvas = document.getElementById('canvas'),
 //canvas and game  width and height
 
 var resizeCanvas = function () {
-  CANVAS_WIDTH = window.innerWidth - 48;
-  CANVAS_HEIGHT = window.innerHeight - 5;
+  CANVAS_WIDTH = window.innerWidth - 64;
+  CANVAS_HEIGHT = window.innerHeight - 16;
 
   var ratio = 16 / 9
   if (CANVAS_HEIGHT < CANVAS_WIDTH)
@@ -46,6 +46,9 @@ var game = {
     width: 160,
     height: 160,
     jumping: false,
+    slidingLeft: false,
+    slidingRight: false,
+    slidingTimer: true,
     health: {
       img: [],
       hp: 0
@@ -65,7 +68,7 @@ var game = {
     $('.score').html(game.score);
 
     //CAT ASSETS
-    for (var i = 0, m = 4; i < m; i++) {
+    for (var i = 0, m = 5; i < m; i++) {
       game.cat.state[i] = [];
     }
     for (var i = 0; i < 9; i++) {
@@ -75,10 +78,13 @@ var game = {
     for (var i = 0; i < 8; i++) {
       game.cat.state[1][i] = new Image(); //run left
       game.cat.state[2][i] = new Image(); //run right
-     // game.cat.state[3][i] = new Image(); //jump right
+      game.cat.state[3][i] = new Image(); //slide left
+      game.cat.state[4][i] = new Image(); //slide right
+
       game.cat.state[1][i].src = 'assets/sprites/cat0/run/left/Run(' + i + ').png';
       game.cat.state[2][i].src = 'assets/sprites/cat0/run/right/Run(' + i + ').png';
-      //game.cat.state[3][i].src = 'assets/sprites/cat0/jump/Jump (' + i + ').png';
+      game.cat.state[3][i].src = 'assets/sprites/cat0/slide/Left/Slide (' + i + ').png';
+      game.cat.state[4][i].src = 'assets/sprites/cat0/slide/Right/Slide (' + i + ').png';
     }
     //CAT ASSETS
     //FOOD ASSETS
@@ -120,30 +126,61 @@ var game = {
   },
 
   updatePlayer: function () {
-    //CAT CONFIGURATION
-    //button presses
+    //Cat CONFIGURATION
+    //Button presses
     if (inputState.RIGHT || button1) moveRight();
     else if (inputState.LEFT || button2) moveLeft();
     else stand();
-    
-    if(inputState.JUMP && game.cat.jumping == false) jump();
 
-  /* Jump animation
-    if(game.cat.jumping){
+    if (inputState.JUMP && game.cat.jumping == false && game.cat.slidingLeft == false && game.cat.slidingRight == false) jump();
+    if (inputState.SLIDE && inputState.LEFT && game.cat.slidingLeft == false && game.cat.slidingTimer) slideLeft();
+    if (inputState.SLIDE && inputState.RIGHT &&  game.cat.slidingRight == false && game.cat.slidingTimer) slideRight();
+
+    //Cat slide
+    function slideLeft() {
+      game.cat.velocity_x = -35;
+      game.cat.slidingLeft = true;
+      game.cat.slidingTimer = false;
+    };
+
+    function slideRight() {
+      game.cat.velocity_x = 35;
+      game.cat.slidingRight = true;
+      game.cat.slidingTimer = false;
+    };
+
+    if (game.cat.slidingLeft) {
       if (game.cat.anim1 >= 7) {
         game.cat.anim1 = 0;
       }
       game.cat.anim0 = 3;
+      if (game.time % 5 == 0) game.cat.anim1++;
+    };
 
-      if(game.time % 8 == 0){
-        game.cat.anim1++;
+    if (game.cat.slidingRight) {
+      if (game.cat.anim1 >= 7) {
+        game.cat.anim1 = 0;
       }
-    }*/
+      game.cat.anim0 = 4;
+      if (game.time % 5 == 0) game.cat.anim1++;
+    };
 
+    if (game.cat.velocity_x > -2 && game.cat.slidingLeft == true) {
+      game.cat.slidingLeft = false;
+      setTimeout(slideTimerTrue, 2000);
+    };
+
+    if (game.cat.velocity_x < 2 && game.cat.slidingRight == true) {
+      game.cat.slidingRight = false;
+      setTimeout(slideTimerTrue, 2000);
+    };
+
+    function slideTimerTrue(){
+      game.cat.slidingTimer = true;
+    }
     //Cat jump
     function jump() {
       game.cat.velocity_y = -30;
-      //game.cat.anim1 = 0;
       game.cat.jumping = true;
     }
 
@@ -159,39 +196,43 @@ var game = {
 
     //CAT move left
     function moveLeft() {
-      game.cat.velocity_x -= 0.6;
+      if (game.cat.slidingLeft == false) {
+        game.cat.velocity_x -= 0.6;
 
-      if (game.cat.anim1 >= 7) {
-        game.cat.anim1 = 0;
-      }
-      game.cat.anim0 = 1;
-      if (game.time % 4 == 0) {
-        game.cat.anim1++;
-        if (game.cat.anim1 == 7)
-          game.cat.anim1 = 0
+        if (game.cat.anim1 >= 7) {
+          game.cat.anim1 = 0;
+        }
+        game.cat.anim0 = 1;
+        if (game.time % 4 == 0) {
+          game.cat.anim1++;
+          if (game.cat.anim1 == 7)
+            game.cat.anim1 = 0
+        }
       }
     }
     //CAT move right
     function moveRight() {
-      game.cat.velocity_x += 0.6;
+      if (game.cat.slidingRight == false) {
+        game.cat.velocity_x += 0.6;
 
-      if (game.cat.anim1 >= 7) {
-        game.cat.anim1 = 0;
-      }
-      game.cat.anim0 = 2;
-      if (game.time % 4 == 0) {
-        game.cat.anim1++;
-        if (game.cat.anim1 == 7)
-          game.cat.anim1 = 0
+        if (game.cat.anim1 >= 7) {
+          game.cat.anim1 = 0;
+        }
+        game.cat.anim0 = 2;
+        if (game.time % 4 == 0) {
+          game.cat.anim1++;
+          if (game.cat.anim1 == 7)
+            game.cat.anim1 = 0
+        }
       }
     }
-
     // simulate friction:
     game.cat.velocity_x *= 0.91;
     game.cat.x += game.cat.velocity_x;
 
     game.cat.velocity_y *= 0.9;
     game.cat.y += game.cat.velocity_y;
+
     //gravity
     if (game.cat.y + game.cat.height > 640) {
       game.cat.y = 640 - game.cat.height;
@@ -302,7 +343,3 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 //RANDOM NUMBER GENERATOR
-
-
-
-

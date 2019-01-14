@@ -1,5 +1,7 @@
 //MOBILE CONTROLLER
-var button1, button2;
+var button1=false,
+    button2=false,
+    button3=false;
 
 var el = document.getElementsByTagName('body')[0];
 
@@ -21,6 +23,27 @@ function handleEnd(e) {
     button1 = false
   }
 };
+/*
+var el = document.getElementById('game');
+
+// create a simple instance
+// by default, it only adds horizontal recognizers
+var el = new Hammer(el);
+
+// let the pan gesture support all directions.
+// this will block the vertical scrolling on a touch-device while on the element
+mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+
+// listen to events...
+mc.on("panup pandown tap press", function(ev) {
+    if(ev.type == 'tap' || ev.type == 'press'){
+      if()
+      button1 = true;
+
+      button2 = true;
+    }
+});*/
+
 //MOBILE CONTROLLER
 
 
@@ -28,7 +51,8 @@ function handleEnd(e) {
 var inputState = {
   RIGHT: false,
   LEFT: false,
-  JUMP:false
+  JUMP:false,
+  SLIDE:false
 }
 
 var setKeyState = function (keyCode, isPressed) {
@@ -42,8 +66,13 @@ var setKeyState = function (keyCode, isPressed) {
       inputState.LEFT = isPressed;
       break;
     case 87:
+    case 32:
+    case 38:
       inputState.JUMP = isPressed;
       break;
+    case 83:
+    case 40:
+      inputState.SLIDE = isPressed;
   }
 };
 var keydownHandler = (e) => {
