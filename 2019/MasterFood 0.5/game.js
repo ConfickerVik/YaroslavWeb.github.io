@@ -41,6 +41,7 @@ $('.game-menu').click(function () {
   };
 });
 
+
 var game = {
   pause: false,
   time: 0,
