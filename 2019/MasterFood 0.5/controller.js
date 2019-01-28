@@ -1,29 +1,78 @@
 //MOBILE CONTROLLER
-var button1=false,
-    button2=false,
-    button3=false,
-    button4=false;
+var button1 = false,//влево
+  button2 = false,//вправо
+  button3 = false,//прыжок
+  button4 = false;//скольжение
 
+/*
 var el = document.getElementsByTagName('body')[0];
 
-el.addEventListener("touchstart", handler, false);
+el.addEventListener("touchstart", handle, false);
 el.addEventListener("touchend", handleEnd, false);
-el.addEventListener("touchmove", handler, false);
+el.addEventListener("touchmove", handle, false);
 
-function handler(e) {
+function handle(e) {
   button2 = !(button1 = (window.innerWidth / 2) < e.changedTouches[0].pageX);
 };
 
 function handleEnd(e) {
+
   var touches = e.changedTouches;
-  if (window.innerWidth / 2 < touches[0].pageX)
-    button1 = false;
-  button2 = false;
-  if (window.innerWidth / 2 > touches[0].pageX) {
-    button2 = false;
-    button1 = false
-  }
-};
+
+}; */
+
+  var el = document.getElementsByTagName('body')[0],
+  swipedir,
+  startY,
+  distY;
+
+  el.addEventListener('touchstart', function(e){
+      button2 = !(button1 = (window.innerWidth / 2) < e.changedTouches[0].pageX);
+      swipedir = 'none'
+      distY = 0
+      startY = e.changedTouches[0].pageY
+  }, false)
+
+  el.addEventListener('touchmove', function(e){
+    button2 = !(button1 = (window.innerWidth / 2) < e.changedTouches[0].pageX);
+  }, false)
+
+  el.addEventListener('touchend', function(e){
+      var touchobj = e.changedTouches[0];
+
+      if (window.innerWidth / 2 < e.changedTouches[0].pageX) {
+        button1 = false;
+        button2 = false;
+      }
+      if (window.innerWidth / 2 > e.changedTouches[0].pageX) {
+        button2 = false;
+        button1 = false;
+      }
+
+      distY = e.changedTouches[0].pageY - startY;
+      if(distY < 0 && distY <= 40){
+        button3=true;
+        setTimeout(function(){
+          button3 = false;
+        }, 300)
+      };
+
+      if(distY > 0 && distY >= 30){
+        if(game.cat.slidingTimer == true){
+          button4=true;
+          setTimeout(function(){
+            button4 = false;
+          }, 10)
+        }
+      }
+  }, false)
+
+
+//USAGE:
+
+
+
+
 
 
 //MOBILE CONTROLLER
@@ -33,9 +82,9 @@ function handleEnd(e) {
 var inputState = {
   RIGHT: false,
   LEFT: false,
-  JUMP:false,
-  SLIDE:false,
-  ENTER:false
+  JUMP: false,
+  SLIDE: false,
+  ENTER: false
 }
 
 var setKeyState = function (keyCode, isPressed) {

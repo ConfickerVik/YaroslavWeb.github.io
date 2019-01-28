@@ -17,6 +17,19 @@ canvas {
 .game-menu:hover{
   transform: scale(0.9);  
 }
+
+.game-menu1{
+  background: #E8A40C;
+  border-radius: 10%;
+  display: none;
+  position: absolute;
+  left: 25%;
+  opacity: .8;
+  border:1px solid black;
+  height: 200px;
+  width: 150px;
+  z-index: 5;
+}
 .pause{
   background: url(assets/sprites/icons/pause.png) 100% 100% no-repeat;
   background-size: cover;

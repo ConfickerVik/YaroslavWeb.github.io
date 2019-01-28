@@ -32,11 +32,13 @@ $('.game-menu').click(function () {
   if (game.pause == false) {
     $(this).removeClass('pause');
     $(this).addClass('play');
+    $('.game-menu1').show();
     game.pause = true;
   }
   else if (game.pause) {
     $(this).removeClass('play');
     $(this).addClass('pause');
+    $('.game-menu1').hide();
     game.pause = false;
   };
 });
@@ -135,8 +137,15 @@ var game = {
     ctx.font = "120px Bahnschrift";
     ctx.fillStyle = 'rgb(240, 248, 255, 0.85)';
     ctx.fillText(game.score, game.score_x, 100);
-    //ctx.fillRect(0, 0, WIDTH, HEIGHT)
-    //ctx.fillStyle = "rgb(25,100,0, 0.1)"
+    
+    /*
+    if(game.pause){
+      ctx.fillRect(0, 0, WIDTH, HEIGHT)
+      ctx.fillStyle = "rgb(0,0,0, 0.5)"
+    }
+*/
+
+
   },
 
   updatePlayer: function () {
@@ -147,8 +156,8 @@ var game = {
     else stand();
 
     if ((inputState.JUMP || button3) && game.cat.jumping == false && game.cat.slidingLeft == false && game.cat.slidingRight == false) jump();
-    if (inputState.SLIDE && inputState.LEFT && game.cat.slidingLeft == false && game.cat.slidingTimer) slideLeft();
-    if (inputState.SLIDE && inputState.RIGHT && game.cat.slidingRight == false && game.cat.slidingTimer) slideRight();
+    if ((inputState.SLIDE && inputState.LEFT && game.cat.slidingLeft == false && game.cat.slidingTimer) || (button4 && button1)) slideLeft();
+    if ((inputState.SLIDE && inputState.RIGHT && game.cat.slidingRight == false && game.cat.slidingTimer) || (button4 && button2)) slideRight();
 
     //Cat slide
     function slideLeft() {
