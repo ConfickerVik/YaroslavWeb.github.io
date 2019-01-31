@@ -178,7 +178,7 @@ var game = {
 
     if ((inputState.JUMP || button3) && game.cat.jumping == false && game.cat.slidingLeft == false && game.cat.slidingRight == false) jump();
     if ((inputState.SLIDE && inputState.LEFT && game.cat.slidingLeft == false && game.cat.slidingTimer) || (button5 && game.cat.lastMoveLeft)) slideLeft();
-    if ((inputState.SLIDE && inputState.RIGHT && game.cat.slidingRight == false && game.cat.slidingTimer) || (button4 && game.cat.lastMoveRight)) slideRight();
+    if ((inputState.SLIDE && game.cat.slidingRight == false && game.cat.slidingTimer) || (button4 && game.cat.lastMoveRight)) slideRight();
 
     //Cat slide
     function slideLeft() {
@@ -347,7 +347,7 @@ var game = {
   updateScore: function () {
     switch (game.score) {
       case 0:
-        game.score_x = 1200;
+        game.score_x = 1190;
         break;
       case 10:
         game.score_x = 1160;
