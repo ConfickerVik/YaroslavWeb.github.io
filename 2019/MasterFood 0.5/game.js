@@ -136,17 +136,16 @@ var game = {
     for (i in game.badfood) {
       ctx.drawImage(game.badfood[i].img, game.badfood[i].x, game.badfood[i].y, 35, 45);
     }
+
+    
     ctx.font = "120px Bahnschrift";
     ctx.fillStyle = 'rgb(240, 248, 255, 0.85)';
     ctx.fillText(game.score, game.score_x, 100);
-    
-    /*
-    if(game.pause){
-      ctx.fillRect(0, 0, WIDTH, HEIGHT)
-      ctx.fillStyle = "rgb(0,0,0, 0.5)"
-    }
-*/
 
+    if(game.pause==true){
+      ctx.fillStyle = "rgb(0,0,0, 0.5)"
+      ctx.fillRect(0, 0, WIDTH, HEIGHT)
+    }
 
   },
 
