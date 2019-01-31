@@ -42,6 +42,9 @@ var button1 = false,//Left
 
       if(distY > 0 && distY >= 30){
         if(game.cat.slidingTimer == true){
+          if(game.cat.lastMoveLeft == true && game.cat.lastMoveRight == false)
+          button5=true;
+          if(game.cat.lastMoveLeft == false && game.cat.lastMoveRight == true)
           button4=true;
           setTimeout(function(){
             button4 = false;

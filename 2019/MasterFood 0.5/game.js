@@ -47,7 +47,7 @@ $('.game-menu').click(function () {
 var game = {
   pause: false,
   time: 0,
-  score: 1000,
+  score: 0,
   score_x: 1200,
   background: undefined,
   item: [],
@@ -63,6 +63,8 @@ var game = {
     slidingLeft: false,
     slidingRight: false,
     slidingTimer: true,
+    lastMoveRight: true,
+    lastMoveLeft: false,
     health: {
       img: [],
       hp: 0
@@ -156,8 +158,8 @@ var game = {
     else stand();
 
     if ((inputState.JUMP || button3) && game.cat.jumping == false && game.cat.slidingLeft == false && game.cat.slidingRight == false) jump();
-    if ((inputState.SLIDE && inputState.LEFT && game.cat.slidingLeft == false && game.cat.slidingTimer) || (button4 && button1)) slideLeft();
-    if ((inputState.SLIDE && inputState.RIGHT && game.cat.slidingRight == false && game.cat.slidingTimer) || (button4 && button2)) slideRight();
+    if ((inputState.SLIDE && inputState.LEFT && game.cat.slidingLeft == false && game.cat.slidingTimer) || (button5 && game.cat.lastMoveLeft)) slideLeft();
+    if ((inputState.SLIDE && inputState.RIGHT && game.cat.slidingRight == false && game.cat.slidingTimer) || (button4 && game.cat.lastMoveRight)) slideRight();
 
     //Cat slide
     function slideLeft() {
@@ -221,6 +223,8 @@ var game = {
     function moveLeft() {
       if (game.cat.slidingLeft == false) {
         game.cat.velocity_x -= 0.6;
+        game.cat.lastMoveRight = false;
+        game.cat.lastMoveLeft = true;
 
         if (game.cat.anim1 >= 7) {
           game.cat.anim1 = 0;
@@ -237,6 +241,8 @@ var game = {
     function moveRight() {
       if (game.cat.slidingRight == false) {
         game.cat.velocity_x += 0.6;
+        game.cat.lastMoveLeft=false;
+        game.cat.lastMoveRight=true;
 
         if (game.cat.anim1 >= 7) {
           game.cat.anim1 = 0;
