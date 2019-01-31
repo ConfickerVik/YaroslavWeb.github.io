@@ -47,7 +47,7 @@ $('.game-menu').click(function () {
 var game = {
   pause: false,
   time: 0,
-  score: 0,
+  score: 1000,
   score_x: 1200,
   background: undefined,
   item: [],

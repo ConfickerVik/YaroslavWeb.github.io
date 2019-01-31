@@ -1,25 +1,9 @@
 //MOBILE CONTROLLER
-var button1 = false,//влево
-  button2 = false,//вправо
-  button3 = false,//прыжок
-  button4 = false;//скольжение
-
-/*
-var el = document.getElementsByTagName('body')[0];
-
-el.addEventListener("touchstart", handle, false);
-el.addEventListener("touchend", handleEnd, false);
-el.addEventListener("touchmove", handle, false);
-
-function handle(e) {
-  button2 = !(button1 = (window.innerWidth / 2) < e.changedTouches[0].pageX);
-};
-
-function handleEnd(e) {
-
-  var touches = e.changedTouches;
-
-}; */
+var button1 = false,//Left
+  button2 = false,//Right
+  button3 = false,//jump
+  button4 = false,//slide right
+  button5 = false;// slide left 
 
   var el = document.getElementsByTagName('body')[0],
   swipedir,
@@ -38,7 +22,6 @@ function handleEnd(e) {
   }, false)
 
   el.addEventListener('touchend', function(e){
-      var touchobj = e.changedTouches[0];
 
       if (window.innerWidth / 2 < e.changedTouches[0].pageX) {
         button1 = false;
@@ -62,6 +45,7 @@ function handleEnd(e) {
           button4=true;
           setTimeout(function(){
             button4 = false;
+            button5 = false;
           }, 10)
         }
       }
