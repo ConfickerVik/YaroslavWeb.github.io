@@ -165,7 +165,6 @@ var game = {
       ctx.fill();
       ctx.stroke();
 
-      ctx.drawImage();
     }
 
   },
