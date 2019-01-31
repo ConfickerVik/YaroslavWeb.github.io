@@ -39,6 +39,7 @@ $('.startGame').click(function () {
   eating.play();
   meow.play();
   $('#game').fadeIn(1000);
+
 });
 
 //Alert

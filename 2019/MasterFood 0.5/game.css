@@ -10,26 +10,15 @@ canvas {
 .game-menu{
   position: absolute;
   opacity: .8;
-  width: 100px;
-  height: 100px;
+  width: 7%;
+  height: 14%;
   transition: all .2s linear;
 }
 .game-menu:hover{
   transform: scale(0.9);  
 }
-/*
-.game-menu1{
-  background: #E8A40C;
-  border-radius: 10%;
-  display: none;
-  position: absolute;
-  left: 25%;
-  opacity: .8;
-  border:1px solid black;
-  height: 200px;
-  width: 150px;
-  z-index: 5;
-} */
+
+
 .pause{
   background: url(assets/sprites/icons/pause.png) 100% 100% no-repeat;
   background-size: cover;
@@ -39,15 +28,3 @@ canvas {
   background-size: cover;
 }
 
-@media(max-height:570px) and (max-width:860px){
-  .game-menu {
-    width: 60px;
-    height: 60px;
-  }
-}
-@media(max-width:650px) and (max-height:1000px){
-  .game-menu {
-    width: 50px;
-    height: 50px;
-  }
-}

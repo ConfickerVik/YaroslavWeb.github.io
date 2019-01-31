@@ -32,13 +32,10 @@ $('.game-menu').click(function () {
   if (game.pause == false) {
     $(this).removeClass('pause');
     $(this).addClass('play');
-    $('.game-menu1').show();
     game.pause = true;
-  }
-  else if (game.pause) {
+  } else if (game.pause) {
     $(this).removeClass('play');
     $(this).addClass('pause');
-    $('.game-menu1').hide();
     game.pause = false;
   };
 });
@@ -53,6 +50,7 @@ var game = {
   item: [],
   goodfood: [],
   badfood: [],
+  menu: [],
 
   cat: {
     x: 10,
@@ -103,25 +101,36 @@ var game = {
       game.cat.state[4][i].src = 'assets/sprites/cat0/slide/Right/Slide (' + i + ').png';
     }
     //CAT ASSETS
+
     //FOOD ASSETS
     for (var i = 0; i <= 6; i++) {
-      this.item[i] = new Image();
-      this.item[i].src = 'assets/sprites/food/food' + i + '.png';
+      game.item[i] = new Image();
+      game.item[i].src = 'assets/sprites/food/food' + i + '.png';
     }
-    //FOOD ASSETS
 
     //HitPoints ASSETS
     for (var i = 0; i <= 4; i++) {
-      this.cat.health.img[i] = new Image();
-      this.cat.health.img[i].src = 'assets/sprites/HitPoint/HP' + i + '.png';
+      game.cat.health.img[i] = new Image();
+      game.cat.health.img[i].src = 'assets/sprites/HitPoint/HP' + i + '.png';
     }
-    //HitPoints ASSETS
 
+    //Menu
+    game.menu[1] = new Image();
+    game.menu[1] = 'assets/sprites/icons/mscOn.png'
+
+    game.menu[2] = new Image();
+    game.menu[2] = 'assets/sprites/icons/mscOff.png'
+
+    game.menu[3] = new Image();
+    game.menu[3] = 'assets/sprites/icons/replay.png'
+
+    game.menu[4] = new Image();
+    game.menu[4] = 'assets/sprites/icons/menu.png'
   },
 
   render: function () {
     //draw background
-    ctx.drawImage(this.background, 0, 0, WIDTH, HEIGHT);
+    ctx.drawImage(game.background, 0, 0, WIDTH, HEIGHT);
 
     //draw cat
     ctx.drawImage(game.cat.state[game.cat.anim0][game.cat.anim1], game.cat.x, game.cat.y, game.cat.width, game.cat.height);
@@ -137,14 +146,26 @@ var game = {
       ctx.drawImage(game.badfood[i].img, game.badfood[i].x, game.badfood[i].y, 35, 45);
     }
 
-    
+    //render score
     ctx.font = "120px Bahnschrift";
     ctx.fillStyle = 'rgb(240, 248, 255, 0.85)';
     ctx.fillText(game.score, game.score_x, 100);
 
-    if(game.pause==true){
-      ctx.fillStyle = "rgb(0,0,0, 0.5)"
-      ctx.fillRect(0, 0, WIDTH, HEIGHT)
+    //render pause menu
+    if (game.pause == true) {
+      ctx.fillStyle = "rgb(0,0,0, 0.2)";
+      ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+      ctx.beginPath();
+      ctx.rect(350, 40, 600, 550);
+      ctx.lineWidth = 5;
+      ctx.closePath();
+      ctx.strokeStyle = "rgb(240,248,255, 0.2)";
+      ctx.fillStyle = 'rgb(232, 164, 12, 0.5)';
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.drawImage();
     }
 
   },
@@ -240,8 +261,8 @@ var game = {
     function moveRight() {
       if (game.cat.slidingRight == false) {
         game.cat.velocity_x += 0.6;
-        game.cat.lastMoveLeft=false;
-        game.cat.lastMoveRight=true;
+        game.cat.lastMoveLeft = false;
+        game.cat.lastMoveRight = true;
 
         if (game.cat.anim1 >= 7) {
           game.cat.anim1 = 0;
@@ -344,7 +365,7 @@ var game = {
     }
   },
   update: function () {
-    if(game.pause == false){
+    if (game.pause == false) {
       this.time++;
       game.updatePlayer();
       game.updateItems();
