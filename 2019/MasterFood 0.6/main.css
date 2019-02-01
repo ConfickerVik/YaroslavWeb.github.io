@@ -1,0 +1,50 @@
+
+   @font-face {
+    font-family: Bahnschrift; /* Гарнитура шрифта */
+    src: url(assets/fonts/Bahnschrift.ttf); /* Путь к файлу со шрифтом */
+   }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  outline: 0 !important;
+  overflow:  hidden; 
+}
+#SLG_balloon_obj{
+  display: none !important;
+}
+/*MAIN COLOR
+6BD042
+E8A40C
+FF0000
+2F0CE8
+0DFFCF
+*/
+
+html {
+  height: 100%;
+  width: 100%;
+
+  -webkit-text-size-adjust: none;
+}
+
+body {
+  align-content: space-around;
+  background-color: #202830;
+  color: #ffffff;
+  display: grid;
+  font-family: 'Bahnschrift';
+  justify-content: center;
+  min-height: 100%;
+  text-align: center;
+  margin: 0px;
+  width: 100%;
+
+
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -o-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
