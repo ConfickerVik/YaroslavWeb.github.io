@@ -61,6 +61,7 @@ var game = {
     slidingLeft: false,
     slidingRight: false,
     slidingTimer: true,
+    slidingColisionY: 65,
     lastMoveRight: true,
     lastMoveLeft: false,
     health: {
@@ -307,7 +308,7 @@ var game = {
   },
   updateItems: function () {
     //FOOD
-    if (game.time % 90 == 0) { //good FOOD
+    if (game.time % 60 == 0) { //good FOOD
       game.goodfood.push({
         x: getRandomInt(20, 1240),
         y: -50,
@@ -330,9 +331,13 @@ var game = {
       //border
       if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
 
-      if (Math.abs(game.goodfood[i].x - game.cat.x - 45) < 50 && Math.abs(game.goodfood[i].y - game.cat.y - 40) < 30) {
+      if(game.cat.slidingRight || game.cat.slidingLeft) game.cat.slidingColisionY = 30;
+      else game.cat.slidingColisionY = 65;
+
+      if (Math.abs(game.goodfood[i].x - game.cat.x - 55) < 60 && Math.abs(game.goodfood[i].y - game.cat.y - 70) < game.cat.slidingColisionY) {
         game.goodfood.splice(i, 1);
         game.score++;
+        
         if (sounds) eating.play();
       }
     }
@@ -354,23 +359,12 @@ var game = {
     //FOOD
   },
   updateScore: function () {
-    switch (game.score) {
-      case 0:
-        game.score_x = 1190;
-        break;
-      case 10:
-        game.score_x = 1160;
-        break;
-      case 100:
-        game.score_x = 1090;
-        break;
-      case 1000:
-        game.score_x = 1040;
-        break;
-      case 10000:
-        game.score_x = 900;
-        break;
-    }
+      if(game.score >= 0 && game.score < 10) game.score_x = 1190;
+      if(game.score >= 10 && game.score < 99) game.score_x = 1150;
+      if(game.score >= 100 && game.score < 999) game.score_x = 1090;
+      if(game.score >= 1000 && game.score < 9999) game.score_x = 1050;
+      if(game.score >= 10000 && game.score < 99999) game.score_x = 900;
+
   },
   update: function () {
     if (game.pause == false) {
