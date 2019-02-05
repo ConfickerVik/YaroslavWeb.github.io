@@ -54,14 +54,6 @@ var button1 = false,//Left
       }
   }, false)
 
-
-//USAGE:
-
-
-
-
-
-
 //MOBILE CONTROLLER
 
 
@@ -105,3 +97,10 @@ var keyupHandler = (e) => {
 document.addEventListener('keydown', keydownHandler);
 document.addEventListener('keyup', keyupHandler);
 //KEYBOARD CONTROLLER
+
+//PAUSE MENU
+var gameField = document.getElementById('canvas');
+gameField.addEventListener('mousemove', function(e) {
+  $('.cord').html(e.clientX + ' '+ e.clientY); 
+});
+//PAUSE MENU

@@ -45,6 +45,7 @@ var game = {
   pause: false,
   time: 0,
   score: 0,
+  bestScore:0,
   score_x: 1190,
   background: undefined,
   item: [],
@@ -117,16 +118,13 @@ var game = {
 
     //Menu
 
-    game.menu[1] = new Image();
+    for (var i = 0, m = 5; i < m; i++) {
+      game.menu[i] = new Image();
+    }
+    
     game.menu[1].src = 'assets/sprites/icons/replay.png'
-
-    game.menu[2] = new Image();
     game.menu[2].src = 'assets/sprites/icons/menu.png'
-
-    game.menu[3] = new Image();
     game.menu[3].src = 'assets/sprites/icons/mscOn.png'
-
-    game.menu[4] = new Image();
     game.menu[4].src = 'assets/sprites/icons/mscOff.png'
   },
 
@@ -167,19 +165,30 @@ var game = {
       ctx.fill();
       ctx.stroke();
 
+      ctx.font = "80px Bahnschrift";
+      ctx.fillStyle = 'rgb(240, 248, 255, 0.8)';
+      ctx.fillText('Лучший счёт', 400, 150);
+
+      ctx.font = "120px Bahnschrift";
+      ctx.fillStyle = 'rgb(240, 248, 255, 0.8)';
+      ctx.fillText(game.bestScore, 620, 300);
+      
       ctx.drawImage(game.menu[1], 375, 400, 150, 150);
       ctx.drawImage(game.menu[2], 575, 400, 150, 150);
+
       if(sounds){
-        ctx.drawImage(game.menu[3], 775, 400, 150, 150);
+         ctx.drawImage(game.menu[3], 775, 400, 150, 150);
       }
       else{
-        ctx.drawImage(game.menu[4], 775, 400, 150, 150);
+         ctx.drawImage(game.menu[4], 775, 400, 150, 150);
       }
     }
 
   },
 
   updatePlayer: function () {
+
+
     //Cat CONFIGURATION
     //Button presses
     if (inputState.RIGHT || button1) moveRight();
@@ -346,7 +355,7 @@ var game = {
       //border
       if (game.badfood[i].y >= 710) game.badfood.splice(i, 1);
 
-      if (Math.abs(game.badfood[i].x - game.cat.x - 45) < 50 && Math.abs(game.badfood[i].y - game.cat.y - 40) < 30) {
+      if (Math.abs(game.goodfood[i].x - game.cat.x - 55) < 60 && Math.abs(game.goodfood[i].y - game.cat.y - 70) < game.cat.slidingColisionY) {
         game.badfood.splice(i, 1);
         game.cat.health.hp++;
         if (game.cat.health.hp == 4) {
