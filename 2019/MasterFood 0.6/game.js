@@ -107,6 +107,10 @@ var game = {
 
   },
 
+  restart: function(){
+    game.score = 0;
+  },
+
   render: function () {
     //draw background
     ctx.drawImage(game.background, 0, 0, WIDTH, HEIGHT);

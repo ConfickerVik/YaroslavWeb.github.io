@@ -91,5 +91,8 @@ $('.backMenu').click( function(){
   location.reload()
 });
 
+$('.replay').click(function(){
+  game.restart();
+});
 
 
