@@ -1,6 +1,6 @@
 //Menu
 
-//SFX and Music
+//SFX and Music in menu
 var sounds = true;
 var meow = new Audio('assets/sounds/meow1.mp3');
 meow.volume = 0.2;
@@ -16,6 +16,8 @@ $('.sounds-option').click(function () {
     });
     $(this).removeClass('fal fa-volume-up');
     $(this).addClass('fa fa-volume-off');
+    $('.msc').removeClass('mscOn');
+    $('.msc').addClass('mscOff');
     meow.volume = 0;
     eating.volume = 0;
 
@@ -26,19 +28,23 @@ $('.sounds-option').click(function () {
     });
     $(this).removeClass('fa fa-volume-off');
     $(this).addClass('fal fa-volume-up');
+    $('.msc').removeClass('mscOff');
+    $('.msc').addClass('mscOn');
     meow.volume = 0.2;
     eating.volume = 0.05;
   }
-
 });
-//Press start
 
+
+//Press start
 $('.startGame').click(function () {
-  $('.container-fluid').removeClass('h-100');
   $('#menu').hide();
   eating.play();
   meow.play();
   $('#game').fadeIn(1000);
+  $('#game').css({
+    'display': 'grid',
+  });
 
 });
 

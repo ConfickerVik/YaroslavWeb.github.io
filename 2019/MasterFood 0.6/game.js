@@ -8,11 +8,13 @@ var canvas = document.getElementById('canvas'),
   CANVAS_HEIGHT = 720;
 //canvas and game  width and height
 
+
 var resizeCanvas = function () {
   CANVAS_WIDTH = window.innerWidth - 64;
   CANVAS_HEIGHT = window.innerHeight - 16;
 
   var ratio = 16 / 9
+  
   if (CANVAS_HEIGHT < CANVAS_WIDTH)
     CANVAS_WIDTH = CANVAS_HEIGHT * ratio
   else
@@ -27,19 +29,6 @@ var resizeCanvas = function () {
   bounding_rectangle = canvas.getBoundingClientRect();
 };
 //DISPLAY settings
-
-$('.game-menu').click(function () {
-  if (game.pause == false) {
-    $(this).removeClass('pause');
-    $(this).addClass('play');
-    game.pause = true;
-  } else if (game.pause) {
-    $(this).removeClass('play');
-    $(this).addClass('pause');
-    game.pause = false;
-  };
-});
-
 
 var game = {
   pause: false,
@@ -116,16 +105,6 @@ var game = {
       game.cat.health.img[i].src = 'assets/sprites/HitPoint/HP' + i + '.png';
     }
 
-    //Menu
-
-    for (var i = 0, m = 5; i < m; i++) {
-      game.menu[i] = new Image();
-    }
-    
-    game.menu[1].src = 'assets/sprites/icons/replay.png'
-    game.menu[2].src = 'assets/sprites/icons/menu.png'
-    game.menu[3].src = 'assets/sprites/icons/mscOn.png'
-    game.menu[4].src = 'assets/sprites/icons/mscOff.png'
   },
 
   render: function () {
@@ -151,45 +130,12 @@ var game = {
     ctx.fillStyle = 'rgb(240, 248, 255, 0.85)';
     ctx.fillText(game.score, game.score_x, 100);
 
-    //render pause menu
-    if (game.pause == true) {
-      ctx.fillStyle = "rgb(0,0,0, 0.2)";
-      ctx.fillRect(0, 0, WIDTH, HEIGHT);
-
-      ctx.beginPath();
-      ctx.rect(350, 40, 600, 550);
-      ctx.lineWidth = 5;
-      ctx.closePath();
-      ctx.strokeStyle = "rgb(240,248,255, 0.2)";
-      ctx.fillStyle = 'rgb(232, 164, 12, 0.5)';
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.font = "80px Bahnschrift";
-      ctx.fillStyle = 'rgb(240, 248, 255, 0.8)';
-      ctx.fillText('Лучший счёт', 400, 150);
-
-      ctx.font = "120px Bahnschrift";
-      ctx.fillStyle = 'rgb(240, 248, 255, 0.8)';
-      ctx.fillText(game.bestScore, 620, 300);
-      
-      ctx.drawImage(game.menu[1], 375, 400, 150, 150);
-      ctx.drawImage(game.menu[2], 575, 400, 150, 150);
-
-      if(sounds){
-         ctx.drawImage(game.menu[3], 775, 400, 150, 150);
-      }
-      else{
-         ctx.drawImage(game.menu[4], 775, 400, 150, 150);
-      }
-    }
-
   },
 
   updatePlayer: function () {
 
-
     //Cat CONFIGURATION
+
     //Button presses
     if (inputState.RIGHT || button1) moveRight();
     else if (inputState.LEFT || button2) moveLeft();
@@ -355,7 +301,7 @@ var game = {
       //border
       if (game.badfood[i].y >= 710) game.badfood.splice(i, 1);
 
-      if (Math.abs(game.goodfood[i].x - game.cat.x - 55) < 60 && Math.abs(game.goodfood[i].y - game.cat.y - 70) < game.cat.slidingColisionY) {
+      if (Math.abs(game.badfood[i].x - game.cat.x - 55) < 60 && Math.abs(game.badfood[i].y - game.cat.y - 70) < game.cat.slidingColisionY) {
         game.badfood.splice(i, 1);
         game.cat.health.hp++;
         if (game.cat.health.hp == 4) {
@@ -412,10 +358,18 @@ window.addEventListener("load", function () {
   $('.startGame').click(function () {
     game.run();
     resizeCanvas();
+    $('#game').css({
+      'width': CANVAS_WIDTH,
+      'height': CANVAS_HEIGHT
+    });
   });
 });
 window.addEventListener("resize", function () {
   resizeCanvas();
+  $('#game').css({
+    'width': CANVAS_WIDTH,
+    'height': CANVAS_HEIGHT
+  });
 });
 
 //RANDOM NUMBER GENERATOR

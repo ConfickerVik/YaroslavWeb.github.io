@@ -1,42 +1,206 @@
 #game {
   display: none;
+  grid-template-columns: 11% 14% 50% 15% 10%;
+  grid-template-rows: 18% 0% 60% 0% 18%;
 }
 
 canvas {
   background-color: #ffffff;
   border-radius: 2%;
+  grid-column: 1/6;
+  grid-row: 1/6;
   justify-self: center;
 }
-.game-menu{
-  position: absolute;
+.game-pause{
+  grid-column:1;
+  grid-row:1;
+  width: 1;
   opacity: .7;
   width: 120px;
   height: 120px;
   transition: all .2s linear;
 }
-.game-menu:hover{
+.game-pause:hover{
   transform: scale(0.9);  
 }
 
-
 .pause{
-  background: url(assets/sprites/icons/pause.png) 100% 100% no-repeat;
+  background: url(assets/sprites/icons/pause.png);
   background-size: cover;
 }
 .play{
-  background: url(assets/sprites/icons/play.png) 100% 100% no-repeat;
+  background: url(assets/sprites/icons/play.png);
   background-size: cover;
 }
 
+
 @media(max-height:570px) and (max-width:860px){
-  .game-menu {
+  .game-pause {
     width: 60px;
     height: 60px;
   }
 }
 @media(max-width:650px) and (max-height:1000px){
-  .game-menu {
+  .game-pause {
     width: 50px;
     height: 50px;
+  }
+}
+
+.game-menu{
+  border: 2px solid #E1F4F8;
+  background: rgba(232,164,12, 0.7);
+  border-radius: 5%;
+  display: grid;
+  display: none; 
+  grid-column: 3;
+  grid-row: 3;
+  opacity: .9;
+  z-index: 100;
+}
+.game-menu p {
+  font-size: 64px;
+}
+.game-menu .bestScore{
+  font-size: 232px;
+  margin:-20px;
+}
+
+.game-menu ul li {
+  display: inline-block;
+  height: 120px;
+  width: 120px;
+  transition: all .2s linear;
+}
+
+.game-menu ul *:hover {
+  transform: scale(0.9);
+}
+.game-menu .replay{
+  background:url('assets/sprites/icons/replay.png');
+  background-size: cover;
+}
+.game-menu .backMenu{
+  background:url('assets/sprites/icons/menu.png');
+  background-size: cover;
+}
+.game-menu .mscOn{
+  background:url('assets/sprites/icons/mscOn.png');
+  background-size: cover;
+}
+
+.game-menu .mscOff{
+  background:url('assets/sprites/icons/mscOff.png');
+  background-size: cover;
+}
+
+
+
+@media(max-width:1400px) and (max-height:800px){
+  .game-menu p {
+    font-size: 48px;
+  }
+  .game-menu .bestScore{
+    font-size: 128px;
+    margin:-20px;
+  }
+  .game-menu ul li {
+    width: 100px;
+    height: 100px;
+  }
+}
+@media(max-width:1100px) and (max-height:600px){
+  .game-menu p {
+    font-size: 40px;
+  }
+  .game-menu .bestScore{
+    font-size: 96px;
+    margin:-20px;
+  }
+  .game-menu ul li {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media(max-width:900px) and (max-height:400px){
+  .game-menu p {
+    font-size: 32px;
+  }
+  .game-menu .bestScore{
+    font-size: 72px;
+    margin:-20px;
+  }
+  .game-menu ul li {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media(max-width:700px) and (max-height:320px){
+  .game-menu p {
+    font-size: 24px;
+  }
+  .game-menu .bestScore{
+    font-size: 56px;
+    margin:-20px;
+  }
+  .game-menu ul li {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media(max-width:900px) and (max-height:1000px){
+  .game-menu p {
+    font-size: 32px;
+  }
+  .game-menu .bestScore{
+    font-size: 72px;
+    margin:-20px;
+  }
+  .game-menu ul li {
+    width: 80px;
+    height: 80px;
+  }
+}
+@media(max-width:600px) and (max-height:800px){
+  .game-menu p {
+    font-size: 24px;
+  }
+  .game-menu .bestScore{
+    font-size: 64px;
+    margin:-20px;
+  }
+  .game-menu ul li {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media(max-width:500px) and (max-height:700px){
+  .game-menu p {
+    font-size: 16px;
+  }
+  .game-menu .bestScore{
+    font-size: 32px;
+    margin:-20px;
+  }
+  .game-menu ul li {
+    width: 30px;
+    height: 30px;
+  }
+}
+@media(max-width:400px) and (max-height:600px){
+  .game-menu p {
+    font-size: 12px;
+  }
+  .game-menu .bestScore{
+    font-size: 18px;
+    margin:-20px;
+  }
+  .game-menu ul li {
+    width: 20px;
+    height: 20px;
   }
 }

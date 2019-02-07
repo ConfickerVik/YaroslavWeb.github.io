@@ -4,7 +4,7 @@
 <head>
   <meta name="msapplication-tap-highlight" content="no" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="viewport" content="width=device-width, initial-scale=0.85, maximum-scale=0.85, user-scalable=0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MasterFood</title>
 
   <link rel="shortcut icon" href="assets/images/favicon/favicon.ico" type="image/x-icon">
@@ -29,22 +29,32 @@
       <i class="fa fa-question help-option"></i>
       <!--<i class="fal fa-volume-mute"></i>-->
     </div>
-    <div class="version">v0.6.12</div>
+    <div class="version">v0.6.21</div>
     <div class="attention">Если игра плохо работате, то обновите свой <br>браузер до последней версии или скачайте другой.</div>
   </div>
 
   <!--GAME-->
   <div id="game">
-    <div class="game-menu pause"></div>
+    <div class="game-pause pause"></div>
+
+    <div class="game-menu">
+      <p>Ваш лучший счёт</p>
+      <div class="bestScore">0</div>
+      <ul>
+        <li class="replay"></li>
+        <li class="backMenu"></li>
+        <li class="msc mscOn"></li>
+      </ul>
+    </div>
+    
     <canvas id="canvas"></canvas>
   </div>
-  
-  <div class="cord" style="position:absolute; font-size:56px"></div>
 
   <script src="libs/js/jquery-3.3.1.min.js"></script>
   <script src="libs/js/device.js"></script>
   <script src="controller.js"></script>
-  <script src="menu.js" charset="utf-8"></script>
+  <script src="main-menu.js" charset="utf-8"></script>
+  <script src="game-menu.js" charset="utf-8"></script>
   <script src="game.js" charset="utf-8"></script>
 </body>
 
