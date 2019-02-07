@@ -7,13 +7,13 @@
 }
 
 /*adaptive*/
-@media(max-height:500px) {
+@media(max-height:600px) {
   #menu {
     transform: scale(0.8);
   }
 }
 
-@media(max-height:380px) {
+@media(max-height:480px) {
   #menu {
     transform: scale(0.6);
   }
