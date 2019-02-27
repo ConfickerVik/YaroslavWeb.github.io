@@ -30,6 +30,8 @@ var resizeCanvas = function () {
 };
 //DISPLAY settings
 
+
+
 var game = {
   pause: false,
   time: 0,
@@ -56,7 +58,8 @@ var game = {
     lastMoveLeft: false,
     health: {
       img: [],
-      hp: 0
+      dead: false,
+      hp: 3
     },
     velocity_x: 0,
     velocity_y: 0,
@@ -73,7 +76,7 @@ var game = {
     $('.score').html(game.score);
 
     //CAT ASSETS
-    for (var i = 0, m = 5; i < m; i++) {
+    for (var i = 0, m = 6; i < m; i++) {
       game.cat.state[i] = [];
     }
     for (var i = 0; i < 9; i++) {
@@ -85,11 +88,13 @@ var game = {
       game.cat.state[2][i] = new Image(); //run right
       game.cat.state[3][i] = new Image(); //slide left
       game.cat.state[4][i] = new Image(); //slide right
+      game.cat.state[5][i] = new Image(); //death 
 
       game.cat.state[1][i].src = 'assets/sprites/cat0/run/left/Run(' + i + ').png';
       game.cat.state[2][i].src = 'assets/sprites/cat0/run/right/Run(' + i + ').png';
       game.cat.state[3][i].src = 'assets/sprites/cat0/slide/Left/Slide (' + i + ').png';
       game.cat.state[4][i].src = 'assets/sprites/cat0/slide/Right/Slide (' + i + ').png';
+      game.cat.state[5][i].src = 'assets/sprites/cat0/dead/Dead ('+ i +').png';
     }
     //CAT ASSETS
 
@@ -111,6 +116,7 @@ var game = {
     game.cat.anim1 = 0;
     game.score = 0;
     game.cat.health.hp = 0;
+    game.cat.health.dead = false;
     game.cat.x = 10;
     game.cat.y = 475;
     for (i in game.goodfood) {
@@ -121,20 +127,29 @@ var game = {
     }
     pauseDisabled();
   },
+
   restartDeath: function () {
-    game.cat.anim0 = 0;
+    game.cat.health.dead = true;
+    game.cat.anim0 = 5;
     game.cat.anim1 = 0;
-    game.score = 0;
-    game.cat.health.hp = 0;
-    game.cat.x = 10;
-    game.cat.y = 475;
-    for (i in game.goodfood) {
-      delete game.goodfood[i];
-    }
-    for (i in game.badfood) {
-      delete game.badfood[i];
-    }
-    pauseActivated();
+    game.cat.y = 485;
+
+    setTimeout(()=>{
+      game.cat.health.dead = false;
+      game.cat.anim0 = 0;
+      game.cat.anim1 = 0;
+      game.score = 0;
+      game.cat.health.hp = 0;
+      game.cat.x = 10;
+      game.cat.y = 475;
+      for (i in game.goodfood) {
+        delete game.goodfood[i];
+      }
+      for (i in game.badfood) {
+        delete game.badfood[i];
+      }
+      pauseActivated();
+    }, 3000);
   },
 
 
@@ -362,9 +377,13 @@ var game = {
   update: function () {
     if (game.pause == false) {
       this.time++;
-      game.updatePlayer();
-      game.updateItems();
+      if(game.cat.health.dead == false)game.updatePlayer();
+      if(game.cat.health.dead == false)game.updateItems();
       game.updateScore();
+      
+      if (game.time % 12 == 0 && game.cat.health.dead) {
+        if(game.cat.anim1 < 5) game.cat.anim1++;
+      }
     }
   },
 
