@@ -340,7 +340,7 @@ var game = {
           dmg: 0
         });
       }
-      if (game.time % 60 == 0) { //bad Food
+      if (game.time % 180 == 0) { //bad Food
         game.badfood.push({
           x: getRandomInt(20, 1240),
           y: -50,
