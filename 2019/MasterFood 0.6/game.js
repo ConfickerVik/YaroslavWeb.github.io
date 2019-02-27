@@ -14,7 +14,7 @@ var resizeCanvas = function () {
   CANVAS_HEIGHT = window.innerHeight - 16;
 
   var ratio = 16 / 9
-  
+
   if (CANVAS_HEIGHT < CANVAS_WIDTH)
     CANVAS_WIDTH = CANVAS_HEIGHT * ratio
   else
@@ -23,8 +23,8 @@ var resizeCanvas = function () {
   canvas.width = WIDTH;
   canvas.height = HEIGHT;
 
-  canvas.style.width = '' + CANVAS_WIDTH + 'px';
-  canvas.style.height = '' + CANVAS_HEIGHT + 'px';
+  canvas.style.width =CANVAS_WIDTH + 'px';
+  canvas.style.height = CANVAS_HEIGHT + 'px';
 
   bounding_rectangle = canvas.getBoundingClientRect();
 };
@@ -34,7 +34,7 @@ var game = {
   pause: false,
   time: 0,
   score: 0,
-  bestScore:0,
+  bestScore: 0,
   score_x: 1190,
   background: undefined,
   item: [],
@@ -104,14 +104,42 @@ var game = {
       game.cat.health.img[i] = new Image();
       game.cat.health.img[i].src = 'assets/sprites/HitPoint/HP' + i + '.png';
     }
-
   },
 
-  restart: function(){
+  restartGame: function () {
+    game.cat.anim0 = 0;
+    game.cat.anim1 = 0;
     game.score = 0;
+    game.cat.health.hp = 0;
+    game.cat.x = 10;
+    game.cat.y = 475;
+    for (i in game.goodfood) {
+      delete game.goodfood[i];
+    }
+    for (i in game.badfood) {
+      delete game.badfood[i];
+    }
+    pauseDisabled();
   },
+  restartDeath: function () {
+    game.cat.anim0 = 0;
+    game.cat.anim1 = 0;
+    game.score = 0;
+    game.cat.health.hp = 0;
+    game.cat.x = 10;
+    game.cat.y = 475;
+    for (i in game.goodfood) {
+      delete game.goodfood[i];
+    }
+    for (i in game.badfood) {
+      delete game.badfood[i];
+    }
+    pauseActivated();
+  },
+
 
   render: function () {
+
     //draw background
     ctx.drawImage(game.background, 0, 0, WIDTH, HEIGHT);
 
@@ -267,22 +295,7 @@ var game = {
   },
   updateItems: function () {
     //FOOD
-    if (game.time % 60 == 0) { //good FOOD
-      game.goodfood.push({
-        x: getRandomInt(20, 1240),
-        y: -50,
-        img: game.item[getRandomInt(0, 4)],
-        dmg: 0
-      });
-    }
-    if (game.time % 360 == 0) { //bad Food
-      game.badfood.push({
-        x: getRandomInt(20, 1240),
-        y: -50,
-        img: game.item[getRandomInt(4, 7)],
-        dmg: 1
-      });
-    }
+    spawnFood();
 
     //interaction
     for (i in game.goodfood) {
@@ -290,13 +303,13 @@ var game = {
       //border
       if (game.goodfood[i].y >= 710) game.goodfood.splice(i, 1);
 
-      if(game.cat.slidingRight || game.cat.slidingLeft) game.cat.slidingColisionY = 30;
+      if (game.cat.slidingRight || game.cat.slidingLeft) game.cat.slidingColisionY = 30;
       else game.cat.slidingColisionY = 65;
 
       if (Math.abs(game.goodfood[i].x - game.cat.x - 55) < 60 && Math.abs(game.goodfood[i].y - game.cat.y - 70) < game.cat.slidingColisionY) {
         game.goodfood.splice(i, 1);
         game.score++;
-        
+
         if (sounds) eating.play();
       }
     }
@@ -308,21 +321,42 @@ var game = {
       if (Math.abs(game.badfood[i].x - game.cat.x - 55) < 60 && Math.abs(game.badfood[i].y - game.cat.y - 70) < game.cat.slidingColisionY) {
         game.badfood.splice(i, 1);
         game.cat.health.hp++;
+
         if (game.cat.health.hp == 4) {
-          game.cat.health.hp = 0;
-          game.score = 0;
+          game.bestScore = game.score;
+          $('.bestScore').html(game.bestScore)
+          game.restartDeath();
         }
         if (sounds) meow.play();
+      }
+    }
+
+    function spawnFood() {
+      if (game.time % 60 == 0) { //good FOOD
+        game.goodfood.push({
+          x: getRandomInt(20, 1240),
+          y: -50,
+          img: game.item[getRandomInt(0, 4)],
+          dmg: 0
+        });
+      }
+      if (game.time % 60 == 0) { //bad Food
+        game.badfood.push({
+          x: getRandomInt(20, 1240),
+          y: -50,
+          img: game.item[getRandomInt(4, 7)],
+          dmg: 1
+        });
       }
     }
     //FOOD
   },
   updateScore: function () {
-      if(game.score >= 0 && game.score < 10) game.score_x = 1190;
-      if(game.score >= 10 && game.score < 99) game.score_x = 1150;
-      if(game.score >= 100 && game.score < 999) game.score_x = 1090;
-      if(game.score >= 1000 && game.score < 9999) game.score_x = 1050;
-      if(game.score >= 10000 && game.score < 99999) game.score_x = 900;
+    if (game.score >= 0 && game.score < 10) game.score_x = 1190;
+    if (game.score >= 10 && game.score < 99) game.score_x = 1150;
+    if (game.score >= 100 && game.score < 999) game.score_x = 1090;
+    if (game.score >= 1000 && game.score < 9999) game.score_x = 1050;
+    if (game.score >= 10000 && game.score < 99999) game.score_x = 900;
 
   },
   update: function () {
