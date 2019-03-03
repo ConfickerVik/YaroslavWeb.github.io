@@ -62,12 +62,12 @@ canvas {
 .game-menu p {
   grid-column: 1;
   grid-row: 1;
-  font-size: 5vw;
+  font-size: 5vmin;
 }
 .game-menu .bestScore{
   grid-column: 1;
   grid-row: 2;
-  font-size: 8vw;
+  font-size: 8vmin;
 }
 
 .game-menu ul li {

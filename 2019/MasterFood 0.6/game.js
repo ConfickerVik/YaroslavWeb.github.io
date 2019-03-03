@@ -23,7 +23,7 @@ var resizeCanvas = function () {
   canvas.width = WIDTH;
   canvas.height = HEIGHT;
 
-  canvas.style.width =CANVAS_WIDTH + 'px';
+  canvas.style.width = CANVAS_WIDTH + 'px';
   canvas.style.height = CANVAS_HEIGHT + 'px';
 
   bounding_rectangle = canvas.getBoundingClientRect();
@@ -43,6 +43,7 @@ var game = {
   goodfood: [],
   badfood: [],
   menu: [],
+  level: 1,
 
   cat: {
     x: 10,
@@ -59,8 +60,9 @@ var game = {
     health: {
       img: [],
       dead: false,
-      hp: 3
+      hp: 0
     },
+    catch: 0,
     velocity_x: 0,
     velocity_y: 0,
     anim0: 0,
@@ -94,7 +96,7 @@ var game = {
       game.cat.state[2][i].src = 'assets/sprites/cat0/run/right/Run(' + i + ').png';
       game.cat.state[3][i].src = 'assets/sprites/cat0/slide/Left/Slide (' + i + ').png';
       game.cat.state[4][i].src = 'assets/sprites/cat0/slide/Right/Slide (' + i + ').png';
-      game.cat.state[5][i].src = 'assets/sprites/cat0/dead/Dead ('+ i +').png';
+      game.cat.state[5][i].src = 'assets/sprites/cat0/dead/Dead (' + i + ').png';
     }
     //CAT ASSETS
 
@@ -115,6 +117,7 @@ var game = {
     game.cat.anim0 = 0;
     game.cat.anim1 = 0;
     game.score = 0;
+    game.cat.catch = 0;
     game.cat.health.hp = 0;
     game.cat.health.dead = false;
     game.cat.x = 10;
@@ -134,11 +137,12 @@ var game = {
     game.cat.anim1 = 0;
     game.cat.y = 485;
 
-    setTimeout(()=>{
+    setTimeout(() => {
       game.cat.health.dead = false;
       game.cat.anim0 = 0;
       game.cat.anim1 = 0;
       game.score = 0;
+      game.cat.catch = 0;
       game.cat.health.hp = 0;
       game.cat.x = 10;
       game.cat.y = 475;
@@ -149,7 +153,7 @@ var game = {
         delete game.badfood[i];
       }
       pauseActivated();
-    }, 3000);
+    }, 2000);
   },
 
 
@@ -177,6 +181,9 @@ var game = {
     ctx.fillStyle = 'rgb(240, 248, 255, 0.85)';
     ctx.fillText(game.score, game.score_x, 100);
 
+    ctx.font = "72px Bahnschrift";
+    ctx.fillStyle = 'rgb(58,226,206, 0.85)';
+    ctx.fillText(game.level, 600, 710);
   },
 
   updatePlayer: function () {
@@ -310,7 +317,13 @@ var game = {
   },
   updateItems: function () {
     //FOOD
-    spawnFood();
+    if (game.cat.catch <= 9) {
+      spawnFoodLV1S();
+      game.level = 1
+    } else if (game.cat.catch >= 10) {
+      spawnFoodLV2S();
+      game.level = 2;
+    };
 
     //interaction
     for (i in game.goodfood) {
@@ -324,6 +337,7 @@ var game = {
       if (Math.abs(game.goodfood[i].x - game.cat.x - 55) < 60 && Math.abs(game.goodfood[i].y - game.cat.y - 70) < game.cat.slidingColisionY) {
         game.goodfood.splice(i, 1);
         game.score++;
+        game.cat.catch++;
 
         if (sounds) eating.play();
       }
@@ -345,25 +359,6 @@ var game = {
         if (sounds) meow.play();
       }
     }
-
-    function spawnFood() {
-      if (game.time % 60 == 0) { //good FOOD
-        game.goodfood.push({
-          x: getRandomInt(20, 1240),
-          y: -50,
-          img: game.item[getRandomInt(0, 4)],
-          dmg: 0
-        });
-      }
-      if (game.time % 180 == 0) { //bad Food
-        game.badfood.push({
-          x: getRandomInt(20, 1240),
-          y: -50,
-          img: game.item[getRandomInt(4, 7)],
-          dmg: 1
-        });
-      }
-    }
     //FOOD
   },
   updateScore: function () {
@@ -372,17 +367,16 @@ var game = {
     if (game.score >= 100 && game.score < 999) game.score_x = 1090;
     if (game.score >= 1000 && game.score < 9999) game.score_x = 1050;
     if (game.score >= 10000 && game.score < 99999) game.score_x = 900;
-
   },
   update: function () {
     if (game.pause == false) {
       this.time++;
-      if(game.cat.health.dead == false)game.updatePlayer();
-      if(game.cat.health.dead == false)game.updateItems();
+      if (game.cat.health.dead == false) game.updatePlayer();
+      if (game.cat.health.dead == false) game.updateItems();
       game.updateScore();
-      
+
       if (game.time % 12 == 0 && game.cat.health.dead) {
-        if(game.cat.anim1 < 5) game.cat.anim1++;
+        if (game.cat.anim1 < 5) game.cat.anim1++;
       }
     }
   },
@@ -412,6 +406,7 @@ var game = {
 };
 window.addEventListener("load", function () {
   game.start();
+
   $('.startGame').click(function () {
     game.run();
     resizeCanvas();
