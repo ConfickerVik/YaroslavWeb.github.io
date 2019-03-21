@@ -1,3 +1,34 @@
+<!-- Блок, который будет отображаться над страницей -->
+<div id="before-load">
+  <!-- Иконка Font Awesome -->
+  <i class="fa fa-spinner fa-spin"></i>
+</div>
+Код для таблицы стилей CSS:
+
+#before-load {
+  position: fixed; /*фиксированное положение блока*/
+  left: 0; /*положение элемента слева*/
+  top: 0; /*положение элемента сверху*/
+  right: 0; /*положение элемента справа*/
+  bottom: 0; /*положение элемента снизу*/
+  background: #fff; /*цвет заднего фона блока*/
+  z-index: 1001; /*располагаем его над всеми элементами на странице*/
+}
+#before-load i {
+  font-size: 70px; /*размер иконки*/
+  position: absolute; /*положение абсолютное, позиционируется относительно его ближайшего предка*/
+  left: 50%; /*слева 50% от ширины родительского блока*/
+  top: 50%; /*сверху 50% от высоты родительского блока*/
+  margin: -35px 0 0 -35px; /*смещение иконки, чтобы она располагалась по центру*/
+}
+Код, скрывающий прелоадер после загрузки сайта:
+
+<script>
+$(window).load(function() {
+  $('#before-load').find('i').fadeOut().end().delay(400).fadeOut('slow');
+});
+</script>
+
 if(device.mobile()){
     var $ = document; // shortcut
 var cssId = 'myCss';  // you could encode the css path itself to generate id..
