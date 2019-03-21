@@ -1,30 +1,5 @@
 
-if(device.mobile()){
-    var $ = document; // shortcut
-var cssId = 'myCss';  // you could encode the css path itself to generate id..
-    var head  = $.getElementsByTagName('head')[0];
-    var link  = $.createElement('link');
-    link.id   = cssId;
-    link.rel  = 'stylesheet';
-    link.type = 'text/css';
-    link.href = 'https://yaroslavweb.github.io/Niece%20BDay/style.css';
-    link.media = 'all';
-    head.appendChild(link);
 
-}
-else{
-    var $ = document; // shortcut
-var cssId = 'myCss';  // you could encode the css path itself to generate id..
-    var head  = $.getElementsByTagName('head')[0];
-    var link  = $.createElement('link');
-    link.id   = cssId;
-    link.rel  = 'stylesheet';
-    link.type = 'text/css';
-    link.href = 'https://yaroslavweb.github.io/Niece%20BDay/style2.css';
-    link.media = 'all';
-    head.appendChild(link);
-
-}
 
 
 var s1 = new Audio('s1.mp3');
