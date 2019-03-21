@@ -1,8 +1,4 @@
 
-setTimeout(() => {
-    $('.loader').fadeOut();
-}, 1000);
-
 if(device.mobile()){
     var $ = document; // shortcut
 var cssId = 'myCss';  // you could encode the css path itself to generate id..
