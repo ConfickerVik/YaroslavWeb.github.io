@@ -10,13 +10,13 @@ var s5 = new Audio('s5.mp3');
 var s6 = new Audio('s6.mp3');
 var s7 = new Audio('s7.mp3');
 
-s1.volume = 0.5;
-s2.volume = 0.5;
-s3.volume = 0.5;
-s4.volume = 0.5;
-s5.volume = 0.5;
-s6.volume = 0.5;
-s7.volume = 0.5;
+s1.volume = 0.1;
+s2.volume = 0.1;
+s3.volume = 0.1;
+s4.volume = 0.1;
+s5.volume = 0.1;
+s6.volume = 0.1;
+s7.volume = 0.1;
 
 $('#b1').click(function(){
     $('#b1').fadeOut();
