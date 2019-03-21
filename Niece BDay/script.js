@@ -19,78 +19,78 @@ s6.volume = 0.5;
 s7.volume = 0.5;
 
 $('#b1').click(function(){
-    $('#b1').slideUp();
+    $('#b1').fadeOut();
     s1.play();
 });
 
 $('#b2').click(function(){
-    $('#b2').slideUp();
+    $('#b2').fadeOut();
     s2.play();
 });
 
 $('#b3').click(function(){
-    $('#b3').slideUp();
+    $('#b3').fadeOut();
     s3.play();
 });
 
 $('#b4').click(function(){
-    $('#b4').slideUp();
+    $('#b4').fadeOut();
     s4.play();
 });
 
 $('#b5').click(function(){
-    $('#b5').slideUp();
+    $('#b5').fadeOut();
     s5.play();
 });
 
 
 $('#b6').click(function(){
-    $('#b6').slideUp();
+    $('#b6').fadeOut();
     s6.play();
 });
 
 $('#b7').click(function(){
-    $('#b7').slideUp();
+    $('#b7').fadeOut();
     s7.play();
 });
 
 $('#b8').click(function(){
-    $('#b8').slideUp();
+    $('#b8').fadeOut();
     s1.play();
 });
 
 $('#b9').click(function(){
-    $('#b9').slideUp();
+    $('#b9').fadeOut();
     s2.play();
 });
 
 $('#b10').click(function(){
-    $('#b10').slideUp();
+    $('#b10').fadeOut();
     s3.play();
 });
 
 $('#b11').click(function(){
-    $('#b11').slideUp();
+    $('#b11').fadeOut();
     s4.play();
 });
 
 $('#b12').click(function(){
-    $('#b12').slideUp();
+    $('#b12').fadeOut();
     s5.play();
 });
 
 
 $('#b13').click(function(){
-    $('#b13').slideUp();
+    $('#b13').fadeOut();
     s6.play();
 });
 
 $('#b14').click(function(){
-    $('#b14').slideUp();
+    $('#b14').fadeOut();
     s7.play();
 });
 $('#b15').click(function(){
-    $('#b15').slideUp();
+    $('#b15').fadeOut();
     s1.play();
 });
 
