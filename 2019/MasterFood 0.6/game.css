@@ -1,7 +1,7 @@
 #game {
   display: none;
-  grid-template-columns: 11% 14% 50% 15% 10%;
-  grid-template-rows: 18% 0% 60% 0% 18%;
+  grid-template-columns: 11% 14% 50% 5% 20%;
+  grid-template-rows: 18% 2% 60% 11% 8% 1%;
 }
 
 canvas {
@@ -103,4 +103,50 @@ canvas {
 .game-menu .mscOff{
   background:url('assets/sprites/icons/mscOff.png');
   background-size: cover;
+}
+
+
+
+/*UI*/
+.interfacePlayer{
+  display: grid;
+  grid-column: 1/6;
+  grid-row: 5;
+  grid-template-columns: 8% 32% 20% 32% 8%;
+  grid-template-rows: 100%;
+
+  opacity: .7;
+}
+.progress {
+  margin-top:2%; 
+  z-index: 5;
+
+  grid-column: 2;
+  grid-row: 1;
+
+  width: 100%;
+  height: 60%;
+  
+	background:#484848;
+	border:5px solid #282828;
+	border-radius: 10%;
+	box-shadow: 0 5px 17px rgba(40, 40, 40, 0.5),0 0 3px 1px rgba(40, 40, 40, 0.5) inset;
+
+}
+
+.progress-bar {
+	overflow: hidden;
+  z-index: 10;
+  border-radius: 4%;
+  width: 100%;
+  height: 100%;
+	-moz-transition: width .5s linear;
+	-webkit-transition: width .5s linear;
+	-o-transition: width .5s linear;
+	transition: width .5s linear;
+}
+
+.progress.hearts .progress-bar {
+
+	background-color: #b03;
 }

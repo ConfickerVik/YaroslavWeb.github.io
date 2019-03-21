@@ -42,7 +42,6 @@ var game = {
   item: [],
   goodfood: [],
   badfood: [],
-  menu: [],
   level: 1,
 
   cat: {
@@ -58,10 +57,15 @@ var game = {
     lastMoveRight: true,
     lastMoveLeft: false,
     health: {
-      img: [],
       dead: false,
-      hp: 0
+      state: 0,
+      hp:100
     },
+/*     avatar:{
+      img:[],
+      state:0
+    }, */
+
     catch: 0,
     velocity_x: 0,
     velocity_y: 0,
@@ -106,11 +110,11 @@ var game = {
       game.item[i].src = 'assets/sprites/food/food' + i + '.png';
     }
 
-    //HitPoints ASSETS
-    for (var i = 0; i <= 4; i++) {
-      game.cat.health.img[i] = new Image();
-      game.cat.health.img[i].src = 'assets/sprites/HitPoint/HP' + i + '.png';
-    }
+/*     for (var i = 0; i <= 5; i++) {
+      game.cat.avatar.img[i] = new Image();
+      game.cat.avatar.img[i].src = 'assets/sprites/cat0/avatar/av ('+ i +').png';
+    } */
+
   },
 
   restartGame: function () {
@@ -118,7 +122,7 @@ var game = {
     game.cat.anim1 = 0;
     game.score = 0;
     game.cat.catch = 0;
-    game.cat.health.hp = 0;
+    game.cat.health.state = 0;
     game.cat.health.dead = false;
     game.cat.x = 10;
     game.cat.y = 475;
@@ -143,7 +147,7 @@ var game = {
       game.cat.anim1 = 0;
       game.score = 0;
       game.cat.catch = 0;
-      game.cat.health.hp = 0;
+      game.cat.health.state = 0;
       game.cat.x = 10;
       game.cat.y = 475;
       for (i in game.goodfood) {
@@ -165,8 +169,7 @@ var game = {
     //draw cat
     ctx.drawImage(game.cat.state[game.cat.anim0][game.cat.anim1], game.cat.x, game.cat.y, game.cat.width, game.cat.height);
 
-    //draw HP
-    ctx.drawImage(game.cat.health.img[game.cat.health.hp], 10, 625, 100, 100);
+    //ctx.drawImage(game.cat.avatar.img[game.cat.avatar.state], 5, 620, 100, 100);
 
     //draw food
     for (i in game.goodfood) {
@@ -189,7 +192,12 @@ var game = {
   updatePlayer: function () {
 
     //Cat CONFIGURATION
-
+    //avatar
+/*     if (game.time % 8 == 0) {
+      game.cat.avatar.state++;
+      if (game.cat.avatar.state == 5)
+        game.cat.avatar.state = 0
+    } */
     //Button presses
     if (inputState.RIGHT || button1) moveRight();
     else if (inputState.LEFT || button2) moveLeft();
@@ -324,6 +332,12 @@ var game = {
       spawnFoodLV2S();
       game.level = 2;
     };
+    function healthBar(){
+      $('.progress-bar').css({
+        'width': game.cat.health.hp +'%',
+      });
+    
+    }
 
     //interaction
     for (i in game.goodfood) {
@@ -349,9 +363,11 @@ var game = {
 
       if (Math.abs(game.badfood[i].x - game.cat.x - 55) < 60 && Math.abs(game.badfood[i].y - game.cat.y - 70) < game.cat.slidingColisionY) {
         game.badfood.splice(i, 1);
-        game.cat.health.hp++;
+        game.cat.health.state++;
+        game.cat.health.hp = game.cat.health.hp - 25;
+        healthBar();
 
-        if (game.cat.health.hp == 4) {
+        if (game.cat.health.state == 4) {
           game.bestScore = game.score;
           $('.bestScore').html(game.bestScore)
           game.restartDeath();
