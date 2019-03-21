@@ -6,7 +6,7 @@ var cssId = 'myCss';  // you could encode the css path itself to generate id..
     link.id   = cssId;
     link.rel  = 'stylesheet';
     link.type = 'text/css';
-    link.href = 'http://website.com/style.css';
+    link.href = 'https://yaroslavweb.github.io/Niece%20BDay/style.css';
     link.media = 'all';
     head.appendChild(link);
 
@@ -19,7 +19,7 @@ var cssId = 'myCss';  // you could encode the css path itself to generate id..
     link.id   = cssId;
     link.rel  = 'stylesheet';
     link.type = 'text/css';
-    link.href = 'http://website.com/style2.css';
+    link.href = 'https://yaroslavweb.github.io/Niece%20BDay/style2.css';
     link.media = 'all';
     head.appendChild(link);
 
