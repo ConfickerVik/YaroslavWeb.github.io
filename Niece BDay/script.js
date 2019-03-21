@@ -1,5 +1,7 @@
 
-
+setTimeout(() => {
+    $('.loader').fadeOut();
+}, 1000);
 
 if(device.mobile()){
     var $ = document; // shortcut
