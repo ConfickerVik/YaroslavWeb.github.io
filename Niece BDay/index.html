@@ -6,9 +6,8 @@
     <title>Happy Birthday</title>
 
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
-
+    <link rel="stylesheet" href="style.css">
 <body>
-    <link href="https://fonts.googleapis.com/css?family=Wendy+One" rel="stylesheet" type="text/css">
     <div class="container">
         <div class="balloon">
             <div id="b1"><span>C</span>
@@ -53,27 +52,4 @@
 <script src="script.js"></script>
 
 
-<script>
-if(device.mobile()){
-    window.onload = function(){
-      var mass = ['style.css'];
-      for(var i=0;i<mass.length;i++){
-        var a=document.createElement("link");
-     		a.rel="stylesheet";
-     		a.href=mass[i];
-     		document.getElementsByTagName("head")[0].appendChild(a)
-      }
-}
-}
-else{
-    window.onload = function(){
-      var mass = ['style2.css'];
-      for(var i=0;i<mass.length;i++){
-        var a=document.createElement("link");
-     		a.rel="stylesheet";
-     		a.href=mass[i];
-     		document.getElementsByTagName("head")[0].appendChild(a)
-      }
-}
-};</script>
 </html>

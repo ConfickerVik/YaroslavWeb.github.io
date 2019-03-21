@@ -502,7 +502,6 @@ span {
 }
 
 h1 {
-    text-align: center;
     color: white;
     font-size: 3.5em;
     grid-column:1/12;

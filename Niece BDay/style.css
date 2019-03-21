@@ -495,9 +495,7 @@ span {
 h1 {
     position: relative;
     top: 300px;
-    display: flex;
-    justify-content: center;
-    text-align: center;
+
     color: white;
     font-size: 3.5em;
 }
