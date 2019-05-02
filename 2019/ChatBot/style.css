@@ -1,0 +1,99 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Bahnschrift;
+}
+
+body{
+    background-color: brown;
+}
+
+.chatbox{
+    border-radius: 2%;
+    box-shadow: 2px 4px rgb(102, 52, 52);
+    width: 500px;
+    min-width: 400px;
+    height: 800px;
+    background-color: #CDCBCD;
+    padding: 10px;
+    margin: 20px auto;
+}
+.chatlog{
+    background-color: rgb(122, 108, 108);
+    padding: 10px;
+    width: 100%;
+    height: 650px;
+    overflow-x:hidden;
+    overflow-y:scroll;
+}
+.chatlog::-webkit-scrollbar{
+    width: 10px;
+}
+.chatlog::-webkit-scrollbar-thumb{
+    border-radius:5px;
+    background-color: aliceblue;
+}
+
+.chat{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.chat .user-av{
+    background-color:#CDCBCD;
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+}
+.chat .chat-mes-bot{
+    border-radius: 10px;
+    width: 80%;
+    padding: 15px;
+    margin: 5px 10px 0;
+    color: black;
+    font-size: 18px;
+}
+.chat .chat-mes-user{
+    border-radius: 10px;
+    width: 80%;
+    padding: 15px;
+    margin: 5px 10px 0;
+    color: black;
+    font-size: 18px;
+}
+
+
+ .chat-mes-user{
+    background-color: brown;
+}
+
+.chat-mes-bot{
+    background-color: darkred;
+    order:-1;
+}
+
+.chat-form{
+    margin-top: 10px;
+    height: 120px;
+}
+.chat-form textarea{
+    resize: none;
+    height: 80px;
+    width: 100%;
+}
+.chat-form .answer{
+    border-radius: 5px;
+    transition: .5s all ease-in-out;
+    font-size: 32px;
+    height: 40px;
+    width: 100%;
+    border: 1px solid black;
+    cursor: pointer;
+    text-align: center;
+}
+.chat-form .answer:hover{
+    border-radius: 10%;
+    border: 2px solid green;
+}

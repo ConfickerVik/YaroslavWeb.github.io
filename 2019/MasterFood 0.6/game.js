@@ -13,7 +13,12 @@ var resizeCanvas = function () {
   CANVAS_WIDTH = window.innerWidth - 64;
   CANVAS_HEIGHT = window.innerHeight - 16;
 
-  var ratio = 16 / 9
+
+
+  if( Math.abs($( window ).width()/$( window ).height() - 16/9) > 0.3) {
+    var ratio = 4/3
+  }
+  else{  var ratio = 16/9}
 
   if (CANVAS_HEIGHT < CANVAS_WIDTH)
     CANVAS_WIDTH = CANVAS_HEIGHT * ratio
