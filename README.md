@@ -1,2 +1,2 @@
-# JavaScript games
-Мои наработки игр на JS. 
+# Всякая всячина WEB DEV
+
